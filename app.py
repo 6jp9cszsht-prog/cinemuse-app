@@ -7,7 +7,7 @@ from datetime import datetime
 # --- 設定とシークレットの読み込み ---
 # Streamlit CloudのSecrets機能を使用します
 try:
-    GENAI_API_KEY = st.secrets["GENAI_API_KEY"]
+    GENAI_API_KEY = st.secrets["AIzaSyD1rCNYR-adyY6G8M6SYG7cOZBHErDl9b8"]
     TMDB_API_KEY = st.secrets.get("TMDB_API_KEY", "") # オプション
 except:
     st.error("APIキーが設定されていません。StreamlitのSecretsに設定してください。")
