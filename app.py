@@ -67,7 +67,7 @@ def generate_interview_response(history, movie_title):
         response = model.generate_content(messages)
         return response.text
     except Exception as e:
-        return "申し訳ありません、少し考えがまとまりませんでした。もう一度教えていただけますか？"
+        return f"エラーが発生しました！原因: {e}"
 
 def generate_final_content(history, movie_title):
     """Gemini (Pro) を使って最終的なレビューと短歌を生成する"""
