@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>遠征手帖 — 現地観戦の記録</title>
+<meta name="description" content="ワールドカップ現地観戦のための手帖。カウントダウン、当日の運び、支度、言葉の備え、記録の手控え。">
+<meta name="theme-color" content="#131A38">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#131A38; --card:#1B2347; --line:rgba(57,64,102,.27);
+  --ink:#EAE3D0; --dim:#9099B4; --shu:#C73E2E; --kin:#B9985A;
+  --mincho:'Shippori Mincho B1','Shippori Mincho',serif;
+  --gothic:'Zen Kaku Gothic New','Noto Sans JP',sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--gothic);font-weight:400;min-height:100vh}
+button{font-family:inherit;color:inherit;background:none;border:none;cursor:pointer;padding:0}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:1px solid var(--kin);outline-offset:3px}
+input,select{font-family:var(--gothic);background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:3px;padding:9px 10px;font-size:14px;width:100%}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+.wrap{max-width:540px;margin:0 auto;padding:26px 22px 0}
+.ticket{border:1px solid rgba(185,152,90,.4);padding:16px 18px 14px;position:relative}
+.tate{position:absolute;top:14px;right:14px;writing-mode:vertical-rl;font-family:var(--mincho);font-size:13px;letter-spacing:.45em;color:var(--kin)}
+.eyebrow{font-size:10px;letter-spacing:.4em;color:var(--dim)}
+.title{font-family:var(--mincho);font-weight:800;font-size:29px;margin:10px 0 8px;letter-spacing:.06em;line-height:1.3}
+.title .vs{font-size:18px;color:var(--shu);font-weight:600}
+.ticketmeta{font-family:var(--mincho);font-size:12.5px;color:var(--dim);letter-spacing:.12em;line-height:1.9}
+.perf{border-bottom:1px dashed rgba(185,152,90,.33);margin:0 6px}
+.gear{position:absolute;bottom:10px;right:14px;font-size:10px;letter-spacing:.25em;color:var(--dim);padding:4px 2px}
+.gear:hover{color:var(--kin)}
+
+main{max-width:540px;margin:0 auto;padding:20px 22px 116px;animation:fade .4s ease}
+
+nav{position:fixed;bottom:0;left:0;right:0;background:rgba(19,26,56,.96);backdrop-filter:blur(8px);border-top:1px solid rgba(185,152,90,.27);padding-bottom:env(safe-area-inset-bottom)}
+.navin{max-width:540px;margin:0 auto;display:flex}
+.navbtn{flex:1;padding:14px 0 16px;font-family:var(--mincho);font-size:14px;letter-spacing:.18em;color:var(--dim);position:relative}
+.navbtn.on{color:var(--ink)}
+.navbtn.on::before{content:"";position:absolute;top:6px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--shu)}
+
+.center{text-align:center;padding:20px 0 24px}
+.cdlabel{font-family:var(--mincho);font-size:12px;letter-spacing:.5em;color:var(--dim)}
+.cd{font-family:var(--mincho);font-weight:800;font-size:52px;line-height:1.1;margin-top:12px;letter-spacing:.02em}
+.cd .u{font-size:19px;color:var(--kin);margin:0 6px 0 3px}
+.clocks{display:flex;justify-content:center;align-items:stretch;margin-top:22px}
+.clkdiv{width:1px;background:rgba(185,152,90,.33);margin:2px 26px}
+.clk{text-align:center}
+.clk .l{font-family:var(--mincho);font-size:11px;letter-spacing:.35em;color:var(--kin)}
+.clk .t{font-family:var(--mincho);font-weight:600;font-size:22px;margin-top:4px}
+.clk .d{font-size:10px;color:var(--dim);margin-top:2px}
+.lede{font-size:12px;color:var(--dim);margin-top:18px;line-height:2}
+
+.rule{border-bottom:1px solid rgba(185,152,90,.27);margin:4px 0 22px;position:relative}
+.rule::after{content:"";position:absolute;left:50%;top:-3px;transform:translateX(-50%);width:5px;height:5px;background:var(--shu);border-radius:50%}
+
+.sec{margin-bottom:26px}
+.sec h3{font-family:var(--mincho);font-size:13px;letter-spacing:.35em;font-weight:600;color:var(--kin);margin:0 0 8px;border-bottom:1px solid var(--line);padding-bottom:8px}
+.sec h3.accent{color:var(--shu)}
+.row{display:flex;gap:14px;padding:6px 0;align-items:baseline;font-size:13px;line-height:1.8}
+.row .k{color:var(--dim);min-width:96px;flex-shrink:0;font-size:11.5px}
+.row .big{font-family:var(--mincho);font-weight:800;font-size:17px;letter-spacing:.05em}
+.essay{font-family:var(--mincho);font-size:13.5px;line-height:2.15;margin:0}
+
+.head{margin:6px 0 10px}
+.head .top{display:flex;justify-content:space-between;align-items:baseline}
+.head h2{font-family:var(--mincho);font-weight:800;font-size:21px;margin:0;letter-spacing:.1em}
+.head .prog{font-family:var(--mincho);font-size:15px;color:var(--kin);letter-spacing:.1em}
+.head p{font-size:11.5px;color:var(--dim);margin:6px 0 0;line-height:1.9}
+
+.grp{font-family:var(--mincho);font-size:12px;letter-spacing:.4em;color:var(--kin);margin:20px 0 4px}
+.grp.kyuba{color:var(--shu)}
+.item{width:100%;text-align:left;display:flex;gap:14px;align-items:flex-start;border-bottom:1px solid var(--line);padding:13px 2px}
+.item .time{font-family:var(--mincho);font-size:13px;color:var(--kin);min-width:58px;padding-top:1px;letter-spacing:.06em}
+.item.done .time{color:var(--dim)}
+.item .body{flex:1}
+.item .lbl{font-size:14px;font-weight:500;display:block;line-height:1.7}
+.item.done .lbl{color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(185,152,90,.53)}
+.item .note{font-size:11.5px;color:var(--dim);line-height:1.8;display:block;margin-top:2px}
+.mark{width:22px;height:22px;border-radius:50%;flex-shrink:0;margin-top:2px;border:1px solid rgba(144,153,180,.6);display:inline-flex;align-items:center;justify-content:center;font-family:var(--mincho);font-size:10.5px;color:var(--shu);font-weight:600}
+.item.done .mark{border-color:rgba(199,62,46,.8)}
+.del{color:var(--dim);font-size:15px;padding:0 4px;flex-shrink:0;margin-top:2px}
+.del:hover{color:var(--shu)}
+.addrow{display:flex;gap:8px;margin-top:14px}
+.addrow button{font-family:var(--mincho);font-size:13px;letter-spacing:.2em;color:var(--kin);border:1px solid rgba(185,152,90,.4);padding:0 16px;border-radius:3px;flex-shrink:0}
+
+.phrase{width:100%;text-align:left;border-bottom:1px solid var(--line);padding:13px 2px}
+.phrase .ja{font-size:13.5px;font-weight:500;line-height:1.7}
+.phrase .en{font-family:var(--mincho);font-size:12.5px;color:var(--dim);margin-top:3px;letter-spacing:.02em}
+
+.overlay{position:fixed;inset:0;background:rgba(19,26,56,.98);z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;cursor:pointer;animation:fade .25s ease;text-align:center}
+.overlay .cap{font-family:var(--mincho);font-size:11px;letter-spacing:.5em;color:var(--kin)}
+.overlay .big{font-family:var(--mincho);font-weight:800;font-size:31px;line-height:1.5;margin:26px 0;color:#fff}
+.overlay .sub{font-size:13px;color:var(--dim)}
+.overlay .close{font-size:10px;color:var(--dim);margin-top:36px;letter-spacing:.2em}
+
+.settings{position:fixed;inset:0;background:rgba(19,26,56,.98);z-index:60;overflow-y:auto;animation:fade .25s ease}
+.settings .in{max-width:540px;margin:0 auto;padding:30px 22px 60px}
+.field{margin-bottom:16px}
+.field label{display:block;font-family:var(--mincho);font-size:11px;letter-spacing:.3em;color:var(--kin);margin-bottom:6px}
+.btnrow{display:flex;gap:10px;margin-top:24px}
+.btn{flex:1;font-family:var(--mincho);font-size:14px;letter-spacing:.25em;padding:13px 0;border:1px solid rgba(185,152,90,.4);border-radius:3px;color:var(--ink)}
+.btn.primary{background:var(--kin);color:var(--bg);font-weight:600;border-color:var(--kin)}
+.danger{margin-top:30px;border-top:1px solid var(--line);padding-top:18px}
+.danger button{display:block;font-size:12px;color:var(--dim);padding:8px 0;letter-spacing:.1em}
+.danger button:hover{color:var(--shu)}
+.foot{text-align:center;font-size:10px;color:var(--dim);letter-spacing:.15em;margin-top:34px;line-height:2}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <div class="ticket">
+    <div class="tate">遠征手帖</div>
+    <div class="eyebrow" id="hLabel"></div>
+    <h1 class="title" id="hTitle"></h1>
+    <div class="ticketmeta" id="hMeta"></div>
+    <button class="gear" id="gearBtn" aria-label="設定">設 定</button>
+  </div>
+  <div class="perf"></div>
+</header>
+
+<main id="main"></main>
+
+<nav><div class="navin" id="navin"></div></nav>
+
+<div id="modals"></div>
+
+<script>
+"use strict";
+// ============================================================
+//  遠征手帖 — 非公式ファンメイドの現地観戦記録ツール
+//  保存はすべてこの端末のブラウザ内(localStorage)。
+// ============================================================
+
+const STORAGE_KEY = "ensei-techo-v1";
+
+const DEFAULT_SETTINGS = {
+  label: "ワールドカップ 一次リーグ F組",
+  home: "日本", away: "オランダ",
+  kickoff: "2026-06-14T15:00",
+  tz: "America/Chicago",
+  venue: "AT&Tスタジアム", city: "アーリントン・テキサス",
+};
+
+const TZ_OPTIONS = [
+  ["America/Chicago","米国中部(ダラス・ヒューストン・カンザスシティ)"],
+  ["America/New_York","米国東部(NY・アトランタ・マイアミ・ボストン・フィラデルフィア・トロント)"],
+  ["America/Los_Angeles","米国太平洋(LA・SF・シアトル・バンクーバー)"],
+  ["America/Mexico_City","メキシコシティ・グアダラハラ"],
+  ["America/Monterrey","モンテレイ"],
+  ["Asia/Tokyo","日本"],
+];
+
+const TIMELINE = [
+  {id:"t1",time:"九時",title:"朝食をしっかり、水分補給を始める",note:"炎天下に長く並ぶ前提で、朝のうちから水を多めに。"},
+  {id:"t2",time:"十時半",title:"スタジアムの街へ発つ",note:"平時の所要時間の倍を見込む。当日は道が止まる。"},
+  {id:"t3",time:"十一時四五",title:"スタジアム周辺に着く",note:"降車地点を一枚撮っておく。帰りの集合場所をここで決める。"},
+  {id:"t4",time:"十二時",title:"外観とファンゾーンを歩く",note:"開場は蹴球開始のおよそ三時間前。外の熱気は今しか撮れない。"},
+  {id:"t5",time:"十三時",title:"手荷物検査を抜けて入場",note:"クリアバッグ規定あり。チケットは公式アプリの画面表示で。"},
+  {id:"t6",time:"十三時半",title:"席を確かめ、売店と手洗いを済ます",note:"混む前に。席からの眺めを一枚。"},
+  {id:"t7",time:"十四時二〇",title:"ウォームアップを見る",note:"選手が最も近い時間。望遠の好機。"},
+  {id:"t8",time:"十四時五〇",title:"国歌斉唱",note:"カメラは固定で長回し。胸は熱く、手は静かに。"},
+  {id:"t9",time:"十五時",title:"蹴球開始",note:"ここからは目に焼き付けるのが本分。撮影は要所のみ。"},
+  {id:"t10",time:"十七時頃",title:"試合終了",note:"数万人が一斉に動く。三十分座って余韻を撮るのが正解。"},
+];
+
+const CHECKLIST = [
+  {id:"c1",cat:"肝要",label:"旅券(原本)",note:"身分証の提示を求められる場面がある"},
+  {id:"c2",cat:"肝要",label:"入場券(公式アプリ・充電済みの電話)",note:""},
+  {id:"c3",cat:"肝要",label:"クレジットカード",note:"場内はほぼ現金が使えない"},
+  {id:"c4",cat:"肝要",label:"予備電池",note:"撮影と券面表示で電池は瞬く間に減る"},
+  {id:"c5",cat:"鞄の定め",label:"クリアバッグ(約30×15×30cm以内)",note:"あるいは小型クラッチ。常のバッグは持ち込めない"},
+  {id:"c6",cat:"暑さへの備え",label:"日焼け止め・帽子・サングラス",note:"屋外の待機は体感四十度級"},
+  {id:"c7",cat:"暑さへの備え",label:"空のボトルか経口補水の粉",note:"場内の給水器で満たせる"},
+  {id:"c8",cat:"応援",label:"代表ユニフォーム・タオルマフラー",note:""},
+  {id:"c9",cat:"記録",label:"カメラ・予備のSD・小型三脚",note:"一脚・大型三脚は持ち込み不可が通例"},
+  {id:"c10",cat:"万一",label:"海外旅行保険の証券番号(紙でも)",note:"電話を失くしたときの命綱"},
+  {id:"c11",cat:"万一",label:"宿の住所の英語の控え",note:"配車や運転手にそのまま見せられる"},
+];
+
+const PHRASES = [
+  {id:"p1",cat:"場内",ja:"ゲートはどちらですか。",en:"Excuse me, where is Gate A?"},
+  {id:"p2",cat:"場内",ja:"モバイルチケットです。",en:"I have a mobile ticket on the app."},
+  {id:"p3",cat:"場内",ja:"この席を探しています。",en:"Could you help me find this seat?"},
+  {id:"p4",cat:"場内",ja:"いちばん近い手洗い/給水器はどこですか。",en:"Where is the nearest restroom / water fountain?"},
+  {id:"p5",cat:"買い物",ja:"これをください。カードで払えますか。",en:"I'll take this one. Can I pay by card?"},
+  {id:"p6",cat:"買い物",ja:"水を二本ください。",en:"Two bottles of water, please."},
+  {id:"p7",cat:"交流",ja:"写真を撮っていただけますか。",en:"Could you take a photo of us, please?"},
+  {id:"p8",cat:"交流",ja:"良い試合でしたね。次も頑張って。",en:"What a game! Good luck in the next match!"},
+  {id:"p9",cat:"移動",ja:"配車の乗り場はどこですか。",en:"Where is the rideshare pickup zone?"},
+  {id:"p10",cat:"急場",ja:"気分が悪い。助けてください。",en:"I feel sick. I need help, please."},
+  {id:"p11",cat:"急場",ja:"救護室はどこですか。",en:"Where is the first aid station?"},
+  {id:"p12",cat:"急場",ja:"財布(電話)を失くしました。遺失物係は。",en:"I lost my wallet (phone). Where is lost and found?"},
+];
+
+const SHOTS = [
+  {id:"s1",phase:"発つ前",label:"宿を出る前の支度と、ひとこと"},
+  {id:"s2",phase:"道中",label:"車窓 — スタジアムが見えた瞬間の顔"},
+  {id:"s3",phase:"場外",label:"ゲート前の群衆、両国のチャント"},
+  {id:"s4",phase:"場外",label:"ユニフォーム姿の自分と、現地の気候の報告"},
+  {id:"s5",phase:"場内",label:"コンコースからピッチへ出る一歩(見上げ)"},
+  {id:"s6",phase:"場内",label:"席からの眺め、ゆっくり一周"},
+  {id:"s7",phase:"試合",label:"国歌斉唱(固定・長回し)"},
+  {id:"s8",phase:"試合",label:"蹴球開始の瞬間と、スタンドの音"},
+  {id:"s9",phase:"試合",label:"ハーフタイム、前半の所感"},
+  {id:"s10",phase:"試合",label:"終了の瞬間の自分の顔(勝っても負けても)"},
+  {id:"s11",phase:"試合後",label:"退場の人波、夕暮れの外観"},
+  {id:"s12",phase:"試合後",label:"宿に戻ってその日のうちに、総括をひとつ"},
+];
+
+// ---------- 状態 ----------
+let state = { done:{}, custom:{bag:[],film:[]}, settings:{...DEFAULT_SETTINGS} };
+let tab = "match";
+let openPhrase = null;
+let settingsOpen = false;
+
+function load(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const s = JSON.parse(raw);
+      state.done = s.done || {};
+      state.custom = Object.assign({bag:[],film:[]}, s.custom);
+      state.settings = Object.assign({}, DEFAULT_SETTINGS, s.settings);
+    }
+  }catch(e){ /* 壊れていたら初期値で続行 */ }
+}
+function save(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+}
+
+// ---------- 漢数字・日時 ----------
+const KD = ["〇","一","二","三","四","五","六","七","八","九"];
+function numK(n){ // 0-99
+  if(n<10) return KD[n];
+  const t=Math.floor(n/10), o=n%10;
+  return (t===1?"":KD[t])+"十"+(o===0?"":KD[o]);
+}
+function yearK(y){ return String(y).split("").map(d=>KD[+d]).join(""); }
+function hourK(h,m){
+  const min = m===0?"":(m===30?"半":numK(m)+"分");
+  if(h===0) return "午前零時"+min;
+  if(h===12) return min?"午後零時"+min:"正午";
+  return (h<12?"午前"+numK(h):"午後"+numK(h-12))+"時"+min;
+}
+
+// 任意タイムゾーンの「壁時計時刻」をUTCのDateに変換
+function zonedDate(naiveISO, tz){
+  const guess = new Date(naiveISO+":00Z");
+  const dtf = new Intl.DateTimeFormat("en-US",{timeZone:tz,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false});
+  const p = {};
+  dtf.formatToParts(guess).forEach(x=>p[x.type]=x.value);
+  const asTz = Date.UTC(+p.year, +p.month-1, +p.day, +p.hour%24, +p.minute, +p.second);
+  return new Date(guess.getTime() - (asTz - guess.getTime()));
+}
+function partsIn(date, tz){
+  const dtf = new Intl.DateTimeFormat("ja-JP",{timeZone:tz,year:"numeric",month:"numeric",day:"numeric",hour:"numeric",minute:"numeric",weekday:"short",hour12:false});
+  const p={};
+  dtf.formatToParts(date).forEach(x=>p[x.type]=x.value);
+  return {y:+p.year,mo:+p.month,d:+p.day,h:+p.hour%24,mi:+p.minute,w:p.weekday};
+}
+function kanjiDateTime(date, tz){
+  const p = partsIn(date, tz);
+  return `${yearK(p.y)}年${numK(p.mo)}月${numK(p.d)}日(${p.w})${hourK(p.h,p.mi)}`;
+}
+function kanjiDateTimeShort(date, tz){
+  const p = partsIn(date, tz);
+  return `${numK(p.mo)}月${numK(p.d)}日(${p.w})${hourK(p.h,p.mi)}`;
+}
+function kickoffDate(){ return zonedDate(state.settings.kickoff, state.settings.tz); }
+const pad2 = n => String(n).padStart(2,"0");
+const zTime = (d,tz)=> new Intl.DateTimeFormat("ja-JP",{timeZone:tz,hour:"2-digit",minute:"2-digit",hour12:false}).format(d);
+const zDay = (d,tz)=> new Intl.DateTimeFormat("ja-JP",{timeZone:tz,month:"numeric",day:"numeric",weekday:"short"}).format(d);
+const esc = s => String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+function isDefaultMatch(){
+  const s=state.settings, d=DEFAULT_SETTINGS;
+  return s.home===d.home && s.away===d.away && s.kickoff===d.kickoff && s.venue===d.venue;
+}
+
+// ---------- 描画 ----------
+const TABS = [
+  {id:"match",label:"試合"},{id:"day",label:"当日"},{id:"bag",label:"支度"},
+  {id:"talk",label:"言葉"},{id:"film",label:"記録"},{id:"safe",label:"備え"},
+];
+
+function renderHeader(){
+  const s = state.settings;
+  document.getElementById("hLabel").textContent = s.label;
+  document.getElementById("hTitle").innerHTML =
+    `${esc(s.home)} <span class="vs">対</span> ${esc(s.away)}`;
+  document.getElementById("hMeta").innerHTML =
+    `${esc(kanjiDateTime(kickoffDate(), s.tz))} 蹴球開始<br>於 ${esc(s.venue)} ${esc(s.city)}`;
+}
+
+function renderNav(){
+  document.getElementById("navin").innerHTML = TABS.map(t=>
+    `<button class="navbtn${t.id===tab?" on":""}" data-tab="${t.id}">${t.label}</button>`
+  ).join("");
+}
+
+function listHTML(items, kind){
+  const heads = {
+    timeline:{title:"当日の運び",sub:"蹴球開始から逆算した一日の手本。済んだら印を。時刻は十五時開始の例。"},
+    bag:{title:"支度",sub:"前夜のうちにすべて印を。鞄はクリアバッグの定めに従う。"},
+    film:{title:"記録の手控え",sub:"撮るべき場面の覚え書き。ただし試合中は、まず目で観る。"},
+  };
+  const customKey = kind==="bag"?"bag":(kind==="film"?"film":null);
+  const customs = customKey ? state.custom[customKey].map((c,i)=>({id:`x-${customKey}-${i}`,cat:"自分の覚え",phase:"自分の覚え",label:c,custom:true,ci:i})) : [];
+  const all = items.concat(customs);
+  const doneCount = all.filter(i=>state.done[i.id]).length;
+  const h = heads[kind];
+
+  let html = `<div class="head"><div class="top"><h2>${h.title}</h2><span class="prog">${doneCount} / ${all.length}</span></div><p>${h.sub}</p></div>`;
+  let last = null;
+  for(const item of all){
+    const group = item.cat || item.phase || null;
+    if(group && group!==last){ html += `<div class="grp">${esc(group)}</div>`; last = group; }
+    const done = !!state.done[item.id];
+    const mark = `<span class="mark" aria-hidden="true">${done?"済":""}</span>`;
+    html += `<button class="item${done?" done":""}" data-toggle="${item.id}">`;
+    if(item.time) html += `<span class="time">${esc(item.time)}</span>`;
+    else html += mark;
+    html += `<span class="body"><span class="lbl">${esc(item.title||item.label)}</span>`;
+    if(item.note) html += `<span class="note">${esc(item.note)}</span>`;
+    html += `</span>`;
+    if(item.time) html += mark;
+    if(item.custom) html += `<span class="del" data-del="${customKey}:${item.ci}" role="button" aria-label="削除">×</span>`;
+    html += `</button>`;
+  }
+  if(customKey){
+    html += `<div class="addrow"><input id="addInput" placeholder="自分の項目を書き足す" maxlength="60"><button data-add="${customKey}">追 加</button></div>`;
+  }
+  return html;
+}
+
+function matchHTML(){
+  const s = state.settings;
+  const ko = kickoffDate();
+  let html = `
+  <section class="center">
+    <div class="cdlabel" id="cdLabel">蹴球開始まで</div>
+    <div class="cd" id="cd"></div>
+    <div class="clocks">
+      <div class="clk"><div class="l">現地</div><div class="t" id="clkA"></div><div class="d" id="clkAd"></div></div>
+      <div class="clkdiv"></div>
+      <div class="clk"><div class="l">日本</div><div class="t" id="clkB"></div><div class="d" id="clkBd"></div></div>
+    </div>
+    <p class="lede">蹴球開始は日本時間 ${esc(kanjiDateTimeShort(ko,"Asia/Tokyo"))}。<br>家も友も、同じ時刻に同じ試合を見ている。</p>
+  </section>
+  <div class="rule"></div>
+  <div class="sec"><h3>会場</h3>
+    <div class="row"><span class="k">名称</span><span>${esc(s.venue)}(${esc(s.city)})</span></div>
+    <div class="row"><span class="k">心得</span><span>本当の戦いは入場まで。開場は蹴球開始のおよそ三時間前</span></div>
+  </div>`;
+  if(isDefaultMatch()){
+    html += `
+  <div class="sec"><h3>F組 日本の三戦</h3>
+    <div class="row"><span class="k">六月十四日(日)</span><span style="font-family:var(--mincho);font-weight:600">日本 対 オランダ <span style="color:var(--shu);font-size:11px;letter-spacing:.15em">本戦・現地</span><br><span style="font-size:11px;color:var(--dim)">AT&Tスタジアム・ダラス ・ 日本時間 十五日(月)朝五時</span></span></div>
+    <div class="row"><span class="k">六月二十日(土)</span><span style="font-family:var(--mincho);font-weight:600">チュニジア 対 日本<br><span style="font-size:11px;color:var(--dim)">エスタディオBBVA・モンテレイ ・ 日本時間 二十一日(日)昼十二時</span></span></div>
+    <div class="row"><span class="k">六月二十五日(木)</span><span style="font-family:var(--mincho);font-weight:600">日本 対 スウェーデン<br><span style="font-size:11px;color:var(--dim)">AT&Tスタジアム・ダラス ・ 日本時間 二十六日(金)朝八時</span></span></div>
+  </div>
+  <div class="sec"><h3>十六年</h3>
+    <p class="essay">ワールドカップでオランダと相見えるのは、二〇一〇年の南アフリカ以来。あの日はスナイデルの一撃に沈み、零対一。彼らはそのまま決勝まで駆け上がった。十六年が経ち、舞台はテキサスへ。今度の結末を、あなたは客席で見届ける。</p>
+  </div>`;
+  }
+  html += `<p class="foot">非公式・ファンメイドの記録ツール ・ データはこの端末にのみ保存されます</p>`;
+  return html;
+}
+
+function talkHTML(){
+  let html = `<div class="head"><div class="top"><h2>言葉の備え</h2></div><p>押すと大きく表示される。そのまま画面を相手に見せてよい。</p></div>`;
+  let last=null;
+  for(const p of PHRASES){
+    if(p.cat!==last){ html += `<div class="grp${p.cat==="急場"?" kyuba":""}">${p.cat}</div>`; last=p.cat; }
+    html += `<button class="phrase" data-phrase="${p.id}"><div class="ja">${esc(p.ja)}</div><div class="en">${esc(p.en)}</div></button>`;
+  }
+  return html;
+}
+
+function safeHTML(){
+  return `
+  <div class="head"><div class="top"><h2>万一の備え</h2></div><p>使わずに済むのがいちばん。それでも携えるのが遠征の作法。</p></div>
+  <div class="sec"><h3 class="accent">緊急通報</h3>
+    <div class="row"><span class="k">警察・消防・救急</span><span class="big">九一一(米国・カナダ共通、無料)</span></div>
+    <div class="row"><span class="k">メキシコ</span><span class="big">九一一(同番号)</span></div>
+    <div class="row"><span class="k">伝え方</span><span>“I need an ambulance / police.” と場所を</span></div>
+  </div>
+  <div class="sec"><h3>日本国総領事館(米国の例)</h3>
+    <div class="row"><span class="k">テキサス州</span><span>在ヒューストン総領事館 +1-713-652-2977</span></div>
+    <div class="row"><span class="k">用向き</span><span>旅券の紛失・盗難、事件事故の際の支援</span></div>
+    <p style="font-size:11px;color:var(--dim);margin:10px 0 0;line-height:1.9">観戦地を管轄する公館と番号は、出発前に外務省の頁で必ず確かめる。「たびレジ」への登録も忘れずに。</p>
+  </div>
+  <div class="sec"><h3 class="accent">夏の北米、真の敵は暑さ</h3>
+    <p class="essay">日中三十五度超えは珍しくない。場内に空調があっても、入場待ちの屋外は危険な水準にある。渇く前に飲む。帽子と日焼け止め。並ぶ前に手洗いを済ます。めまい、吐き気、汗が止まる——熱中症の兆しを覚えたら、ためらわず日陰へ。係員には「I feel sick」のひとことでいい。</p>
+  </div>
+  <div class="sec"><h3>土地の作法</h3>
+    <div class="row"><span class="k">チップ</span><span>食事は二割が目安、配車は数ドルから</span></div>
+    <div class="row"><span class="k">支払い</span><span>ほぼカードの国。現金は少額のみ</span></div>
+    <div class="row"><span class="k">帰路</span><span>試合直後の配車は争奪戦。乗り場は昼のうちに確かめる</span></div>
+    <div class="row"><span class="k">貴重品</span><span>人混みで電話を手に持たない。前の隠しか鞄の中へ</span></div>
+  </div>`;
+}
+
+function settingsHTML(){
+  const s = state.settings;
+  const tzOpts = TZ_OPTIONS.map(([v,l])=>`<option value="${v}"${v===s.tz?" selected":""}>${l}</option>`).join("");
+  return `
+  <div class="settings" id="settingsOverlay"><div class="in">
+    <div class="head"><div class="top"><h2>手帖の設定</h2></div><p>自分の観戦する試合に合わせて書き換える。表紙と各頁に反映される。</p></div>
+    <div class="field"><label>大会・組の表記</label><input id="fLabel" value="${esc(s.label)}" maxlength="40"></div>
+    <div class="field"><label>自分の側</label><input id="fHome" value="${esc(s.home)}" maxlength="20"></div>
+    <div class="field"><label>相手</label><input id="fAway" value="${esc(s.away)}" maxlength="20"></div>
+    <div class="field"><label>蹴球開始(現地時刻)</label><input id="fKickoff" type="datetime-local" value="${esc(s.kickoff)}"></div>
+    <div class="field"><label>会場のタイムゾーン</label><select id="fTz">${tzOpts}</select></div>
+    <div class="field"><label>会場名</label><input id="fVenue" value="${esc(s.venue)}" maxlength="40"></div>
+    <div class="field"><label>都市</label><input id="fCity" value="${esc(s.city)}" maxlength="40"></div>
+    <div class="btnrow">
+      <button class="btn" id="settingsCancel">閉じる</button>
+      <button class="btn primary" id="settingsSave">書き留める</button>
+    </div>
+    <div class="danger">
+      <button id="clearMarks">印をすべて消す(設定は残す)</button>
+      <button id="resetAll">手帖を最初から作り直す</button>
+    </div>
+    <p class="foot">非公式・ファンメイド ・ 保存先はこの端末のブラウザのみ</p>
+  </div></div>`;
+}
+
+function render(){
+  renderHeader();
+  renderNav();
+  const main = document.getElementById("main");
+  if(tab==="match") main.innerHTML = matchHTML();
+  else if(tab==="day") main.innerHTML = listHTML(TIMELINE,"timeline");
+  else if(tab==="bag") main.innerHTML = listHTML(CHECKLIST,"bag");
+  else if(tab==="talk") main.innerHTML = talkHTML();
+  else if(tab==="film") main.innerHTML = listHTML(SHOTS,"film");
+  else if(tab==="safe") main.innerHTML = safeHTML();
+  renderModals();
+  tick();
+}
+
+function renderModals(){
+  const m = document.getElementById("modals");
+  let html = "";
+  if(openPhrase){
+    const p = PHRASES.find(x=>x.id===openPhrase);
+    if(p) html += `<div class="overlay" id="phraseOverlay" role="button" tabindex="0">
+      <div class="cap">この画面を見せる</div>
+      <div class="big">${esc(p.en)}</div>
+      <div class="sub">${esc(p.ja)}</div>
+      <div class="close">触れると閉じる</div></div>`;
+  }
+  if(settingsOpen) html += settingsHTML();
+  m.innerHTML = html;
+}
+
+// ---------- 時計 ----------
+function tick(){
+  const now = new Date();
+  const ko = kickoffDate();
+  const cdEl = document.getElementById("cd");
+  if(cdEl){
+    const diff = ko - now;
+    const abs = Math.abs(diff);
+    const dd = Math.floor(abs/86400000), hh=Math.floor(abs%86400000/3600000),
+          mm=Math.floor(abs%3600000/60000), ss=Math.floor(abs%60000/1000);
+    document.getElementById("cdLabel").textContent = diff<=0?"蹴球開始から":"蹴球開始まで";
+    cdEl.innerHTML = (dd>0?`${dd}<span class="u">日</span>`:"")+
+      `${pad2(hh)}<span class="u">時</span>${pad2(mm)}<span class="u">分</span>${pad2(ss)}<span class="u">秒</span>`;
+    const tz = state.settings.tz;
+    document.getElementById("clkA").textContent = zTime(now,tz);
+    document.getElementById("clkAd").textContent = zDay(now,tz);
+    document.getElementById("clkB").textContent = zTime(now,"Asia/Tokyo");
+    document.getElementById("clkBd").textContent = zDay(now,"Asia/Tokyo");
+  }
+}
+setInterval(tick, 1000);
+
+// ---------- 操作 ----------
+document.addEventListener("click", (e)=>{
+  const del = e.target.closest("[data-del]");
+  if(del){
+    e.stopPropagation();
+    const [key,i] = del.dataset.del.split(":");
+    state.custom[key].splice(+i,1);
+    // 添字ずれ防止のため当該キーの印を整理
+    Object.keys(state.done).forEach(k=>{ if(k.startsWith(`x-${key}-`)) delete state.done[k]; });
+    save(); render(); return;
+  }
+  const t = e.target.closest("[data-tab]");
+  if(t){ tab = t.dataset.tab; render(); return; }
+  const tg = e.target.closest("[data-toggle]");
+  if(tg){ const id=tg.dataset.toggle; state.done[id]=!state.done[id]; if(!state.done[id]) delete state.done[id]; save(); render(); return; }
+  const ph = e.target.closest("[data-phrase]");
+  if(ph){ openPhrase = ph.dataset.phrase; renderModals(); return; }
+  if(e.target.closest("#phraseOverlay")){ openPhrase=null; renderModals(); return; }
+  const add = e.target.closest("[data-add]");
+  if(add){
+    const input = document.getElementById("addInput");
+    const v = (input.value||"").trim();
+    if(v){ state.custom[add.dataset.add].push(v); save(); render(); }
+    return;
+  }
+  if(e.target.closest("#gearBtn")){ settingsOpen=true; renderModals(); return; }
+  if(e.target.closest("#settingsCancel")){ settingsOpen=false; renderModals(); return; }
+  if(e.target.closest("#settingsSave")){
+    const g = id=>document.getElementById(id).value.trim();
+    state.settings = {
+      label:g("fLabel")||DEFAULT_SETTINGS.label,
+      home:g("fHome")||"自分の側", away:g("fAway")||"相手",
+      kickoff:document.getElementById("fKickoff").value||DEFAULT_SETTINGS.kickoff,
+      tz:document.getElementById("fTz").value,
+      venue:g("fVenue")||"会場", city:g("fCity")||"",
+    };
+    settingsOpen=false; save(); render(); return;
+  }
+  if(e.target.closest("#clearMarks")){
+    if(confirm("すべての印を消します。よろしいですか。")){ state.done={}; save(); render(); }
+    return;
+  }
+  if(e.target.closest("#resetAll")){
+    if(confirm("設定・印・書き足した項目をすべて消して、最初の状態に戻します。よろしいですか。")){
+      state = {done:{},custom:{bag:[],film:[]},settings:{...DEFAULT_SETTINGS}};
+      save(); settingsOpen=false; render();
+    }
+    return;
+  }
+});
+
+// ---------- 起動 ----------
+load();
+render();
+if("serviceWorker" in navigator){
+  window.addEventListener("load", ()=>{ navigator.serviceWorker.register("./sw.js").catch(()=>{}); });
+}
+</script>
+</body>
+</html>
