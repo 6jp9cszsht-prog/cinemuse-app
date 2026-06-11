@@ -2,550 +2,413 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>遠征手帖 — 現地観戦の記録</title>
-<meta name="description" content="ワールドカップ現地観戦のための手帖。カウントダウン、当日の運び、支度、言葉の備え、記録の手控え。">
-<meta name="theme-color" content="#131A38">
-<link rel="manifest" href="./manifest.webmanifest">
-<link rel="icon" href="./icon-192.png">
-<link rel="apple-touch-icon" href="./icon-192.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>縦組 ― 縦書きPDF組版ツール</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
 <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#131A38; --card:#1B2347; --line:rgba(57,64,102,.27);
-  --ink:#EAE3D0; --dim:#9099B4; --shu:#C73E2E; --kin:#B9985A;
-  --mincho:'Shippori Mincho B1','Shippori Mincho',serif;
-  --gothic:'Zen Kaku Gothic New','Noto Sans JP',sans-serif;
+  --sb:#222;--sb2:#181818;--sbf:#ddd8d0;--sbd:#888;--sbb:#363636;
+  --acc:#9a7050;--acc2:#b08060;--prev:#6a6a6a;
 }
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0}
-body{background:var(--bg);color:var(--ink);font-family:var(--gothic);font-weight:400;min-height:100vh}
-button{font-family:inherit;color:inherit;background:none;border:none;cursor:pointer;padding:0}
-button:focus-visible,input:focus-visible,select:focus-visible{outline:1px solid var(--kin);outline-offset:3px}
-input,select{font-family:var(--gothic);background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:3px;padding:9px 10px;font-size:14px;width:100%}
-@keyframes fade{from{opacity:0}to{opacity:1}}
-@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+html,body{height:100%;font-family:'Noto Serif JP','Hiragino Mincho Pro','Yu Mincho',serif}
+button{cursor:pointer;font-family:inherit}
+input,select,textarea{font-family:inherit}
 
-.wrap{max-width:540px;margin:0 auto;padding:26px 22px 0}
-.ticket{border:1px solid rgba(185,152,90,.4);padding:16px 18px 14px;position:relative}
-.tate{position:absolute;top:14px;right:14px;writing-mode:vertical-rl;font-family:var(--mincho);font-size:13px;letter-spacing:.45em;color:var(--kin)}
-.eyebrow{font-size:10px;letter-spacing:.4em;color:var(--dim)}
-.title{font-family:var(--mincho);font-weight:800;font-size:29px;margin:10px 0 8px;letter-spacing:.06em;line-height:1.3}
-.title .vs{font-size:18px;color:var(--shu);font-weight:600}
-.ticketmeta{font-family:var(--mincho);font-size:12.5px;color:var(--dim);letter-spacing:.12em;line-height:1.9}
-.perf{border-bottom:1px dashed rgba(185,152,90,.33);margin:0 6px}
-.gear{position:absolute;bottom:10px;right:14px;font-size:10px;letter-spacing:.25em;color:var(--dim);padding:4px 2px}
-.gear:hover{color:var(--kin)}
+/* ===== Layout ===== */
+#app{display:grid;grid-template-columns:290px 1fr;height:100vh;overflow:hidden}
 
-main{max-width:540px;margin:0 auto;padding:20px 22px 116px;animation:fade .4s ease}
+/* ===== Sidebar ===== */
+#sb{background:var(--sb);color:var(--sbf);display:flex;flex-direction:column;overflow:hidden;border-right:1px solid var(--sbb)}
+#sb-head{padding:15px 16px 12px;border-bottom:1px solid var(--sbb);flex-shrink:0}
+#sb-head h1{font-size:19px;letter-spacing:.35em;font-weight:400}
+#sb-head p{font-size:10px;color:var(--sbd);letter-spacing:.2em;margin-top:3px}
 
-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(19,26,56,.96);backdrop-filter:blur(8px);border-top:1px solid rgba(185,152,90,.27);padding-bottom:env(safe-area-inset-bottom)}
-.navin{max-width:540px;margin:0 auto;display:flex}
-.navbtn{flex:1;padding:14px 0 16px;font-family:var(--mincho);font-size:14px;letter-spacing:.18em;color:var(--dim);position:relative}
-.navbtn.on{color:var(--ink)}
-.navbtn.on::before{content:"";position:absolute;top:6px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--shu)}
+#ms-wrap{padding:11px 14px;border-bottom:1px solid var(--sbb);flex-shrink:0}
+#ms-label{font-size:10px;color:var(--sbd);letter-spacing:.3em;display:block;margin-bottom:5px}
+#ms{
+  width:100%;height:150px;background:var(--sb2);color:var(--sbf);
+  border:1px solid #464646;border-radius:2px;padding:8px 10px;
+  font-size:12px;line-height:1.8;resize:vertical;outline:none;
+}
+#ms:focus{border-color:var(--acc)}
+#ms::placeholder{color:#505050}
 
-.center{text-align:center;padding:20px 0 24px}
-.cdlabel{font-family:var(--mincho);font-size:12px;letter-spacing:.5em;color:var(--dim)}
-.cd{font-family:var(--mincho);font-weight:800;font-size:52px;line-height:1.1;margin-top:12px;letter-spacing:.02em}
-.cd .u{font-size:19px;color:var(--kin);margin:0 6px 0 3px}
-.clocks{display:flex;justify-content:center;align-items:stretch;margin-top:22px}
-.clkdiv{width:1px;background:rgba(185,152,90,.33);margin:2px 26px}
-.clk{text-align:center}
-.clk .l{font-family:var(--mincho);font-size:11px;letter-spacing:.35em;color:var(--kin)}
-.clk .t{font-family:var(--mincho);font-weight:600;font-size:22px;margin-top:4px}
-.clk .d{font-size:10px;color:var(--dim);margin-top:2px}
-.lede{font-size:12px;color:var(--dim);margin-top:18px;line-height:2}
+#settings{flex:1;overflow-y:auto;padding:11px 14px}
+.sg{margin-bottom:14px}
+.sg-t{font-size:9px;letter-spacing:.4em;color:var(--sbd);padding-bottom:4px;border-bottom:1px solid var(--sbb);margin-bottom:8px}
+.sr{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;font-size:12px;color:#ccc}
+.sr label{letter-spacing:.04em}
+.sr select,.sr input[type=number],.sr input[type=text]{
+  background:var(--sb2);color:var(--sbf);border:1px solid #464646;border-radius:2px;
+  padding:3px 6px;font-size:12px;width:88px;text-align:right;outline:none;
+}
+.sr input[type=text]{text-align:left;width:120px}
+.sr select{text-align:left}
+.sr input:focus,.sr select:focus{border-color:var(--acc)}
+.sr input[type=checkbox]{width:16px;height:16px;accent-color:var(--acc);cursor:pointer}
+.unit{font-size:10px;color:var(--sbd);margin-left:3px;flex-shrink:0}
+.frow{display:flex;align-items:center;gap:3px}
 
-.rule{border-bottom:1px solid rgba(185,152,90,.27);margin:4px 0 22px;position:relative}
-.rule::after{content:"";position:absolute;left:50%;top:-3px;transform:translateX(-50%);width:5px;height:5px;background:var(--shu);border-radius:50%}
+#stats{
+  padding:7px 14px;border-top:1px solid var(--sbb);
+  font-size:11px;color:var(--sbd);letter-spacing:.1em;flex-shrink:0;min-height:26px
+}
 
-.sec{margin-bottom:26px}
-.sec h3{font-family:var(--mincho);font-size:13px;letter-spacing:.35em;font-weight:600;color:var(--kin);margin:0 0 8px;border-bottom:1px solid var(--line);padding-bottom:8px}
-.sec h3.accent{color:var(--shu)}
-.row{display:flex;gap:14px;padding:6px 0;align-items:baseline;font-size:13px;line-height:1.8}
-.row .k{color:var(--dim);min-width:96px;flex-shrink:0;font-size:11.5px}
-.row .big{font-family:var(--mincho);font-weight:800;font-size:17px;letter-spacing:.05em}
-.essay{font-family:var(--mincho);font-size:13.5px;line-height:2.15;margin:0}
+#btn-pdf{
+  margin:9px 14px 12px;padding:11px 0;background:var(--acc);color:#fff;
+  border:none;border-radius:2px;font-size:13px;letter-spacing:.4em;
+  flex-shrink:0;transition:background .15s;width:calc(100% - 28px)
+}
+#btn-pdf:hover{background:var(--acc2)}
 
-.head{margin:6px 0 10px}
-.head .top{display:flex;justify-content:space-between;align-items:baseline}
-.head h2{font-family:var(--mincho);font-weight:800;font-size:21px;margin:0;letter-spacing:.1em}
-.head .prog{font-family:var(--mincho);font-size:15px;color:var(--kin);letter-spacing:.1em}
-.head p{font-size:11.5px;color:var(--dim);margin:6px 0 0;line-height:1.9}
+/* ===== Help modal ===== */
+#help-btn{
+  display:block;width:calc(100% - 28px);margin:0 14px 10px;
+  padding:7px 0;background:none;border:1px solid #464646;border-radius:2px;
+  color:var(--sbd);font-size:11px;letter-spacing:.25em;transition:border-color .15s
+}
+#help-btn:hover{border-color:var(--acc);color:var(--acc)}
 
-.grp{font-family:var(--mincho);font-size:12px;letter-spacing:.4em;color:var(--kin);margin:20px 0 4px}
-.grp.kyuba{color:var(--shu)}
-.item{width:100%;text-align:left;display:flex;gap:14px;align-items:flex-start;border-bottom:1px solid var(--line);padding:13px 2px}
-.item .time{font-family:var(--mincho);font-size:13px;color:var(--kin);min-width:58px;padding-top:1px;letter-spacing:.06em}
-.item.done .time{color:var(--dim)}
-.item .body{flex:1}
-.item .lbl{font-size:14px;font-weight:500;display:block;line-height:1.7}
-.item.done .lbl{color:var(--dim);text-decoration:line-through;text-decoration-color:rgba(185,152,90,.53)}
-.item .note{font-size:11.5px;color:var(--dim);line-height:1.8;display:block;margin-top:2px}
-.mark{width:22px;height:22px;border-radius:50%;flex-shrink:0;margin-top:2px;border:1px solid rgba(144,153,180,.6);display:inline-flex;align-items:center;justify-content:center;font-family:var(--mincho);font-size:10.5px;color:var(--shu);font-weight:600}
-.item.done .mark{border-color:rgba(199,62,46,.8)}
-.del{color:var(--dim);font-size:15px;padding:0 4px;flex-shrink:0;margin-top:2px}
-.del:hover{color:var(--shu)}
-.addrow{display:flex;gap:8px;margin-top:14px}
-.addrow button{font-family:var(--mincho);font-size:13px;letter-spacing:.2em;color:var(--kin);border:1px solid rgba(185,152,90,.4);padding:0 16px;border-radius:3px;flex-shrink:0}
+#help-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;
+  align-items:center;justify-content:center;
+}
+#help-overlay.open{display:flex}
+#help-box{
+  background:#2a2a2a;color:var(--sbf);border-radius:4px;max-width:480px;width:90%;
+  padding:24px 26px 20px;max-height:85vh;overflow-y:auto;
+}
+#help-box h2{font-size:15px;letter-spacing:.2em;font-weight:400;margin-bottom:14px;color:var(--acc2)}
+#help-box h3{font-size:11px;letter-spacing:.25em;color:var(--sbd);margin:14px 0 6px}
+#help-box p{font-size:12px;line-height:2;color:#bbb}
+#help-box ol{padding-left:1.4em;font-size:12px;line-height:2.2;color:#bbb}
+#help-box .close-btn{
+  display:block;margin-top:18px;padding:8px 0;background:none;border:1px solid #555;
+  border-radius:2px;color:var(--sbd);font-size:12px;letter-spacing:.25em;width:100%;
+}
+#help-box .close-btn:hover{border-color:var(--acc);color:var(--acc)}
 
-.phrase{width:100%;text-align:left;border-bottom:1px solid var(--line);padding:13px 2px}
-.phrase .ja{font-size:13.5px;font-weight:500;line-height:1.7}
-.phrase .en{font-family:var(--mincho);font-size:12.5px;color:var(--dim);margin-top:3px;letter-spacing:.02em}
+/* ===== Preview ===== */
+#prev{
+  background:var(--prev);overflow:auto;
+  display:flex;flex-wrap:wrap;align-content:flex-start;gap:14px;padding:18px;
+}
+#prev-empty{
+  width:100%;text-align:center;padding-top:80px;
+  font-size:13px;color:#bbb;letter-spacing:.2em;line-height:3;pointer-events:none;
+}
 
-.overlay{position:fixed;inset:0;background:rgba(19,26,56,.98);z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;cursor:pointer;animation:fade .25s ease;text-align:center}
-.overlay .cap{font-family:var(--mincho);font-size:11px;letter-spacing:.5em;color:var(--kin)}
-.overlay .big{font-family:var(--mincho);font-weight:800;font-size:31px;line-height:1.5;margin:26px 0;color:#fff}
-.overlay .sub{font-size:13px;color:var(--dim)}
-.overlay .close{font-size:10px;color:var(--dim);margin-top:36px;letter-spacing:.2em}
+.pg{background:#fff;box-shadow:0 3px 14px rgba(0,0,0,.4);position:relative;overflow:hidden;flex-shrink:0}
+.pg-body{
+  position:absolute;writing-mode:vertical-rl;text-orientation:mixed;
+  line-break:strict;overflow:hidden;word-break:keep-all;
+  font-family:'Noto Serif JP','Hiragino Mincho Pro','Yu Mincho',serif;
+}
+.pg-num{position:absolute;letter-spacing:.1em;font-family:'Noto Serif JP',serif}
+.pg-hs{position:absolute;writing-mode:vertical-rl;letter-spacing:.2em;color:#888;font-family:'Noto Serif JP',serif;text-align:center}
 
-.settings{position:fixed;inset:0;background:rgba(19,26,56,.98);z-index:60;overflow-y:auto;animation:fade .25s ease}
-.settings .in{max-width:540px;margin:0 auto;padding:30px 22px 60px}
-.field{margin-bottom:16px}
-.field label{display:block;font-family:var(--mincho);font-size:11px;letter-spacing:.3em;color:var(--kin);margin-bottom:6px}
-.btnrow{display:flex;gap:10px;margin-top:24px}
-.btn{flex:1;font-family:var(--mincho);font-size:14px;letter-spacing:.25em;padding:13px 0;border:1px solid rgba(185,152,90,.4);border-radius:3px;color:var(--ink)}
-.btn.primary{background:var(--kin);color:var(--bg);font-weight:600;border-color:var(--kin)}
-.danger{margin-top:30px;border-top:1px solid var(--line);padding-top:18px}
-.danger button{display:block;font-size:12px;color:var(--dim);padding:8px 0;letter-spacing:.1em}
-.danger button:hover{color:var(--shu)}
-.foot{text-align:center;font-size:10px;color:var(--dim);letter-spacing:.15em;margin-top:34px;line-height:2}
+/* ===== Print ===== */
+@media print{
+  #app{display:none!important}
+  #help-overlay{display:none!important}
+  #print-area{display:block!important}
+
+  .pp{position:relative;overflow:hidden;background:white;page-break-after:always}
+  .pp:last-child{page-break-after:auto}
+  .pp-body{
+    position:absolute;writing-mode:vertical-rl;text-orientation:mixed;
+    line-break:strict;overflow:hidden;word-break:keep-all;
+    font-family:'Noto Serif JP','Hiragino Mincho Pro','Yu Mincho','MS Mincho',serif;
+  }
+  .pp-num{position:absolute;letter-spacing:.1em;font-family:'Noto Serif JP',serif}
+  .pp-hs{position:absolute;writing-mode:vertical-rl;letter-spacing:.2em;color:#666;font-family:'Noto Serif JP',serif;text-align:center}
+}
+@media screen{#print-area{display:none}}
 </style>
 </head>
 <body>
 
-<header class="wrap">
-  <div class="ticket">
-    <div class="tate">遠征手帖</div>
-    <div class="eyebrow" id="hLabel"></div>
-    <h1 class="title" id="hTitle"></h1>
-    <div class="ticketmeta" id="hMeta"></div>
-    <button class="gear" id="gearBtn" aria-label="設定">設 定</button>
+<div id="app">
+  <div id="sb">
+    <div id="sb-head">
+      <h1>縦　組</h1>
+      <p>縦書きPDF組版ツール</p>
+    </div>
+
+    <div id="ms-wrap">
+      <label id="ms-label">原　稿</label>
+      <textarea id="ms" placeholder="ここに原稿をペーストしてください。
+
+空行で段落を区切ります。
+書き出しは自動で一字下げされます。"></textarea>
+    </div>
+
+    <div id="settings">
+      <div class="sg">
+        <div class="sg-t">用紙・基本</div>
+        <div class="sr">
+          <label>用紙サイズ</label>
+          <select id="s-ps">
+            <option value="A5">A5 (148×210mm)</option>
+            <option value="B6">B6 (128×182mm)</option>
+            <option value="bunko">文庫 (105×148mm)</option>
+            <option value="A4">A4 (210×297mm)</option>
+          </select>
+        </div>
+        <div class="sr">
+          <label>フォントサイズ</label>
+          <div class="frow"><input type="number" id="s-fs" value="13" min="8" max="20" step="0.5"><span class="unit">pt</span></div>
+        </div>
+        <div class="sr">
+          <label>行　間</label>
+          <div class="frow"><input type="number" id="s-lh" value="2.0" min="1.2" max="3.0" step="0.1"><span class="unit">em</span></div>
+        </div>
+      </div>
+
+      <div class="sg">
+        <div class="sg-t">余白 (mm)</div>
+        <div class="sr"><label>天（上）</label><input type="number" id="s-mt" value="20" min="5" max="40"></div>
+        <div class="sr"><label>地（下）</label><input type="number" id="s-mb" value="20" min="5" max="40"></div>
+        <div class="sr"><label>ノド（内側）</label><input type="number" id="s-mi" value="22" min="8" max="40"></div>
+        <div class="sr"><label>小口（外側）</label><input type="number" id="s-mo" value="14" min="5" max="30"></div>
+      </div>
+
+      <div class="sg">
+        <div class="sg-t">ノンブル・柱</div>
+        <div class="sr"><label>ノンブル</label><input type="checkbox" id="s-nb" checked></div>
+        <div class="sr"><label>開始ページ番号</label><input type="number" id="s-np" value="1" min="1" max="999"></div>
+        <div class="sr"><label>柱テキスト</label><input type="text" id="s-hs" placeholder="作品名など"></div>
+      </div>
+
+      <div class="sg">
+        <div class="sg-t">組版</div>
+        <div class="sr"><label>段落頭の一字下げ</label><input type="checkbox" id="s-in" checked></div>
+        <div class="sr"><label>字間（追加）</label>
+          <div class="frow"><input type="number" id="s-ls" value="0" min="-0.1" max="0.5" step="0.05"><span class="unit">em</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="stats"></div>
+    <button id="btn-pdf" onclick="doPrint()">PDF を出力する</button>
+    <button id="help-btn" onclick="document.getElementById('help-overlay').classList.add('open')">使い方 / 印刷の設定</button>
   </div>
-  <div class="perf"></div>
-</header>
 
-<main id="main"></main>
+  <div id="prev">
+    <div id="prev-empty">原稿をペーストすると<br>ここにプレビューが表示されます</div>
+  </div>
+</div>
 
-<nav><div class="navin" id="navin"></div></nav>
+<div id="help-overlay">
+  <div id="help-box">
+    <h2>使い方と印刷の設定</h2>
+    <h3>基本の手順</h3>
+    <ol>
+      <li>左の「原稿」欄にテキストをペーストする</li>
+      <li>用紙サイズ・フォント・余白などを設定する</li>
+      <li>右のプレビューで仕上がりを確認する</li>
+      <li>「PDF を出力する」を押す</li>
+    </ol>
+    <h3>印刷ダイアログの設定（重要）</h3>
+    <ol>
+      <li>送信先：「PDFに保存」を選ぶ</li>
+      <li>用紙サイズ：設定した用紙と同じサイズを選ぶ</li>
+      <li>余白：「なし」に設定する（余白はツール側で管理）</li>
+      <li>倍率：「100%」または「デフォルト」のまま</li>
+    </ol>
+    <h3>テキストの書き方</h3>
+    <p>
+      空行（Enterを2回）で段落を区切ります。<br>
+      一字下げは自動で付きます（設定でオフ可能）。<br>
+      「　」（全角スペース）で書き出した行はそのまま反映されます。<br>
+      ルビ・傍点は未対応です（今後対応予定）。
+    </p>
+    <h3>印刷所への入稿について</h3>
+    <p>
+      Chromeの「PDFに保存」機能はフォントを埋め込みます。<br>
+      多くの同人印刷所（日光企画・PrintPac等）はRGB PDFを受け付けます。<br>
+      塗り足しが必要な場合は、印刷所の指定サイズに合わせて余白を調整してください。
+    </p>
+    <button class="close-btn" onclick="document.getElementById('help-overlay').classList.remove('open')">閉じる</button>
+  </div>
+</div>
 
-<div id="modals"></div>
+<div id="print-area"></div>
 
 <script>
-"use strict";
-// ============================================================
-//  遠征手帖 — 非公式ファンメイドの現地観戦記録ツール
-//  保存はすべてこの端末のブラウザ内(localStorage)。
-// ============================================================
+'use strict';
 
-const STORAGE_KEY = "ensei-techo-v1";
+const MM = 3.7795275591;  // px per mm at 96dpi
+const PT_MM = 0.352778;   // mm per pt
 
-const DEFAULT_SETTINGS = {
-  label: "ワールドカップ 一次リーグ F組",
-  home: "日本", away: "オランダ",
-  kickoff: "2026-06-14T15:00",
-  tz: "America/Chicago",
-  venue: "AT&Tスタジアム", city: "アーリントン・テキサス",
+const SIZES = {
+  A5:    {w:148, h:210},
+  B6:    {w:128, h:182},
+  bunko: {w:105, h:148},
+  A4:    {w:210, h:297},
 };
 
-const TZ_OPTIONS = [
-  ["America/Chicago","米国中部(ダラス・ヒューストン・カンザスシティ)"],
-  ["America/New_York","米国東部(NY・アトランタ・マイアミ・ボストン・フィラデルフィア・トロント)"],
-  ["America/Los_Angeles","米国太平洋(LA・SF・シアトル・バンクーバー)"],
-  ["America/Mexico_City","メキシコシティ・グアダラハラ"],
-  ["America/Monterrey","モンテレイ"],
-  ["Asia/Tokyo","日本"],
-];
-
-const TIMELINE = [
-  {id:"t1",time:"九時",title:"朝食をしっかり、水分補給を始める",note:"炎天下に長く並ぶ前提で、朝のうちから水を多めに。"},
-  {id:"t2",time:"十時半",title:"スタジアムの街へ発つ",note:"平時の所要時間の倍を見込む。当日は道が止まる。"},
-  {id:"t3",time:"十一時四五",title:"スタジアム周辺に着く",note:"降車地点を一枚撮っておく。帰りの集合場所をここで決める。"},
-  {id:"t4",time:"十二時",title:"外観とファンゾーンを歩く",note:"開場は蹴球開始のおよそ三時間前。外の熱気は今しか撮れない。"},
-  {id:"t5",time:"十三時",title:"手荷物検査を抜けて入場",note:"クリアバッグ規定あり。チケットは公式アプリの画面表示で。"},
-  {id:"t6",time:"十三時半",title:"席を確かめ、売店と手洗いを済ます",note:"混む前に。席からの眺めを一枚。"},
-  {id:"t7",time:"十四時二〇",title:"ウォームアップを見る",note:"選手が最も近い時間。望遠の好機。"},
-  {id:"t8",time:"十四時五〇",title:"国歌斉唱",note:"カメラは固定で長回し。胸は熱く、手は静かに。"},
-  {id:"t9",time:"十五時",title:"蹴球開始",note:"ここからは目に焼き付けるのが本分。撮影は要所のみ。"},
-  {id:"t10",time:"十七時頃",title:"試合終了",note:"数万人が一斉に動く。三十分座って余韻を撮るのが正解。"},
-];
-
-const CHECKLIST = [
-  {id:"c1",cat:"肝要",label:"旅券(原本)",note:"身分証の提示を求められる場面がある"},
-  {id:"c2",cat:"肝要",label:"入場券(公式アプリ・充電済みの電話)",note:""},
-  {id:"c3",cat:"肝要",label:"クレジットカード",note:"場内はほぼ現金が使えない"},
-  {id:"c4",cat:"肝要",label:"予備電池",note:"撮影と券面表示で電池は瞬く間に減る"},
-  {id:"c5",cat:"鞄の定め",label:"クリアバッグ(約30×15×30cm以内)",note:"あるいは小型クラッチ。常のバッグは持ち込めない"},
-  {id:"c6",cat:"暑さへの備え",label:"日焼け止め・帽子・サングラス",note:"屋外の待機は体感四十度級"},
-  {id:"c7",cat:"暑さへの備え",label:"空のボトルか経口補水の粉",note:"場内の給水器で満たせる"},
-  {id:"c8",cat:"応援",label:"代表ユニフォーム・タオルマフラー",note:""},
-  {id:"c9",cat:"記録",label:"カメラ・予備のSD・小型三脚",note:"一脚・大型三脚は持ち込み不可が通例"},
-  {id:"c10",cat:"万一",label:"海外旅行保険の証券番号(紙でも)",note:"電話を失くしたときの命綱"},
-  {id:"c11",cat:"万一",label:"宿の住所の英語の控え",note:"配車や運転手にそのまま見せられる"},
-];
-
-const PHRASES = [
-  {id:"p1",cat:"場内",ja:"ゲートはどちらですか。",en:"Excuse me, where is Gate A?"},
-  {id:"p2",cat:"場内",ja:"モバイルチケットです。",en:"I have a mobile ticket on the app."},
-  {id:"p3",cat:"場内",ja:"この席を探しています。",en:"Could you help me find this seat?"},
-  {id:"p4",cat:"場内",ja:"いちばん近い手洗い/給水器はどこですか。",en:"Where is the nearest restroom / water fountain?"},
-  {id:"p5",cat:"買い物",ja:"これをください。カードで払えますか。",en:"I'll take this one. Can I pay by card?"},
-  {id:"p6",cat:"買い物",ja:"水を二本ください。",en:"Two bottles of water, please."},
-  {id:"p7",cat:"交流",ja:"写真を撮っていただけますか。",en:"Could you take a photo of us, please?"},
-  {id:"p8",cat:"交流",ja:"良い試合でしたね。次も頑張って。",en:"What a game! Good luck in the next match!"},
-  {id:"p9",cat:"移動",ja:"配車の乗り場はどこですか。",en:"Where is the rideshare pickup zone?"},
-  {id:"p10",cat:"急場",ja:"気分が悪い。助けてください。",en:"I feel sick. I need help, please."},
-  {id:"p11",cat:"急場",ja:"救護室はどこですか。",en:"Where is the first aid station?"},
-  {id:"p12",cat:"急場",ja:"財布(電話)を失くしました。遺失物係は。",en:"I lost my wallet (phone). Where is lost and found?"},
-];
-
-const SHOTS = [
-  {id:"s1",phase:"発つ前",label:"宿を出る前の支度と、ひとこと"},
-  {id:"s2",phase:"道中",label:"車窓 — スタジアムが見えた瞬間の顔"},
-  {id:"s3",phase:"場外",label:"ゲート前の群衆、両国のチャント"},
-  {id:"s4",phase:"場外",label:"ユニフォーム姿の自分と、現地の気候の報告"},
-  {id:"s5",phase:"場内",label:"コンコースからピッチへ出る一歩(見上げ)"},
-  {id:"s6",phase:"場内",label:"席からの眺め、ゆっくり一周"},
-  {id:"s7",phase:"試合",label:"国歌斉唱(固定・長回し)"},
-  {id:"s8",phase:"試合",label:"蹴球開始の瞬間と、スタンドの音"},
-  {id:"s9",phase:"試合",label:"ハーフタイム、前半の所感"},
-  {id:"s10",phase:"試合",label:"終了の瞬間の自分の顔(勝っても負けても)"},
-  {id:"s11",phase:"試合後",label:"退場の人波、夕暮れの外観"},
-  {id:"s12",phase:"試合後",label:"宿に戻ってその日のうちに、総括をひとつ"},
-];
-
-// ---------- 状態 ----------
-let state = { done:{}, custom:{bag:[],film:[]}, settings:{...DEFAULT_SETTINGS} };
-let tab = "match";
-let openPhrase = null;
-let settingsOpen = false;
-
-function load(){
-  try{
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(raw){
-      const s = JSON.parse(raw);
-      state.done = s.done || {};
-      state.custom = Object.assign({bag:[],film:[]}, s.custom);
-      state.settings = Object.assign({}, DEFAULT_SETTINGS, s.settings);
-    }
-  }catch(e){ /* 壊れていたら初期値で続行 */ }
-}
-function save(){
-  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
-}
-
-// ---------- 漢数字・日時 ----------
-const KD = ["〇","一","二","三","四","五","六","七","八","九"];
-function numK(n){ // 0-99
-  if(n<10) return KD[n];
-  const t=Math.floor(n/10), o=n%10;
-  return (t===1?"":KD[t])+"十"+(o===0?"":KD[o]);
-}
-function yearK(y){ return String(y).split("").map(d=>KD[+d]).join(""); }
-function hourK(h,m){
-  const min = m===0?"":(m===30?"半":numK(m)+"分");
-  if(h===0) return "午前零時"+min;
-  if(h===12) return min?"午後零時"+min:"正午";
-  return (h<12?"午前"+numK(h):"午後"+numK(h-12))+"時"+min;
-}
-
-// 任意タイムゾーンの「壁時計時刻」をUTCのDateに変換
-function zonedDate(naiveISO, tz){
-  const guess = new Date(naiveISO+":00Z");
-  const dtf = new Intl.DateTimeFormat("en-US",{timeZone:tz,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false});
-  const p = {};
-  dtf.formatToParts(guess).forEach(x=>p[x.type]=x.value);
-  const asTz = Date.UTC(+p.year, +p.month-1, +p.day, +p.hour%24, +p.minute, +p.second);
-  return new Date(guess.getTime() - (asTz - guess.getTime()));
-}
-function partsIn(date, tz){
-  const dtf = new Intl.DateTimeFormat("ja-JP",{timeZone:tz,year:"numeric",month:"numeric",day:"numeric",hour:"numeric",minute:"numeric",weekday:"short",hour12:false});
-  const p={};
-  dtf.formatToParts(date).forEach(x=>p[x.type]=x.value);
-  return {y:+p.year,mo:+p.month,d:+p.day,h:+p.hour%24,mi:+p.minute,w:p.weekday};
-}
-function kanjiDateTime(date, tz){
-  const p = partsIn(date, tz);
-  return `${yearK(p.y)}年${numK(p.mo)}月${numK(p.d)}日(${p.w})${hourK(p.h,p.mi)}`;
-}
-function kanjiDateTimeShort(date, tz){
-  const p = partsIn(date, tz);
-  return `${numK(p.mo)}月${numK(p.d)}日(${p.w})${hourK(p.h,p.mi)}`;
-}
-function kickoffDate(){ return zonedDate(state.settings.kickoff, state.settings.tz); }
-const pad2 = n => String(n).padStart(2,"0");
-const zTime = (d,tz)=> new Intl.DateTimeFormat("ja-JP",{timeZone:tz,hour:"2-digit",minute:"2-digit",hour12:false}).format(d);
-const zDay = (d,tz)=> new Intl.DateTimeFormat("ja-JP",{timeZone:tz,month:"numeric",day:"numeric",weekday:"short"}).format(d);
-const esc = s => String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-
-function isDefaultMatch(){
-  const s=state.settings, d=DEFAULT_SETTINGS;
-  return s.home===d.home && s.away===d.away && s.kickoff===d.kickoff && s.venue===d.venue;
-}
-
-// ---------- 描画 ----------
-const TABS = [
-  {id:"match",label:"試合"},{id:"day",label:"当日"},{id:"bag",label:"支度"},
-  {id:"talk",label:"言葉"},{id:"film",label:"記録"},{id:"safe",label:"備え"},
-];
-
-function renderHeader(){
-  const s = state.settings;
-  document.getElementById("hLabel").textContent = s.label;
-  document.getElementById("hTitle").innerHTML =
-    `${esc(s.home)} <span class="vs">対</span> ${esc(s.away)}`;
-  document.getElementById("hMeta").innerHTML =
-    `${esc(kanjiDateTime(kickoffDate(), s.tz))} 蹴球開始<br>於 ${esc(s.venue)} ${esc(s.city)}`;
-}
-
-function renderNav(){
-  document.getElementById("navin").innerHTML = TABS.map(t=>
-    `<button class="navbtn${t.id===tab?" on":""}" data-tab="${t.id}">${t.label}</button>`
-  ).join("");
-}
-
-function listHTML(items, kind){
-  const heads = {
-    timeline:{title:"当日の運び",sub:"蹴球開始から逆算した一日の手本。済んだら印を。時刻は十五時開始の例。"},
-    bag:{title:"支度",sub:"前夜のうちにすべて印を。鞄はクリアバッグの定めに従う。"},
-    film:{title:"記録の手控え",sub:"撮るべき場面の覚え書き。ただし試合中は、まず目で観る。"},
+function cfg() {
+  return {
+    ps:  document.getElementById('s-ps').value,
+    fs:  +document.getElementById('s-fs').value || 13,
+    lh:  +document.getElementById('s-lh').value || 2.0,
+    mt:  +document.getElementById('s-mt').value || 20,
+    mb:  +document.getElementById('s-mb').value || 20,
+    mi:  +document.getElementById('s-mi').value || 22,
+    mo:  +document.getElementById('s-mo').value || 14,
+    nb:  document.getElementById('s-nb').checked,
+    np:  +document.getElementById('s-np').value || 1,
+    hs:  document.getElementById('s-hs').value.trim(),
+    ind: document.getElementById('s-in').checked,
+    ls:  +document.getElementById('s-ls').value || 0,
   };
-  const customKey = kind==="bag"?"bag":(kind==="film"?"film":null);
-  const customs = customKey ? state.custom[customKey].map((c,i)=>({id:`x-${customKey}-${i}`,cat:"自分の覚え",phase:"自分の覚え",label:c,custom:true,ci:i})) : [];
-  const all = items.concat(customs);
-  const doneCount = all.filter(i=>state.done[i.id]).length;
-  const h = heads[kind];
+}
 
-  let html = `<div class="head"><div class="top"><h2>${h.title}</h2><span class="prog">${doneCount} / ${all.length}</span></div><p>${h.sub}</p></div>`;
-  let last = null;
-  for(const item of all){
-    const group = item.cat || item.phase || null;
-    if(group && group!==last){ html += `<div class="grp">${esc(group)}</div>`; last = group; }
-    const done = !!state.done[item.id];
-    const mark = `<span class="mark" aria-hidden="true">${done?"済":""}</span>`;
-    html += `<button class="item${done?" done":""}" data-toggle="${item.id}">`;
-    if(item.time) html += `<span class="time">${esc(item.time)}</span>`;
-    else html += mark;
-    html += `<span class="body"><span class="lbl">${esc(item.title||item.label)}</span>`;
-    if(item.note) html += `<span class="note">${esc(item.note)}</span>`;
-    html += `</span>`;
-    if(item.time) html += mark;
-    if(item.custom) html += `<span class="del" data-del="${customKey}:${item.ci}" role="button" aria-label="削除">×</span>`;
-    html += `</button>`;
+function buildPages(raw, c) {
+  const paras = raw.split(/\n\n+/).map(p => p.replace(/\n/g,'').trim()).filter(Boolean);
+  if (!paras.length) return null;
+
+  const allText = paras.map(p => (c.ind ? '　' : '') + p).join('');
+
+  const dim = SIZES[c.ps];
+  const tw  = dim.w - c.mi - c.mo;   // text area width (mm)
+  const th  = dim.h - c.mt - c.mb;   // text area height (mm)
+
+  const fsMm   = c.fs * PT_MM;        // character size (mm)
+  const colW   = fsMm * c.lh;         // column pitch = line-height direction (mm)
+
+  const cpc    = Math.floor(th / fsMm);   // chars per column
+  const cpp    = Math.floor(tw / colW);   // columns per page
+  const pSize  = Math.max(1, cpc * cpp);  // chars per page
+
+  const pages = [];
+  for (let i = 0; i < allText.length; i += pSize) pages.push(allText.slice(i, i + pSize));
+  if (!pages.length) pages.push('');
+
+  return {pages, dim, tw, th, fsMm};
+}
+
+let _pageCSS = null;
+
+function setPageCSS(dim) {
+  if (!_pageCSS) { _pageCSS = document.createElement('style'); document.head.appendChild(_pageCSS); }
+  _pageCSS.textContent = `@media print{@page{size:${dim.w}mm ${dim.h}mm;margin:0}body{margin:0;padding:0}}`;
+}
+
+// Build one page element (preview or print)
+function makePage(txt, idx, c, dim, tw, th, fsMm, scale) {
+  const isRecto = (idx % 2 === 0); // idx=0 → page 1 (right/recto)
+  const pageNum = c.np + idx;
+
+  // In vertical-rl, 'right' is where the first column starts.
+  // Recto (right page): 小口 on right → text starts from right margin = c.mo
+  // Verso (left page):  ノド on right → text starts from inner margin = c.mi
+  const textRight = isRecto ? c.mo : c.mi;
+  const isPx = scale > 0; // px mode for preview, mm mode for print
+
+  const u = isPx ? v => (v * MM * scale) + 'px' : v => v + 'mm';
+  const fs = isPx ? (fsMm * MM * scale) + 'px' : c.fs + 'pt';
+  const nomberFs = isPx ? (8 * PT_MM * MM * scale) + 'px' : '8pt';
+  const hashiraFs = isPx ? (7 * PT_MM * MM * scale) + 'px' : '7pt';
+
+  const pg = document.createElement('div');
+  pg.className = isPx ? 'pg' : 'pp';
+  pg.style.cssText = `width:${u(dim.w)};height:${u(dim.h)}`;
+
+  // Body text
+  const pb = document.createElement('div');
+  pb.className = isPx ? 'pg-body' : 'pp-body';
+  pb.style.cssText = `top:${u(c.mt)};right:${u(textRight)};width:${u(tw)};height:${u(th)};font-size:${fs};line-height:${c.lh}em;letter-spacing:${c.ls}em`;
+  pb.textContent = txt;
+  pg.appendChild(pb);
+
+  // Nomber (bottom center)
+  if (c.nb) {
+    const num = document.createElement('div');
+    num.className = isPx ? 'pg-num' : 'pp-num';
+    num.style.cssText = `bottom:${u(c.mb * 0.35)};left:50%;transform:translateX(-50%);font-size:${nomberFs}`;
+    num.textContent = pageNum;
+    pg.appendChild(num);
   }
-  if(customKey){
-    html += `<div class="addrow"><input id="addInput" placeholder="自分の項目を書き足す" maxlength="60"><button data-add="${customKey}">追 加</button></div>`;
+
+  // Hashira (outer margin, vertical)
+  if (c.hs) {
+    const hs = document.createElement('div');
+    hs.className = isPx ? 'pg-hs' : 'pp-hs';
+    // Recto: outer is right side; Verso: outer is left side
+    const hsCss = isRecto
+      ? `right:0;width:${u(c.mo)};top:${u(c.mt)};height:${u(th)};font-size:${hashiraFs}`
+      : `left:0;width:${u(c.mo)};top:${u(c.mt)};height:${u(th)};font-size:${hashiraFs}`;
+    hs.style.cssText = hsCss;
+    hs.textContent = c.hs;
+    pg.appendChild(hs);
   }
-  return html;
+
+  return pg;
 }
 
-function matchHTML(){
-  const s = state.settings;
-  const ko = kickoffDate();
-  let html = `
-  <section class="center">
-    <div class="cdlabel" id="cdLabel">蹴球開始まで</div>
-    <div class="cd" id="cd"></div>
-    <div class="clocks">
-      <div class="clk"><div class="l">現地</div><div class="t" id="clkA"></div><div class="d" id="clkAd"></div></div>
-      <div class="clkdiv"></div>
-      <div class="clk"><div class="l">日本</div><div class="t" id="clkB"></div><div class="d" id="clkBd"></div></div>
-    </div>
-    <p class="lede">蹴球開始は日本時間 ${esc(kanjiDateTimeShort(ko,"Asia/Tokyo"))}。<br>家も友も、同じ時刻に同じ試合を見ている。</p>
-  </section>
-  <div class="rule"></div>
-  <div class="sec"><h3>会場</h3>
-    <div class="row"><span class="k">名称</span><span>${esc(s.venue)}(${esc(s.city)})</span></div>
-    <div class="row"><span class="k">心得</span><span>本当の戦いは入場まで。開場は蹴球開始のおよそ三時間前</span></div>
-  </div>`;
-  if(isDefaultMatch()){
-    html += `
-  <div class="sec"><h3>F組 日本の三戦</h3>
-    <div class="row"><span class="k">六月十四日(日)</span><span style="font-family:var(--mincho);font-weight:600">日本 対 オランダ <span style="color:var(--shu);font-size:11px;letter-spacing:.15em">本戦・現地</span><br><span style="font-size:11px;color:var(--dim)">AT&Tスタジアム・ダラス ・ 日本時間 十五日(月)朝五時</span></span></div>
-    <div class="row"><span class="k">六月二十日(土)</span><span style="font-family:var(--mincho);font-weight:600">チュニジア 対 日本<br><span style="font-size:11px;color:var(--dim)">エスタディオBBVA・モンテレイ ・ 日本時間 二十一日(日)昼十二時</span></span></div>
-    <div class="row"><span class="k">六月二十五日(木)</span><span style="font-family:var(--mincho);font-weight:600">日本 対 スウェーデン<br><span style="font-size:11px;color:var(--dim)">AT&Tスタジアム・ダラス ・ 日本時間 二十六日(金)朝八時</span></span></div>
-  </div>
-  <div class="sec"><h3>十六年</h3>
-    <p class="essay">ワールドカップでオランダと相見えるのは、二〇一〇年の南アフリカ以来。あの日はスナイデルの一撃に沈み、零対一。彼らはそのまま決勝まで駆け上がった。十六年が経ち、舞台はテキサスへ。今度の結末を、あなたは客席で見届ける。</p>
-  </div>`;
-  }
-  html += `<p class="foot">非公式・ファンメイドの記録ツール ・ データはこの端末にのみ保存されます</p>`;
-  return html;
-}
+function renderAll() {
+  const c = cfg();
+  const raw = document.getElementById('ms').value;
+  const result = buildPages(raw, c);
 
-function talkHTML(){
-  let html = `<div class="head"><div class="top"><h2>言葉の備え</h2></div><p>押すと大きく表示される。そのまま画面を相手に見せてよい。</p></div>`;
-  let last=null;
-  for(const p of PHRASES){
-    if(p.cat!==last){ html += `<div class="grp${p.cat==="急場"?" kyuba":""}">${p.cat}</div>`; last=p.cat; }
-    html += `<button class="phrase" data-phrase="${p.id}"><div class="ja">${esc(p.ja)}</div><div class="en">${esc(p.en)}</div></button>`;
-  }
-  return html;
-}
+  const prevEl  = document.getElementById('prev');
+  const printEl = document.getElementById('print-area');
+  const statsEl = document.getElementById('stats');
+  const emptyEl = document.getElementById('prev-empty');
 
-function safeHTML(){
-  return `
-  <div class="head"><div class="top"><h2>万一の備え</h2></div><p>使わずに済むのがいちばん。それでも携えるのが遠征の作法。</p></div>
-  <div class="sec"><h3 class="accent">緊急通報</h3>
-    <div class="row"><span class="k">警察・消防・救急</span><span class="big">九一一(米国・カナダ共通、無料)</span></div>
-    <div class="row"><span class="k">メキシコ</span><span class="big">九一一(同番号)</span></div>
-    <div class="row"><span class="k">伝え方</span><span>“I need an ambulance / police.” と場所を</span></div>
-  </div>
-  <div class="sec"><h3>日本国総領事館(米国の例)</h3>
-    <div class="row"><span class="k">テキサス州</span><span>在ヒューストン総領事館 +1-713-652-2977</span></div>
-    <div class="row"><span class="k">用向き</span><span>旅券の紛失・盗難、事件事故の際の支援</span></div>
-    <p style="font-size:11px;color:var(--dim);margin:10px 0 0;line-height:1.9">観戦地を管轄する公館と番号は、出発前に外務省の頁で必ず確かめる。「たびレジ」への登録も忘れずに。</p>
-  </div>
-  <div class="sec"><h3 class="accent">夏の北米、真の敵は暑さ</h3>
-    <p class="essay">日中三十五度超えは珍しくない。場内に空調があっても、入場待ちの屋外は危険な水準にある。渇く前に飲む。帽子と日焼け止め。並ぶ前に手洗いを済ます。めまい、吐き気、汗が止まる——熱中症の兆しを覚えたら、ためらわず日陰へ。係員には「I feel sick」のひとことでいい。</p>
-  </div>
-  <div class="sec"><h3>土地の作法</h3>
-    <div class="row"><span class="k">チップ</span><span>食事は二割が目安、配車は数ドルから</span></div>
-    <div class="row"><span class="k">支払い</span><span>ほぼカードの国。現金は少額のみ</span></div>
-    <div class="row"><span class="k">帰路</span><span>試合直後の配車は争奪戦。乗り場は昼のうちに確かめる</span></div>
-    <div class="row"><span class="k">貴重品</span><span>人混みで電話を手に持たない。前の隠しか鞄の中へ</span></div>
-  </div>`;
-}
-
-function settingsHTML(){
-  const s = state.settings;
-  const tzOpts = TZ_OPTIONS.map(([v,l])=>`<option value="${v}"${v===s.tz?" selected":""}>${l}</option>`).join("");
-  return `
-  <div class="settings" id="settingsOverlay"><div class="in">
-    <div class="head"><div class="top"><h2>手帖の設定</h2></div><p>自分の観戦する試合に合わせて書き換える。表紙と各頁に反映される。</p></div>
-    <div class="field"><label>大会・組の表記</label><input id="fLabel" value="${esc(s.label)}" maxlength="40"></div>
-    <div class="field"><label>自分の側</label><input id="fHome" value="${esc(s.home)}" maxlength="20"></div>
-    <div class="field"><label>相手</label><input id="fAway" value="${esc(s.away)}" maxlength="20"></div>
-    <div class="field"><label>蹴球開始(現地時刻)</label><input id="fKickoff" type="datetime-local" value="${esc(s.kickoff)}"></div>
-    <div class="field"><label>会場のタイムゾーン</label><select id="fTz">${tzOpts}</select></div>
-    <div class="field"><label>会場名</label><input id="fVenue" value="${esc(s.venue)}" maxlength="40"></div>
-    <div class="field"><label>都市</label><input id="fCity" value="${esc(s.city)}" maxlength="40"></div>
-    <div class="btnrow">
-      <button class="btn" id="settingsCancel">閉じる</button>
-      <button class="btn primary" id="settingsSave">書き留める</button>
-    </div>
-    <div class="danger">
-      <button id="clearMarks">印をすべて消す(設定は残す)</button>
-      <button id="resetAll">手帖を最初から作り直す</button>
-    </div>
-    <p class="foot">非公式・ファンメイド ・ 保存先はこの端末のブラウザのみ</p>
-  </div></div>`;
-}
-
-function render(){
-  renderHeader();
-  renderNav();
-  const main = document.getElementById("main");
-  if(tab==="match") main.innerHTML = matchHTML();
-  else if(tab==="day") main.innerHTML = listHTML(TIMELINE,"timeline");
-  else if(tab==="bag") main.innerHTML = listHTML(CHECKLIST,"bag");
-  else if(tab==="talk") main.innerHTML = talkHTML();
-  else if(tab==="film") main.innerHTML = listHTML(SHOTS,"film");
-  else if(tab==="safe") main.innerHTML = safeHTML();
-  renderModals();
-  tick();
-}
-
-function renderModals(){
-  const m = document.getElementById("modals");
-  let html = "";
-  if(openPhrase){
-    const p = PHRASES.find(x=>x.id===openPhrase);
-    if(p) html += `<div class="overlay" id="phraseOverlay" role="button" tabindex="0">
-      <div class="cap">この画面を見せる</div>
-      <div class="big">${esc(p.en)}</div>
-      <div class="sub">${esc(p.ja)}</div>
-      <div class="close">触れると閉じる</div></div>`;
-  }
-  if(settingsOpen) html += settingsHTML();
-  m.innerHTML = html;
-}
-
-// ---------- 時計 ----------
-function tick(){
-  const now = new Date();
-  const ko = kickoffDate();
-  const cdEl = document.getElementById("cd");
-  if(cdEl){
-    const diff = ko - now;
-    const abs = Math.abs(diff);
-    const dd = Math.floor(abs/86400000), hh=Math.floor(abs%86400000/3600000),
-          mm=Math.floor(abs%3600000/60000), ss=Math.floor(abs%60000/1000);
-    document.getElementById("cdLabel").textContent = diff<=0?"蹴球開始から":"蹴球開始まで";
-    cdEl.innerHTML = (dd>0?`${dd}<span class="u">日</span>`:"")+
-      `${pad2(hh)}<span class="u">時</span>${pad2(mm)}<span class="u">分</span>${pad2(ss)}<span class="u">秒</span>`;
-    const tz = state.settings.tz;
-    document.getElementById("clkA").textContent = zTime(now,tz);
-    document.getElementById("clkAd").textContent = zDay(now,tz);
-    document.getElementById("clkB").textContent = zTime(now,"Asia/Tokyo");
-    document.getElementById("clkBd").textContent = zDay(now,"Asia/Tokyo");
-  }
-}
-setInterval(tick, 1000);
-
-// ---------- 操作 ----------
-document.addEventListener("click", (e)=>{
-  const del = e.target.closest("[data-del]");
-  if(del){
-    e.stopPropagation();
-    const [key,i] = del.dataset.del.split(":");
-    state.custom[key].splice(+i,1);
-    // 添字ずれ防止のため当該キーの印を整理
-    Object.keys(state.done).forEach(k=>{ if(k.startsWith(`x-${key}-`)) delete state.done[k]; });
-    save(); render(); return;
-  }
-  const t = e.target.closest("[data-tab]");
-  if(t){ tab = t.dataset.tab; render(); return; }
-  const tg = e.target.closest("[data-toggle]");
-  if(tg){ const id=tg.dataset.toggle; state.done[id]=!state.done[id]; if(!state.done[id]) delete state.done[id]; save(); render(); return; }
-  const ph = e.target.closest("[data-phrase]");
-  if(ph){ openPhrase = ph.dataset.phrase; renderModals(); return; }
-  if(e.target.closest("#phraseOverlay")){ openPhrase=null; renderModals(); return; }
-  const add = e.target.closest("[data-add]");
-  if(add){
-    const input = document.getElementById("addInput");
-    const v = (input.value||"").trim();
-    if(v){ state.custom[add.dataset.add].push(v); save(); render(); }
+  if (!result) {
+    prevEl.innerHTML = '';
+    prevEl.appendChild(emptyEl);
+    emptyEl.style.display = '';
+    printEl.innerHTML = '';
+    statsEl.textContent = '';
     return;
   }
-  if(e.target.closest("#gearBtn")){ settingsOpen=true; renderModals(); return; }
-  if(e.target.closest("#settingsCancel")){ settingsOpen=false; renderModals(); return; }
-  if(e.target.closest("#settingsSave")){
-    const g = id=>document.getElementById(id).value.trim();
-    state.settings = {
-      label:g("fLabel")||DEFAULT_SETTINGS.label,
-      home:g("fHome")||"自分の側", away:g("fAway")||"相手",
-      kickoff:document.getElementById("fKickoff").value||DEFAULT_SETTINGS.kickoff,
-      tz:document.getElementById("fTz").value,
-      venue:g("fVenue")||"会場", city:g("fCity")||"",
-    };
-    settingsOpen=false; save(); render(); return;
-  }
-  if(e.target.closest("#clearMarks")){
-    if(confirm("すべての印を消します。よろしいですか。")){ state.done={}; save(); render(); }
-    return;
-  }
-  if(e.target.closest("#resetAll")){
-    if(confirm("設定・印・書き足した項目をすべて消して、最初の状態に戻します。よろしいですか。")){
-      state = {done:{},custom:{bag:[],film:[]},settings:{...DEFAULT_SETTINGS}};
-      save(); settingsOpen=false; render();
-    }
-    return;
-  }
+
+  emptyEl.style.display = 'none';
+  const {pages, dim, tw, th, fsMm} = result;
+  setPageCSS(dim);
+
+  // Preview scale: fit pages reasonably
+  const prevW = prevEl.clientWidth || 800;
+  const prevH = prevEl.clientHeight || 600;
+  const maxCardH = prevH - 36;
+  const maxCardW = Math.min(prevW * 0.45, 280);
+  const scale = Math.min(maxCardW / (dim.w * MM), maxCardH / (dim.h * MM), 0.6);
+
+  prevEl.innerHTML = '';
+  prevEl.appendChild(emptyEl);
+  printEl.innerHTML = '';
+
+  pages.forEach((txt, idx) => {
+    prevEl.appendChild(makePage(txt, idx, c, dim, tw, th, fsMm, scale));
+    printEl.appendChild(makePage(txt, idx, c, dim, tw, th, fsMm, 0));
+  });
+
+  const chars = pages.join('').length;
+  statsEl.textContent = `${chars.toLocaleString()} 字　${pages.length} ページ`;
+}
+
+function doPrint() {
+  renderAll();
+  setTimeout(() => window.print(), 150);
+}
+
+// Debounce
+let _t = null;
+function defer() { clearTimeout(_t); _t = setTimeout(renderAll, 200); }
+
+document.getElementById('ms').addEventListener('input', defer);
+document.querySelectorAll('#settings input,#settings select').forEach(el => {
+  el.addEventListener('change', defer);
+  el.addEventListener('input', defer);
 });
+window.addEventListener('resize', defer);
 
-// ---------- 起動 ----------
-load();
-render();
-if("serviceWorker" in navigator){
-  window.addEventListener("load", ()=>{ navigator.serviceWorker.register("./sw.js").catch(()=>{}); });
-}
+renderAll();
 </script>
 </body>
 </html>
