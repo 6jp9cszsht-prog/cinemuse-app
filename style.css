@@ -1,0 +1,173 @@
+:root{
+  --sky-0:#0b101c;      /* 天頂の夜 */
+  --sky-1:#101826;      /* 中空 */
+  --sky-2:#15202f;      /* 地平に近い藍鼠 */
+  --paper:#d9d4c7;      /* 生成りの文字 */
+  --dim:#7d8490;        /* 薄墨 */
+  --akebono:#ee9277;    /* 曙 */
+  --akebono-soft:rgba(238,146,119,.55);
+  --hair:rgba(217,212,199,.14);
+  --mincho:"Zen Old Mincho","Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;
+  --gothic:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--mincho);
+  color:var(--paper);
+  background:linear-gradient(180deg,var(--sky-0) 0%,var(--sky-1) 62%,var(--sky-2) 100%) fixed;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:rgba(238,146,119,.28)}
+
+/* ——— 曙の地平線(常灯) ——— */
+.dawn{
+  position:fixed;left:0;right:0;bottom:0;height:34vh;
+  pointer-events:none;z-index:0;
+  background:linear-gradient(to top, rgba(238,146,119,.11), rgba(238,146,119,.03) 45%, transparent 80%);
+}
+.dawn::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
+  background:linear-gradient(90deg, transparent 4%, rgba(238,146,119,.55) 50%, transparent 96%);
+}
+
+.wrap{max-width:640px;margin:0 auto;padding:0 26px;position:relative;z-index:1}
+
+/* ——— ページ読み込みの立ち上がり ——— */
+.rise{animation:rise .8s cubic-bezier(.2,.6,.25,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){
+  .rise{animation:none}
+  html{scroll-behavior:auto}
+}
+
+a{color:inherit;text-decoration:none}
+a:focus-visible{outline:1px solid var(--akebono);outline-offset:4px}
+
+/* ——— 表紙 ——— */
+.cover{min-height:92vh;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:14vh}
+.mast{
+  position:absolute;top:8vh;right:-2px;
+  writing-mode:vertical-rl;
+  font-weight:900;line-height:1;
+  font-size:clamp(96px,27vw,176px);
+  letter-spacing:.3em;
+  color:var(--paper);
+  user-select:none;
+}
+.mast small{
+  display:block;
+  writing-mode:vertical-rl;
+  font-family:var(--gothic);font-weight:300;
+  font-size:11px;letter-spacing:.6em;color:var(--dim);
+  margin-top:1.4em;
+}
+.tag{max-width:17em}
+.tag h2{font-weight:400;font-size:clamp(19px,4.6vw,23px);line-height:2;letter-spacing:.08em;margin-bottom:1.1rem}
+.tag p{font-family:var(--gothic);font-weight:300;font-size:12px;letter-spacing:.3em;color:var(--dim)}
+.cue{
+  display:inline-block;margin-top:3rem;
+  font-family:var(--gothic);font-weight:300;font-size:12px;letter-spacing:.34em;color:var(--dim);
+  border-bottom:1px solid var(--hair);padding-bottom:.5em;
+  transition:color .3s,border-color .3s;
+}
+.cue:hover{color:var(--akebono);border-color:var(--akebono-soft)}
+
+/* ——— について ——— */
+.about{padding:6rem 0 4.5rem;border-top:1px solid var(--hair)}
+.label{
+  display:block;font-family:var(--gothic);font-weight:400;
+  font-size:11px;letter-spacing:.42em;color:var(--akebono);
+  margin-bottom:1.6rem;
+}
+.about p{font-size:15.5px;line-height:2.2;letter-spacing:.04em;text-indent:1em;margin-bottom:1em}
+.kata{
+  margin-top:2.2rem;
+  font-family:var(--gothic);font-weight:300;
+  font-size:12px;letter-spacing:.26em;color:var(--dim);
+}
+.kata b{font-weight:400;color:var(--paper)}
+
+/* ——— 目次 ——— */
+.toc{padding:4.5rem 0 7rem;border-top:1px solid var(--hair)}
+.toc ol{list-style:none}
+.toc li{border-bottom:1px solid var(--hair)}
+.toc a, .toc .soon-inner{display:block;padding:2.1rem 0}
+.meta{
+  font-family:var(--gothic);font-weight:300;
+  font-size:11px;letter-spacing:.26em;color:var(--dim);
+  display:flex;gap:1.2em;flex-wrap:wrap;margin-bottom:.9rem;
+}
+.meta .ya{color:var(--akebono)}
+.toc h3{font-weight:700;font-size:clamp(18px,4.8vw,21px);line-height:1.8;letter-spacing:.05em;transition:color .3s}
+.toc a:hover h3{color:var(--akebono)}
+.toi-line{margin-top:.7rem;font-size:13.5px;line-height:2;color:var(--dim);letter-spacing:.04em}
+.soon{opacity:.42}
+.soon .chip{
+  display:inline-block;font-family:var(--gothic);font-size:10px;letter-spacing:.3em;
+  border:1px solid var(--hair);border-radius:2px;padding:.2em .7em .2em .9em;color:var(--dim);
+}
+
+/* ——— 記事 ——— */
+.post{padding:9vh 0 6rem}
+.back{
+  font-family:var(--gothic);font-weight:300;font-size:12px;letter-spacing:.3em;color:var(--dim);
+  transition:color .3s;
+}
+.back:hover{color:var(--akebono)}
+.post header{margin:3.2rem 0 4.5rem}
+.post h1{font-weight:900;font-size:clamp(24px,6.4vw,31px);line-height:1.9;letter-spacing:.06em;margin-bottom:1rem}
+.subtitle{font-size:14.5px;color:var(--dim);letter-spacing:.06em;line-height:2}
+.epigraph{
+  margin:3.4rem 0 0;padding-left:1.3rem;
+  border-left:1px solid var(--akebono-soft);
+  font-size:clamp(16.5px,4.4vw,19px);line-height:2.1;letter-spacing:.05em;
+}
+.seg{margin:3.6rem 0}
+.koma{
+  display:block;font-family:var(--gothic);font-weight:400;
+  font-size:11px;letter-spacing:.44em;color:var(--akebono);
+  margin-bottom:1.5rem;
+}
+.post p{font-size:16px;line-height:2.2;letter-spacing:.045em;text-indent:1em;margin-bottom:1.1em}
+.post p:last-child{margin-bottom:0}
+
+.toi{
+  margin:5rem 0 3.5rem;padding:2.6rem 0 2.4rem;
+  border-top:1px solid var(--akebono-soft);
+  border-bottom:1px solid var(--hair);
+}
+.toi .koma{margin-bottom:1.2rem}
+.toi p{font-size:clamp(17px,4.6vw,19.5px);line-height:2.1;text-indent:0;letter-spacing:.05em}
+
+.yonav{
+  display:flex;justify-content:space-between;align-items:baseline;gap:1.5em;
+  padding-top:2.4rem;
+  font-family:var(--gothic);font-weight:300;font-size:12px;letter-spacing:.2em;color:var(--dim);
+}
+.yonav a{transition:color .3s;line-height:1.9}
+.yonav a:hover{color:var(--akebono)}
+.yonav .ghost{opacity:.35}
+
+/* ——— フッター ——— */
+footer{
+  border-top:1px solid var(--hair);
+  padding:3rem 0 9rem;
+  font-family:var(--gothic);font-weight:300;
+  font-size:11px;letter-spacing:.3em;color:var(--dim);
+  line-height:2.4;
+}
+footer .mark{font-family:var(--mincho);font-weight:700;font-size:14px;letter-spacing:.5em;color:var(--paper)}
+footer a{border-bottom:1px solid var(--hair);padding-bottom:.2em;transition:color .3s,border-color .3s}
+footer a:hover{color:var(--akebono);border-color:var(--akebono-soft)}
+
+/* ——— 404 ——— */
+.lost{min-height:88vh;display:flex;flex-direction:column;justify-content:center}
+.lost h1{font-weight:700;font-size:clamp(22px,6vw,30px);line-height:2.1;letter-spacing:.08em;margin:1.8rem 0 2.6rem}
+
+@media (max-width:480px){
+  .mast{top:6vh}
+  .cover{padding-bottom:16vh}
+}

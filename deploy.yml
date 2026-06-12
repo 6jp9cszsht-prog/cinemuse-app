@@ -1,0 +1,50 @@
+# ↓ この内容を、GitHub上で「Add file → Create new file」→
+#   ファイル名欄に .github/workflows/deploy.yml と入力して貼り付けてください
+#   (この deploy.yml 自体はコピー元なので、ルートに置かれても無害です)
+
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Bake real URL into files
+        run: |
+          BASE="${{ steps.pages.outputs.base_url }}"
+          BASE_NOSCHEME="${BASE#https://}"
+          find . -maxdepth 1 -type f \( -name "*.html" -o -name "*.xml" -o -name "robots.txt" \) \
+            -exec sed -i "s|https://YOURNAME.github.io/mimei|${BASE}|g; s|YOURNAME.github.io/mimei|${BASE_NOSCHEME}|g" {} +
+          rm -f README.md deploy.yml
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

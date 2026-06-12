@@ -1,38 +1,89 @@
-# 遠征手帖
+# 未明 — 公開・運用ガイド(スマホ完結版)
 
-ワールドカップ現地観戦のための、非公式ファンメイドの記録ツールです。
-カウントダウン/当日の運び/支度のチェック/英語フレーズカード/撮影の手控え/万一の備え、をひとつの手帖にまとめています。
-
-- サーバー不要・完全無料(保存はすべて利用者の端末内 localStorage)
-- PWA対応:スマホの「ホーム画面に追加」でアプリのように使え、オフラインでも開けます
-- 右上「設定」から試合・日時・会場を書き換えれば、どの試合の手帖にもなります
+わかる、の少し手前で書く。週にひとつの問いを置いていく哲学エッセイ。
 
 ## 構成
 
+フォルダなしの平置き構成(スマホの一括アップロード対応)。
+HTML 8(記事6+表紙+404)/ feed.xml / sitemap.xml / robots.txt / style.css / 画像3 / deploy.yml(ワークフローのコピー元)
+
+URLの置換作業は不要です。デプロイ時に GitHub Actions が本番URLを自動検知して、
+canonical・OGP・RSS・sitemap・robots すべてに焼き込みます。
+独自ドメインに切り替えた場合も、再デプロイするだけで自動追従します。
+
+## 公開手順(スマホのブラウザだけで完結・約10分)
+
+1. このzipをスマホで解凍(iPhoneはファイルAppでタップ、AndroidはFiles)
+2. ブラウザで github.com → New repository → 名前は自由(例: mimei)→ **Public** → Create
+3. リポジトリで Add file → **Upload files** → 解凍したファイルを**全部**選択 → Commit
+4. アップ後、Add file → **Create new file** → ファイル名欄に
+   `.github/workflows/deploy.yml`
+   と入力 → 下のYAML(またはルートの deploy.yml の中身)を貼り付け → Commit
+5. 1〜2分でActionsが走り、公開完了。URLは Actions の完了画面、
+   または Settings → Pages に表示されます
+
+万一サイトが表示されない場合だけ: Settings → Pages → Source を **GitHub Actions** に変更して、Actionsタブから deploy を Re-run。
+
+```yaml
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Bake real URL into files
+        run: |
+          BASE="${{ steps.pages.outputs.base_url }}"
+          BASE_NOSCHEME="${BASE#https://}"
+          find . -maxdepth 1 -type f \( -name "*.html" -o -name "*.xml" -o -name "robots.txt" \) \
+            -exec sed -i "s|https://YOURNAME.github.io/mimei|${BASE}|g; s|YOURNAME.github.io/mimei|${BASE_NOSCHEME}|g" {} +
+          rm -f README.md deploy.yml
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
 ```
-index.html            本体(これ1枚で動きます)
-manifest.webmanifest  PWA設定
-sw.js                 オフライン対応のservice worker
-icon-192.png          アイコン
-icon-512.png          アイコン
-```
 
-## 公開のしかた(GitHub Pages・無料)
+## 毎週金曜の更新(スマホで2分)
 
-1. GitHubで新しいリポジトリを作る(例: `ensei-techo`、Public)
-2. この5ファイルをリポジトリ直下にアップロード(Add file → Upload files)
-3. リポジトリの **Settings → Pages** を開く
-4. Source を **Deploy from a branch**、Branch を **main / (root)** にして Save
-5. 数分後、`https://<ユーザー名>.github.io/ensei-techo/` で公開されます
+新しい夜を書いたら、**変更のあったファイル一式**(例: n07.html、index.html、feed.xml、sitemap.xml)を
+リポジトリの Add file → Upload files で選択するだけ。
+**同名ファイルは自動で上書き**され、pushをトリガーにActionsが再デプロイします。
+編集画面でのコピペ作業はゼロ。
 
-以後の更新は `index.html` を差し替えてpushするだけです。
+22時ぴったりに公開したい週は、そのタイミングでUploadすればOK。
 
-## 注意
+## メモ
 
-- 大会・チーム・会場の公式ロゴや「FIFA」等の商標は使用していません。公開時もロゴ画像の追加は避けてください
-- 緊急連絡先(総領事館など)は変わることがあります。利用者には出発前に外務省サイトでの確認を促す文面を本文に入れてあります
-- チェック状態は端末ごとに保存されます。端末を変えると引き継がれません(共有機能が必要になったらSupabase等の追加を検討)
-
-## ライセンス
-
-MIT License — 自由に改変・再配布してください。
+- 第四〜六夜(6/19・6/26・7/3付)は仕込み済み。各金曜まで隠したい場合は該当ファイルを抜いてアップし、当日に追加アップ。気にしないなら全部出して構わない(在庫が見える棚も悪くない)
+- 検索流入を急ぎたければ、公開後に Google Search Console へ sitemap.xml を登録
+- 今後の予定: 第七夜「そのうち」という時間(7/10)、第八夜 退屈について(7/17)

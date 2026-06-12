@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>未明</title>
+  <link>https://YOURNAME.github.io/mimei/</link>
+  <atom:link href="https://YOURNAME.github.io/mimei/feed.xml" rel="self" type="application/rss+xml"/>
+  <description>わかる、の少し手前で書く。週にひとつの問いを置いていく哲学エッセイ。更新は毎週金曜22時。</description>
+  <language>ja</language>
+  <lastBuildDate>Fri, 12 Jun 2026 22:00:00 +0900</lastBuildDate>
+
+  <item>
+    <title>なぜ働くのか、と訊かれたら</title>
+    <link>https://YOURNAME.github.io/mimei/n06.html</link>
+    <guid>https://YOURNAME.github.io/mimei/n06.html</guid>
+    <pubDate>Fri, 03 Jul 2026 22:00:00 +0900</pubDate>
+    <description>「なぜ働くのか」に、私たちはなぜ即答できないのだろう。答えがないからか、問いの形のほうがおかしいのか。学生の逆質問と、アーレントの三分法。</description>
+  </item>
+  <item>
+    <title>数字にならないものの値段</title>
+    <link>https://YOURNAME.github.io/mimei/n05.html</link>
+    <guid>https://YOURNAME.github.io/mimei/n05.html</guid>
+    <pubDate>Fri, 26 Jun 2026 22:00:00 +0900</pubDate>
+    <description>値段がつかないものは、価値がないのだろうか。それとも、値段という物差しのほうが、そこまで届かないだけなのだろうか。月末の締めと、ジンメルの貨幣。</description>
+  </item>
+  <item>
+    <title>「ふつう」はどこにあるのか</title>
+    <link>https://YOURNAME.github.io/mimei/n04.html</link>
+    <guid>https://YOURNAME.github.io/mimei/n04.html</guid>
+    <pubDate>Fri, 19 Jun 2026 22:00:00 +0900</pubDate>
+    <description>「ふつうの暮らしがしたい」と言うとき、私たちはどこを指差しているのだろう。それは実在する場所なのか。居酒屋の後輩と、ケトレーの平均人。</description>
+  </item>
+  <item>
+    <title>なぜ僕らは、わざわざ遠くへ行くのか</title>
+    <link>https://YOURNAME.github.io/mimei/n03.html</link>
+    <guid>https://YOURNAME.github.io/mimei/n03.html</guid>
+    <pubDate>Fri, 12 Jun 2026 22:00:00 +0900</pubDate>
+    <description>あらゆる場所が画面のなかで見られる時代に、「そこに立つ」ことの何が、それほど代えがたいのだろう。旅の前夜と、ベンヤミンのアウラ。</description>
+  </item>
+  <item>
+    <title>「面倒くさい」の正体</title>
+    <link>https://YOURNAME.github.io/mimei/n02.html</link>
+    <guid>https://YOURNAME.github.io/mimei/n02.html</guid>
+    <pubDate>Fri, 05 Jun 2026 22:00:00 +0900</pubDate>
+    <description>五分で終わる皿洗いを前に、私はいったい何を測って「面倒」と言っているのだろう。日曜の夜、シンクの皿と、中動態。</description>
+  </item>
+  <item>
+    <title>「待つ」について</title>
+    <link>https://YOURNAME.github.io/mimei/n01.html</link>
+    <guid>https://YOURNAME.github.io/mimei/n01.html</guid>
+    <pubDate>Fri, 29 May 2026 22:00:00 +0900</pubDate>
+    <description>待っているとき、私は何をしているのだろう。「何もしていない」はずなのに、なぜこんなに疲れるのか。遅延した山手線と、ベルクソンの時間。</description>
+  </item>
+</channel>
+</rss>
