@@ -6,8 +6,15 @@
   <atom:link href="https://YOURNAME.github.io/mimei/feed.xml" rel="self" type="application/rss+xml"/>
   <description>わかる、の少し手前で書く。週にひとつの問いを置いていく哲学エッセイ。更新は毎週金曜22時。</description>
   <language>ja</language>
-  <lastBuildDate>Fri, 14 Aug 2026 22:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Fri, 21 Aug 2026 22:00:00 +0900</lastBuildDate>
 
+  <item>
+    <title>友達とは、何の関係か</title>
+    <link>https://YOURNAME.github.io/mimei/n13.html</link>
+    <guid>https://YOURNAME.github.io/mimei/n13.html</guid>
+    <pubDate>Fri, 21 Aug 2026 22:00:00 +0900</pubDate>
+    <description>連絡先には何百人もいるのに、「友達は何人いるか」と問われると、なぜか言葉に詰まる。数えられそうで数えられないこの関係について。同窓会の帰り道と、アリストテレスの友愛。</description>
+  </item>
   <item>
     <title>約束について</title>
     <link>https://YOURNAME.github.io/mimei/n12.html</link>
