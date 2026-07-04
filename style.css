@@ -172,3 +172,112 @@ footer a:hover{color:var(--akebono);border-color:var(--akebono-soft)}
   .cover{padding-bottom:16vh}
 }
 
+/* ============================================================
+   ワンページ型トップ (op-*)
+   ============================================================ */
+.op-nav{
+  position:fixed;top:0;left:0;right:0;z-index:10;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 22px;
+  background:rgba(11,16,28,.72);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--hair);
+}
+.op-logo{font-weight:700;font-size:15px;letter-spacing:.3em;color:var(--paper)}
+.op-logo span{color:var(--akebono)}
+.op-links{display:flex;gap:1.6em;font-family:var(--gothic);font-weight:300;font-size:11px;letter-spacing:.22em;color:var(--dim)}
+.op-links a{transition:color .3s}
+.op-links a:hover{color:var(--akebono)}
+
+.op-hero{
+  min-height:92vh;position:relative;z-index:1;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:0 26px;max-width:960px;margin:0 auto;
+}
+.op-over{font-family:var(--gothic);font-weight:300;font-size:12px;letter-spacing:.34em;color:var(--dim);margin-bottom:2.2rem}
+.op-title{font-weight:900;font-size:clamp(88px,24vw,220px);line-height:1;letter-spacing:.12em;color:var(--paper);margin-left:-.06em}
+.op-en{font-family:var(--gothic);font-weight:300;font-size:11px;letter-spacing:.5em;color:var(--dim);margin:1.6rem 0 2.6rem}
+.op-tag{font-size:clamp(18px,4.6vw,23px);line-height:2;letter-spacing:.08em}
+.op-latest{
+  display:inline-block;margin-top:2.4rem;align-self:flex-start;
+  font-family:var(--gothic);font-weight:400;font-size:12.5px;letter-spacing:.14em;color:var(--paper);
+  border:1px solid var(--hair);border-radius:2px;padding:.85em 1.3em;
+  transition:color .3s,border-color .3s;
+}
+.op-latest:hover{color:var(--akebono);border-color:var(--akebono-soft)}
+.op-scroll{
+  position:absolute;bottom:5.5rem;left:26px;
+  font-family:var(--gothic);font-weight:300;font-size:10px;letter-spacing:.5em;color:var(--dim);
+}
+.op-scroll::after{content:"";display:block;width:1px;height:44px;margin:10px 0 0 2px;
+  background:linear-gradient(var(--akebono-soft),transparent)}
+
+.op-tick{overflow:hidden;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);
+  position:relative;z-index:1;background:rgba(11,16,28,.4)}
+.op-tick-inner{display:flex;width:max-content;animation:optick 30s linear infinite}
+.op-seq{display:inline-block;white-space:nowrap;padding:13px 0;
+  font-family:var(--gothic);font-weight:300;font-size:11px;letter-spacing:.3em;color:var(--dim)}
+.op-seq i{font-style:normal;color:var(--akebono);padding:0 1.6em}
+@keyframes optick{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion: reduce){.op-tick-inner{animation:none}}
+
+.op-sec{position:relative;z-index:1;padding:7.5rem 0 3rem;scroll-margin-top:64px}
+.op-sec .wrap{max-width:760px}
+.op-label{display:block;font-family:var(--gothic);font-weight:400;font-size:11px;letter-spacing:.42em;color:var(--akebono);margin-bottom:1.2rem}
+.op-sec h2{font-weight:900;font-size:clamp(26px,7vw,34px);letter-spacing:.08em;line-height:1.7;margin-bottom:2.2rem}
+.op-body{font-size:15.5px;line-height:2.2;letter-spacing:.04em;text-indent:1em;margin-bottom:1em}
+.op-dim{color:var(--dim);font-size:14px}
+
+.op-kata{display:flex;gap:1.4em;flex-wrap:wrap;margin-top:2.4rem}
+.op-kata div{
+  flex:1;min-width:120px;border-top:1px solid var(--akebono-soft);
+  padding-top:1rem;font-size:14px;letter-spacing:.3em;
+}
+.op-kata b{display:block;font-weight:400;color:var(--dim);font-size:11px;letter-spacing:.4em;margin-bottom:.6rem}
+.op-kata-note{margin-top:1.6rem;font-family:var(--gothic);font-weight:300;font-size:11.5px;letter-spacing:.26em;color:var(--dim)}
+
+.op-feat{display:block;border:1px solid var(--hair);border-radius:3px;padding:2rem 1.8rem;margin-bottom:2.4rem;transition:border-color .3s}
+.op-feat:hover{border-color:var(--akebono-soft)}
+.op-feat h3{font-weight:900;font-size:clamp(21px,5.6vw,26px);line-height:1.8;letter-spacing:.05em;margin:.8rem 0 .6rem;transition:color .3s}
+.op-feat:hover h3{color:var(--akebono)}
+.op-read{font-family:var(--gothic);font-weight:400;font-size:12px;letter-spacing:.24em;color:var(--akebono)}
+
+.op-meta{font-family:var(--gothic);font-weight:300;font-size:10.5px;letter-spacing:.24em;color:var(--dim);
+  display:flex;gap:1.1em;flex-wrap:wrap}
+.op-meta .ya{color:var(--akebono)}
+.op-line{margin:.5rem 0 .9rem;font-size:13px;line-height:2;color:var(--dim);letter-spacing:.03em}
+
+.op-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 2.4rem}
+.op-card{display:block;border-top:1px solid var(--hair);padding:1.5rem 0 1.3rem}
+.op-card h3{font-weight:700;font-size:16.5px;line-height:1.9;letter-spacing:.04em;margin-top:.7rem;transition:color .3s}
+.op-card:hover h3{color:var(--akebono)}
+.op-card .op-line{margin-bottom:0}
+.op-soon{opacity:.42;pointer-events:none}
+.op-soon .chip{font-family:var(--gothic);font-size:9.5px;letter-spacing:.3em;border:1px solid var(--hair);border-radius:2px;padding:.15em .6em .15em .8em}
+@media (max-width:640px){.op-grid{grid-template-columns:1fr}}
+
+.op-toilist{border-top:1px solid var(--hair)}
+.op-toi{display:flex;justify-content:space-between;align-items:baseline;gap:1.4em;
+  border-bottom:1px solid var(--hair);padding:1.35rem 0}
+.op-toi .q{font-size:15.5px;line-height:2;letter-spacing:.04em;transition:color .3s}
+.op-toi .n{flex-shrink:0;font-family:var(--gothic);font-weight:300;font-size:10.5px;letter-spacing:.22em;color:var(--dim)}
+.op-toi:hover .q{color:var(--akebono)}
+
+.op-rss{
+  display:inline-block;margin-top:.6rem;
+  font-weight:700;font-size:clamp(19px,5vw,24px);letter-spacing:.08em;color:var(--paper);
+  border-bottom:1px solid var(--akebono-soft);padding-bottom:.35em;
+  transition:color .3s;
+}
+.op-rss:hover{color:var(--akebono)}
+
+.op-foot{position:relative;z-index:1;border-top:1px solid var(--hair);margin-top:6rem;
+  padding:3rem 0 10rem;font-family:var(--gothic);font-weight:300;font-size:11px;
+  letter-spacing:.3em;color:var(--dim);line-height:2.4}
+.op-foot .mark{font-family:var(--mincho);font-weight:700;font-size:14px;letter-spacing:.5em;color:var(--paper)}
+
+@media (max-width:480px){
+  .op-links{gap:1.1em;font-size:10px}
+  .op-hero{padding-top:8vh}
+}
+
