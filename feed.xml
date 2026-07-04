@@ -6,8 +6,15 @@
   <atom:link href="https://YOURNAME.github.io/mimei/feed.xml" rel="self" type="application/rss+xml"/>
   <description>わかる、の少し手前で書く。週にひとつの問いを置いていく哲学エッセイ。更新は毎週金曜22時。</description>
   <language>ja</language>
-  <lastBuildDate>Fri, 26 Jun 2026 22:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Fri, 03 Jul 2026 22:00:00 +0900</lastBuildDate>
 
+  <item>
+    <title>「気がする」について</title>
+    <link>https://YOURNAME.github.io/mimei/n14.html</link>
+    <guid>https://YOURNAME.github.io/mimei/n14.html</guid>
+    <pubDate>Fri, 03 Jul 2026 22:00:00 +0900</pubDate>
+    <description>どこが、とは言えない。なのに「なんか変な気がする」。そしてその勘は、しばしば当たる。理由より先に、何が分かってしまっているのだろう。後輩の数表と、ポランニーの暗黙知。</description>
+  </item>
   <item>
     <title>友達とは、何の関係か</title>
     <link>https://YOURNAME.github.io/mimei/n13.html</link>
