@@ -1,0 +1,21 @@
+このリポジトリ(未明ブログ)に、同梱の収益キットを適用してください。
+
+手順:
+1. リポジトリ直下にある mimei-money-kit.zip を展開(kit/ フォルダができる)
+2. リポジトリのルートで python3 kit/apply.py を実行
+   (冪等スクリプトです。①X自動投稿のworkflow/script配置、②メール購読フォーム挿入、
+    ③「支援と書架」セクション挿入、ナビ追加、CSS追記を行います)
+3. 適用結果を確認: index.html に id="support" とメールフォームがあること、
+   .github/workflows/announce.yml と scripts/announce_x.py が存在すること
+4. mimei-money-kit.zip は削除してよい(kit/ フォルダはREADME参照用に残す)
+5. コミットしてpush
+
+厳守事項:
+- 既存の夜(nXX.html)・日付・feed.xml・sitemap.xml の内容は一切変更しない
+- プレースホルダ(BUTTONDOWN_USERNAME / SUPPORT_URL / BOOTH_URL_VOL1〜3)は
+  そのまま残す(ユーザーが自分のIDに差し替えます)
+
+最後に報告すること:
+- 適用された変更の一覧
+- ユーザーに残る差し替え5点(X Secrets 4つ / BUTTONDOWN_USERNAME /
+  SUPPORT_URL / BOOTH_URL×3)と、それぞれの場所

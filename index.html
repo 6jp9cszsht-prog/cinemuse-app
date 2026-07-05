@@ -34,6 +34,7 @@
     <a href="#yoru">夜</a>
     <a href="#toi">問い</a>
     <a href="#follow">購読</a>
+    <a href="#support">支援</a>
   </div>
 </nav>
 
@@ -187,10 +188,33 @@
       <h2>購読</h2>
       <p class="op-body">更新は毎週金曜、22時。週末の入り口に、問いをひとつ。</p>
       <a class="op-rss" href="feed.xml">RSSで購読する →</a>
+<!-- mimei:mail-form -->
+      <form class="op-mail" action="https://buttondown.com/api/emails/embed-subscribe/BUTTONDOWN_USERNAME" method="post" target="_blank">
+        <input type="email" name="email" placeholder="メールアドレス" required>
+        <button type="submit">メールで受け取る</button>
+      </form>
+      <p class="op-mail-note">毎週金曜22時、新しい夜をそのままお届けします。解除はいつでも。</p>
+
     </div>
   </section>
 
-  <footer class="op-foot">
+    <!-- mimei:support -->
+  <section class="op-sec" id="support">
+    <div class="wrap">
+      <span class="op-label">05 — SUPPORT</span>
+      <h2>支援と書架</h2>
+      <p class="op-body">未明は、ひとりで書いて、ひとりで灯している場所です。もし夜のどれかが手元に残ったなら、続けるための火に、ひと口だけ薪をくべてもらえたら。</p>
+      <a class="op-kofi" href="SUPPORT_URL" target="_blank" rel="noopener">☕ 夜食を一杯、おごる →</a>
+      <p class="op-body op-dim" style="margin-top:2.8rem">六夜ごとに一冊へ綴じた読書用PDF「巻」を、BOOTHで頒布しています。夜明け前の空ごと、持ち歩けます。</p>
+      <div class="op-shelf">
+        <a class="op-book" href="BOOTH_URL_VOL1" target="_blank" rel="noopener"><span class="vol">巻一</span><span class="rng">第一夜 — 第六夜</span><span class="pg">33頁 ・ PDF</span><span class="dl">BOOTHで読む →</span></a>
+        <a class="op-book" href="BOOTH_URL_VOL2" target="_blank" rel="noopener"><span class="vol">巻二</span><span class="rng">第七夜 — 第十二夜</span><span class="pg">33頁 ・ PDF</span><span class="dl">BOOTHで読む →</span></a>
+        <a class="op-book" href="BOOTH_URL_VOL3" target="_blank" rel="noopener"><span class="vol">巻三</span><span class="rng">第十三夜 —(続巻中)</span><span class="pg">PDF</span><span class="dl">BOOTHで読む →</span></a>
+      </div>
+    </div>
+  </section>
+
+<footer class="op-foot">
     <div class="wrap">
       <p class="mark">未明</p>
       <p>金曜22時、週にひとつの問い。<br>&copy; 2026 未明 — MIMEI</p>
