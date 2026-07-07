@@ -316,3 +316,18 @@ footer a:hover{color:var(--akebono);border-color:var(--akebono-soft)}
 .op-book .pg{font-family:var(--gothic);font-weight:300;font-size:10.5px;letter-spacing:.22em;color:var(--dim)}
 .op-book .dl{margin-top:.9rem;font-family:var(--gothic);font-weight:400;font-size:11.5px;letter-spacing:.2em;color:var(--akebono)}
 @media (max-width:640px){.op-shelf{grid-template-columns:1fr}}
+
+/* ===== mimei:tana(今夜の一冊)===== */
+.tana{margin:0 0 3.5rem;padding:1.9rem 0 1.7rem;border-bottom:1px solid var(--hair)}
+.tana .koma{margin-bottom:1.2rem}
+.tana-book{display:flex;flex-wrap:wrap;align-items:baseline;gap:.4em 1em;
+  border:1px solid var(--hair);border-radius:3px;padding:1.3rem 1.4rem;
+  transition:border-color .3s,background .3s}
+.tana-book:hover{border-color:var(--akebono-soft);background:rgba(238,146,119,.05)}
+.tana-book .tt{font-weight:700;font-size:16.5px;letter-spacing:.04em}
+.tana-book .au{font-size:12.5px;color:var(--dim);letter-spacing:.08em}
+.tana-book .go{margin-left:auto;font-family:var(--gothic);font-weight:400;
+  font-size:11.5px;letter-spacing:.2em;color:var(--akebono);white-space:nowrap}
+.tana-pr{margin-top:.9rem;font-family:var(--gothic);font-weight:300;
+  font-size:10px;letter-spacing:.14em;color:var(--dim);line-height:1.9}
+@media (max-width:480px){.tana-book .go{margin-left:0;width:100%}}
