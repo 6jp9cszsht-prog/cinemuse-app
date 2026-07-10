@@ -1,0 +1,108 @@
+name: publish
+
+on:
+  schedule:
+    # 毎週金曜 13:00 UTC = 金曜 22:00 JST
+    - cron: '0 13 * * 5'
+  workflow_dispatch:
+    inputs:
+      night:
+        description: '強制公開する夜の番号(空欄なら時刻が来た夜を自動判定)'
+        required: false
+      dry_run:
+        description: 'true にすると変更せず表示のみ'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+  actions: write
+  pages: read
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish-night:
+    runs-on: ubuntu-latest
+    env:
+      HAS_PAT: ${{ secrets.GH_PAT != '' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # GH_PAT があれば push が deploy/announce を自動連鎖させる(推奨)
+          token: ${{ secrets.GH_PAT || github.token }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - run: pip install requests
+
+      - name: Publish scheduled night
+        id: pub
+        run: |
+          ARGS=""
+          [ -n "${{ inputs.night }}" ] && ARGS="--night ${{ inputs.night }}"
+          [ "${{ inputs.dry_run }}" = "true" ] && ARGS="$ARGS --dry-run"
+          python scripts/publish_night.py $ARGS | tee /tmp/out.txt
+          if grep -q "公開すべき夜はありません" /tmp/out.txt; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit and push
+        if: steps.pub.outputs.changed == 'true' && inputs.dry_run != 'true'
+        run: |
+          git config user.name "mimei-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html feed.xml sitemap.xml n*.html
+          git diff --cached --quiet || (git commit -m "publish: 予約された夜を公開" && git push)
+
+      - name: Trigger deploy (GH_PAT 未設定時の保険)
+        if: steps.pub.outputs.changed == 'true' && inputs.dry_run != 'true' && env.HAS_PAT != 'true'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml || echo "deploy の自動起動に失敗しました。Actions から手動で実行してください。"
+
+      - name: Wait for the new night to go live
+        if: steps.pub.outputs.changed == 'true' && inputs.dry_run != 'true'
+        continue-on-error: true
+        run: |
+          URL=$(python - <<'PY'
+          import re,glob,xml.etree.ElementTree as ET
+          ch=ET.parse("feed.xml").getroot().find("channel")
+          print(ch.find("item").findtext("link"))
+          PY
+          )
+          echo "待機中: $URL"
+          for i in $(seq 1 40); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "$URL?v=$(date +%s)" || true)
+            [ "$code" = "200" ] && echo "公開を確認しました($i 回目)" && exit 0
+            sleep 30
+          done
+          echo "20分待っても確認できませんでした。デプロイの状況を確認してください。"
+
+      - name: Announce to Bluesky
+        if: steps.pub.outputs.changed == 'true' && inputs.dry_run != 'true'
+        continue-on-error: true
+        env:
+          SITE_BASE: https://mimei.page
+          BSKY_HANDLE: ${{ secrets.BSKY_HANDLE }}
+          BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}
+        run: |
+          if [ -f scripts/announce_bsky.py ]; then
+            python scripts/announce_bsky.py
+          else
+            echo "announce_bsky.py が未配置のため告知をスキップしました"
+          fi
+
+      - name: Save announce state
+        if: steps.pub.outputs.changed == 'true' && inputs.dry_run != 'true'
+        continue-on-error: true
+        run: |
+          git add .announce_state 2>/dev/null || true
+          git diff --cached --quiet || (git commit -m "announce: mark latest night as posted" && git push)
