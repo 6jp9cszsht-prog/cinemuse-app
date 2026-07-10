@@ -6,8 +6,15 @@
   <atom:link href="https://mimei.page/feed.xml" rel="self" type="application/rss+xml"/>
   <description>わかる、の少し手前で書く。週にひとつの問いを置いていく哲学エッセイ。更新は毎週金曜22時。</description>
   <language>ja</language>
-  <lastBuildDate>Fri, 03 Jul 2026 22:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Fri, 10 Jul 2026 22:00:00 +0900</lastBuildDate>
 
+  <item>
+    <title>作り手であること</title>
+    <link>https://mimei.page/n15.html</link>
+    <guid>https://mimei.page/n15.html</guid>
+    <pubDate>Fri, 10 Jul 2026 22:00:00 +0900</pubDate>
+    <description>誰に頼まれたわけでもない。買えば済むし、見て楽しむほうが、ずっと楽だ。それでも、作らずにいられない。深夜の手と、アーレントの仕事。</description>
+  </item>
   <item>
     <title>「気がする」について</title>
     <link>https://mimei.page/n14.html</link>
