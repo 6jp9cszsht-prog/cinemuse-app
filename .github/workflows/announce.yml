@@ -8,13 +8,14 @@ on:
 
 permissions:
   contents: write
+  pages: read
 
 concurrency:
   group: announce
   cancel-in-progress: false
 
 jobs:
-  post-to-x:
+  post-to-bluesky:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,15 +24,26 @@ jobs:
         with:
           python-version: '3.12'
 
-      - run: pip install tweepy
+      - run: pip install requests
 
-      - name: Post latest night to X
+      - name: Resolve site URL (Pages API — 独自ドメインにも自動追従)
+        id: site
         env:
-          X_API_KEY: ${{ secrets.X_API_KEY }}
-          X_API_SECRET: ${{ secrets.X_API_SECRET }}
-          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
-          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
-        run: python scripts/announce_x.py
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          URL=$(gh api "repos/${{ github.repository }}/pages" --jq '.html_url' 2>/dev/null || true)
+          if [ -z "$URL" ]; then
+            URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+          fi
+          echo "base=$URL" >> "$GITHUB_OUTPUT"
+          echo "site base: $URL"
+
+      - name: Post latest night to Bluesky
+        env:
+          SITE_BASE: ${{ steps.site.outputs.base }}
+          BSKY_HANDLE: ${{ secrets.BSKY_HANDLE }}
+          BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}
+        run: python scripts/announce_bsky.py
 
       - name: Save announce state
         run: |
