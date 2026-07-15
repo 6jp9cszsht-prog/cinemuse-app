@@ -331,3 +331,35 @@ footer a:hover{color:var(--akebono);border-color:var(--akebono-soft)}
 .tana-pr{margin-top:.9rem;font-family:var(--gothic);font-weight:300;
   font-size:10px;letter-spacing:.14em;color:var(--dim);line-height:1.9}
 @media (max-width:480px){.tana-book .go{margin-left:0;width:100%}}
+
+/* ===== mimei:index(同行者索引)===== */
+.ix-head{max-width:760px;margin:0 auto;padding:8rem 26px 3rem;position:relative;z-index:1}
+.ix-head h1{font-weight:900;font-size:clamp(28px,7vw,38px);letter-spacing:.16em;line-height:1.6}
+.ix-head .ix-en{font-family:var(--gothic);font-weight:300;font-size:10.5px;letter-spacing:.4em;color:var(--dim);margin-top:1rem}
+.ix-head p{margin-top:1.8rem;font-size:14.5px;line-height:2.2;letter-spacing:.03em;color:var(--paper)}
+.ix-head .ix-note{margin-top:1rem;font-size:12px;color:var(--dim);line-height:2}
+.ix-wrap{max-width:760px;margin:0 auto;padding:0 26px 7rem;position:relative;z-index:1}
+.ix-item{border-top:1px solid var(--hair);padding:2.6rem 0 2.2rem;scroll-margin-top:70px}
+.ix-item h2{font-weight:700;font-size:clamp(19px,4.8vw,23px);letter-spacing:.06em;line-height:1.6}
+.ix-line{margin-top:.7rem;font-size:13.5px;line-height:2.1;color:var(--dim);letter-spacing:.02em}
+.ix-books{margin-top:1.3rem;display:flex;flex-wrap:wrap;gap:.6rem}
+.ix-book{display:inline-block;border:1px solid var(--hair);border-radius:2px;
+  padding:.55em .9em;font-size:12.5px;letter-spacing:.04em;transition:color .3s,border-color .3s}
+.ix-book:hover{color:var(--akebono);border-color:var(--akebono-soft)}
+.ix-book::after{content:" ↗";font-family:var(--gothic);font-size:9px;color:var(--dim)}
+.ix-nights{margin-top:1.5rem;display:flex;flex-direction:column;gap:.2rem}
+.ix-yo{display:grid;grid-template-columns:auto 1fr;gap:.3rem 1.1em;align-items:baseline;
+  padding:.75rem 0;border-bottom:1px dashed var(--hair)}
+.ix-yo:last-child{border-bottom:none}
+.ix-ya{font-family:var(--gothic);font-weight:300;font-size:10.5px;letter-spacing:.22em;
+  color:var(--akebono);white-space:nowrap}
+.ix-t{font-weight:700;font-size:15.5px;letter-spacing:.04em;transition:color .3s}
+.ix-yo:hover .ix-t{color:var(--akebono)}
+.ix-s{grid-column:2;font-size:11.5px;color:var(--dim);letter-spacing:.02em;line-height:1.9}
+.ix-pr{max-width:760px;margin:0 auto;padding:0 26px 3rem;position:relative;z-index:1;
+  font-family:var(--gothic);font-weight:300;font-size:10px;letter-spacing:.14em;
+  color:var(--dim);line-height:1.9}
+@media (max-width:480px){
+  .ix-yo{grid-template-columns:1fr;gap:.25rem}
+  .ix-s{grid-column:1}
+}
