@@ -6,8 +6,15 @@
   <atom:link href="https://mimei.page/feed.xml" rel="self" type="application/rss+xml"/>
   <description>わかる、の少し手前で書く。週にひとつの問いを置いていく哲学エッセイ。更新は毎週金曜22時。</description>
   <language>ja</language>
-  <lastBuildDate>Fri, 10 Jul 2026 22:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Fri, 17 Jul 2026 22:00:00 +0900</lastBuildDate>
 
+  <item>
+    <title>観測者の孤独</title>
+    <link>https://mimei.page/n16.html</link>
+    <guid>https://mimei.page/n16.html</guid>
+    <pubDate>Fri, 17 Jul 2026 22:00:00 +0900</pubDate>
+    <description>写真に収めようとカメラを構えた瞬間、私はその場の輪から、半歩だけ外に出ている。よく見ようとするほど、なぜ人は対象の外へ追いやられるのだろう。スタジアムの片隅と、ネーゲルの眺め。</description>
+  </item>
   <item>
     <title>作り手であること</title>
     <link>https://mimei.page/n15.html</link>
