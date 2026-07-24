@@ -6,8 +6,15 @@
   <atom:link href="https://mimei.page/feed.xml" rel="self" type="application/rss+xml"/>
   <description>わかる、の少し手前で書く。週にひとつの問いを置いていく哲学エッセイ。更新は毎週金曜22時。</description>
   <language>ja</language>
-  <lastBuildDate>Fri, 17 Jul 2026 22:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Fri, 24 Jul 2026 22:00:00 +0900</lastBuildDate>
 
+  <item>
+    <title>「私たち」は、どこで終わるのか</title>
+    <link>https://mimei.page/n17.html</link>
+    <guid>https://mimei.page/n17.html</guid>
+    <pubDate>Fri, 24 Jul 2026 22:00:00 +0900</pubDate>
+    <description>応援していた代表が、敗れた。自分が負けたわけでもない、知りもしない人々の敗北なのに、この悔しさは、なぜこれほど胸に重く残るのだろう。負けの夜のやるせなさと、アンダーソンの想像の共同体。</description>
+  </item>
   <item>
     <title>観測者の孤独</title>
     <link>https://mimei.page/n16.html</link>
