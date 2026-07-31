@@ -6,8 +6,15 @@
   <atom:link href="https://mimei.page/feed.xml" rel="self" type="application/rss+xml"/>
   <description>わかる、の少し手前で書く。週にひとつの問いを置いていく哲学エッセイ。更新は毎週金曜22時。</description>
   <language>ja</language>
-  <lastBuildDate>Fri, 24 Jul 2026 22:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Fri, 31 Jul 2026 22:00:00 +0900</lastBuildDate>
 
+  <item>
+    <title>「報われてほしい」と祈るとき</title>
+    <link>https://mimei.page/n18.html</link>
+    <guid>https://mimei.page/n18.html</guid>
+    <pubDate>Fri, 31 Jul 2026 22:00:00 +0900</pubDate>
+    <description>2026年7月31日(金)22時公開。ことばの解剖、第十八夜。</description>
+  </item>
   <item>
     <title>「私たち」は、どこで終わるのか</title>
     <link>https://mimei.page/n17.html</link>
