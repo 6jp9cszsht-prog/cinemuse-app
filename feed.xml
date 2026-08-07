@@ -6,8 +6,15 @@
   <atom:link href="https://mimei.page/feed.xml" rel="self" type="application/rss+xml"/>
   <description>わかる、の少し手前で書く。週にひとつの問いを置いていく哲学エッセイ。更新は毎週金曜22時。</description>
   <language>ja</language>
-  <lastBuildDate>Fri, 31 Jul 2026 22:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Fri, 07 Aug 2026 22:00:00 +0900</lastBuildDate>
 
+  <item>
+    <title>故郷とは、どこのことか</title>
+    <link>https://mimei.page/n19.html</link>
+    <guid>https://mimei.page/n19.html</guid>
+    <pubDate>Fri, 07 Aug 2026 22:00:00 +0900</pubDate>
+    <description>帰ってきたはずなのに、どこか客の気分でいる。故郷にいながら、故郷が恋しいような、あの奇妙な感覚はなにか。帰省の違和感と、ヴェイユの根。</description>
+  </item>
   <item>
     <title>「報われてほしい」と祈るとき</title>
     <link>https://mimei.page/n18.html</link>
