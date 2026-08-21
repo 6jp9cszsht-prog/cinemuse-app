@@ -6,8 +6,15 @@
   <atom:link href="https://mimei.page/feed.xml" rel="self" type="application/rss+xml"/>
   <description>わかる、の少し手前で書く。週にひとつの問いを置いていく哲学エッセイ。更新は毎週金曜22時。</description>
   <language>ja</language>
-  <lastBuildDate>Fri, 14 Aug 2026 22:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Fri, 21 Aug 2026 22:00:00 +0900</lastBuildDate>
 
+  <item>
+    <title>締切がないと、なぜ書けないのか</title>
+    <link>https://mimei.page/n21.html</link>
+    <guid>https://mimei.page/n21.html</guid>
+    <pubDate>Fri, 21 Aug 2026 22:00:00 +0900</pubDate>
+    <description>時間はいくらでもあったはずなのに、動き出すのはいつも前の晩。無限の時間が、なぜ何も生まないのか。終わりが形を与えることについて。前夜の集中と、ハイデガーの有限性。</description>
+  </item>
   <item>
     <title>「いただきます」は誰に言うのか</title>
     <link>https://mimei.page/n20.html</link>
