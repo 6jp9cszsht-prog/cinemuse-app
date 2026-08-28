@@ -6,8 +6,15 @@
   <atom:link href="https://mimei.page/feed.xml" rel="self" type="application/rss+xml"/>
   <description>わかる、の少し手前で書く。週にひとつの問いを置いていく哲学エッセイ。更新は毎週金曜22時。</description>
   <language>ja</language>
-  <lastBuildDate>Fri, 21 Aug 2026 22:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Fri, 28 Aug 2026 22:00:00 +0900</lastBuildDate>
 
+  <item>
+    <title>値切るということ</title>
+    <link>https://mimei.page/n22.html</link>
+    <guid>https://mimei.page/n22.html</guid>
+    <pubDate>Fri, 28 Aug 2026 22:00:00 +0900</pubDate>
+    <description>旅先では平気で値切るのに、近所の店では一度も言い出したことがない。同じ買い物のはずなのに、何が違うのか。価格が引き受けているものについて。市場の攻防と、グレーバーの負債。</description>
+  </item>
   <item>
     <title>締切がないと、なぜ書けないのか</title>
     <link>https://mimei.page/n21.html</link>
