@@ -6,8 +6,15 @@
   <atom:link href="https://mimei.page/feed.xml" rel="self" type="application/rss+xml"/>
   <description>わかる、の少し手前で書く。週にひとつの問いを置いていく哲学エッセイ。更新は毎週金曜22時。</description>
   <language>ja</language>
-  <lastBuildDate>Fri, 28 Aug 2026 22:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Fri, 04 Sep 2026 22:00:00 +0900</lastBuildDate>
 
+  <item>
+    <title>「大丈夫です」と言うとき</title>
+    <link>https://mimei.page/n23.html</link>
+    <guid>https://mimei.page/n23.html</guid>
+    <pubDate>Fri, 04 Sep 2026 22:00:00 +0900</pubDate>
+    <description>「袋は要りますか」「大丈夫です」。この返事は、要るのか要らないのか。曖昧なはずの一語で、なぜ会話は成立するのか。言葉が行為であることについて。レジ前の一言と、オースティンの言語行為。</description>
+  </item>
   <item>
     <title>値切るということ</title>
     <link>https://mimei.page/n22.html</link>
