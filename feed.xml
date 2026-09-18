@@ -6,8 +6,15 @@
   <atom:link href="https://mimei.page/feed.xml" rel="self" type="application/rss+xml"/>
   <description>わかる、の少し手前で書く。週にひとつの問いを置いていく哲学エッセイ。更新は毎週金曜22時。</description>
   <language>ja</language>
-  <lastBuildDate>Fri, 11 Sep 2026 22:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Fri, 18 Sep 2026 22:00:00 +0900</lastBuildDate>
 
+  <item>
+    <title>眠れない夜について</title>
+    <link>https://mimei.page/n25.html</link>
+    <guid>https://mimei.page/n25.html</guid>
+    <pubDate>Fri, 18 Sep 2026 22:00:00 +0900</pubDate>
+    <description>疲れているのに眠れない。眠ろうとするほど目が冴えていく。あの時間、私はどこにいるのか。眠りが与えてくれているものについて。天井の暗さと、レヴィナスの「ある」。</description>
+  </item>
   <item>
     <title>手放せないもの</title>
     <link>https://mimei.page/n24.html</link>
