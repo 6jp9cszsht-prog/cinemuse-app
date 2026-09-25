@@ -6,8 +6,15 @@
   <atom:link href="https://mimei.page/feed.xml" rel="self" type="application/rss+xml"/>
   <description>わかる、の少し手前で書く。週にひとつの問いを置いていく哲学エッセイ。更新は毎週金曜22時。</description>
   <language>ja</language>
-  <lastBuildDate>Fri, 18 Sep 2026 22:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Fri, 25 Sep 2026 22:00:00 +0900</lastBuildDate>
 
+  <item>
+    <title>「久しぶり」と言うとき</title>
+    <link>https://mimei.page/n26.html</link>
+    <guid>https://mimei.page/n26.html</guid>
+    <pubDate>Fri, 25 Sep 2026 22:00:00 +0900</pubDate>
+    <description>半年ぶりでも十年ぶりでも、口をつくのは同じ「久しぶり」。あの一語は何の長さを測っているのか。空白がつくる断層について。改札前の再会と、リクールの物語。</description>
+  </item>
   <item>
     <title>眠れない夜について</title>
     <link>https://mimei.page/n25.html</link>
