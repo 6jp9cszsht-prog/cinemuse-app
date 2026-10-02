@@ -6,8 +6,15 @@
   <atom:link href="https://mimei.page/feed.xml" rel="self" type="application/rss+xml"/>
   <description>わかる、の少し手前で書く。週にひとつの問いを置いていく哲学エッセイ。更新は毎週金曜22時。</description>
   <language>ja</language>
-  <lastBuildDate>Fri, 25 Sep 2026 22:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Fri, 02 Oct 2026 22:00:00 +0900</lastBuildDate>
 
+  <item>
+    <title>他人の不幸は、なぜ</title>
+    <link>https://mimei.page/n27.html</link>
+    <guid>https://mimei.page/n27.html</guid>
+    <pubDate>Fri, 02 Oct 2026 22:00:00 +0900</pubDate>
+    <description>願ってなどいなかったはずなのに、誰かの失敗を聞いた瞬間、胸の底で何かが動く。あの後ろめたい安堵は何なのか。感情を裁かずに理解することについて。隣の席の失敗と、スピノザの感情。</description>
+  </item>
   <item>
     <title>「久しぶり」と言うとき</title>
     <link>https://mimei.page/n26.html</link>
