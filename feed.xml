@@ -6,8 +6,15 @@
   <atom:link href="https://mimei.page/feed.xml" rel="self" type="application/rss+xml"/>
   <description>わかる、の少し手前で書く。週にひとつの問いを置いていく哲学エッセイ。更新は毎週金曜22時。</description>
   <language>ja</language>
-  <lastBuildDate>Fri, 02 Oct 2026 22:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Fri, 09 Oct 2026 22:00:00 +0900</lastBuildDate>
 
+  <item>
+    <title>手書きの字</title>
+    <link>https://mimei.page/n28.html</link>
+    <guid>https://mimei.page/n28.html</guid>
+    <pubDate>Fri, 09 Oct 2026 22:00:00 +0900</pubDate>
+    <description>同じ文字のはずなのに、その人の字だとわかってしまう。字が運んでいるのは意味だけではないらしい。身体が世界に触れた跡について。宛名書きと、メルロ=ポンティの身体。</description>
+  </item>
   <item>
     <title>他人の不幸は、なぜ</title>
     <link>https://mimei.page/n27.html</link>
