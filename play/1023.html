@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0b101c">
+<meta name="description" content="人生の十の分かれ道を、五秒ずつで選ぶ。選び終えたら、同じ運のもとで、あなたが選ばなかった1023の人生を並べて見せる。未明の、遊べる問い。">
+<link rel="canonical" href="https://mimei.page/play/1023.html">
+<meta property="og:site_name" content="未明">
+<meta property="og:type" content="website">
+<meta property="og:title" content="選ばなかった1023の人生 — 未明">
+<meta property="og:description" content="十の分かれ道を、五秒ずつで選ぶ。選ばなかった1023の人生と、運の大きさを見る。">
+<meta property="og:url" content="https://mimei.page/play/1023.html">
+<meta property="og:image" content="https://mimei.page/ogp.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="../favicon.png">
+<!-- ARTIFACT:BEGIN -->
+<title>選ばなかった1023の人生</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;700;900&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: 一本の縦の道。分かれ道は画面の中央に一つずつ現れ、結果は夜明けの地平へ向かって下へ降りていく。 */
+:root{
+  --sky-0:#0b101c;            /* 天頂の夜 */
+  --sky-1:#101826;            /* 中空 */
+  --sky-2:#15202f;            /* 地平に近い藍鼠 */
+  --paper:#d9d4c7;            /* 生成りの文字。選択の色 */
+  --dim:#8d939e;              /* 薄墨 */
+  --akebono:#ee9277;          /* 曙。あなたの色 */
+  --akebono-soft:rgba(238,146,119,.5);
+  --kawa:#6f9be0;             /* 川面。偶然の色 */
+  --hair:rgba(217,212,199,.14);
+  --hair-2:rgba(217,212,199,.32);
+  --card:rgba(16,24,38,.72);
+  --mincho:"Zen Old Mincho","Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;
+  --gothic:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{background:var(--sky-0)}
+body{
+  margin:0;
+  padding-inline:20px;
+  font-family:var(--mincho);
+  font-size:15.5px;
+  color:var(--paper);
+  background:var(--sky-0);
+  background-image:linear-gradient(180deg,var(--sky-0) 0%,var(--sky-1) 62%,var(--sky-2) 100%);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:rgba(238,146,119,.28)}
+.dawn{
+  position:fixed;left:0;right:0;bottom:0;height:30vh;pointer-events:none;z-index:0;
+  background:linear-gradient(to top,rgba(238,146,119,.10),rgba(238,146,119,.03) 45%,transparent 80%);
+}
+.dawn::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
+  background:linear-gradient(90deg,transparent 4%,var(--akebono-soft) 50%,transparent 96%);
+}
+.stage{max-width:600px;margin:0 auto;padding-block:clamp(36px,8vh,88px) 96px;position:relative;z-index:1}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:1px solid var(--akebono);outline-offset:4px}
+
+.label{
+  display:block;margin:0 0 1.4rem;
+  font-family:var(--gothic);font-weight:400;font-size:11px;letter-spacing:.42em;color:var(--akebono);
+}
+h1,h2{font-weight:700;text-wrap:balance;margin:0}
+h2{font-size:clamp(20px,5.2vw,25px);line-height:1.7;letter-spacing:.05em}
+p{margin:0}
+.prose{display:grid;gap:1em}
+.prose p{line-height:2.15;letter-spacing:.04em}
+.small{font-family:var(--gothic);font-weight:300;font-size:12.5px;letter-spacing:.08em;color:var(--dim);line-height:1.9}
+
+/* ——— ボタン ——— */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.6em;
+  padding:14px 26px;min-height:48px;
+  font-family:var(--gothic);font-weight:400;font-size:13.5px;letter-spacing:.24em;
+  background:transparent;border:1px solid var(--hair-2);border-radius:2px;cursor:pointer;
+  transition:color .25s,border-color .25s,background-color .25s;
+}
+.btn:hover{border-color:var(--paper)}
+.btn.primary{border-color:var(--akebono-soft);color:var(--akebono)}
+.btn.primary:hover{background:rgba(238,146,119,.08);border-color:var(--akebono)}
+.opt{
+  display:block;width:100%;text-align:left;
+  padding:20px 22px;min-height:64px;
+  font-family:var(--mincho);font-size:17.5px;line-height:1.6;letter-spacing:.06em;
+  background:transparent;border:1px solid var(--hair-2);border-radius:2px;cursor:pointer;
+  transition:color .2s,border-color .2s,background-color .2s,opacity .3s;
+}
+.opt:hover:not(:disabled){border-color:var(--akebono);color:var(--akebono)}
+.opt:disabled{cursor:default;opacity:.32}
+.opt.chosen{opacity:1;border-color:var(--akebono);color:var(--akebono);background:rgba(238,146,119,.07)}
+
+/* ——— 表紙 ——— */
+.t-grid{display:grid;grid-template-areas:"mast" "body";gap:28px}
+.t-mast{
+  grid-area:mast;justify-self:end;
+  writing-mode:vertical-rl;
+  font-weight:900;font-size:clamp(32px,8.6vw,62px);line-height:1.35;letter-spacing:.14em;
+}
+.t-mast span{display:block}
+.t-mast span:last-child{margin-top:1.4em}
+.t-body{grid-area:body;display:grid;gap:1.1em;align-content:end}
+.t-body .lead{font-size:clamp(19px,4.8vw,22px);line-height:2;letter-spacing:.08em}
+.t-body p{line-height:2.1;letter-spacing:.04em}
+.t-actions{display:flex;flex-wrap:wrap;align-items:center;gap:18px 26px;margin-top:1.4em}
+.slow{display:inline-flex;align-items:center;gap:.6em;font-family:var(--gothic);font-weight:300;font-size:12.5px;letter-spacing:.14em;color:var(--dim);cursor:pointer}
+.slow input{accent-color:var(--akebono);width:16px;height:16px}
+@media (min-width:600px){
+  .t-grid{grid-template-areas:"body mast";grid-template-columns:1fr auto;gap:48px;align-items:end}
+}
+
+/* ——— 物差し ——— */
+.yard-list{display:grid;gap:10px;margin-top:2rem}
+.q{font-size:clamp(22px,6vw,28px);line-height:1.7;margin-bottom:.8rem}
+
+/* ——— 分かれ道 ——— */
+.thread{
+  list-style:none;margin:0 0 3rem;padding:0;
+  display:grid;grid-template-columns:repeat(10,1fr);position:relative;
+}
+.thread::before{content:"";position:absolute;left:5%;right:5%;top:4px;height:1px;background:var(--hair)}
+.thread li{display:grid;justify-items:center;gap:8px;position:relative}
+.thread i{width:9px;height:9px;border-radius:50%;border:1px solid var(--hair-2);background:var(--sky-0)}
+.thread li.done i{background:var(--paper);border-color:var(--paper)}
+.thread li.drift i{background:var(--dim);border-color:var(--dim)}
+.thread li.now i{border-color:var(--akebono);box-shadow:0 0 0 3px rgba(238,146,119,.18)}
+.thread span{font-family:var(--gothic);font-weight:300;font-size:10px;color:var(--dim);font-variant-numeric:tabular-nums}
+.thread li.now span{color:var(--akebono)}
+.age{display:flex;align-items:baseline;gap:.15em;margin:0 0 .4rem;line-height:1}
+.age b{font-weight:900;font-size:clamp(76px,22vw,124px);letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.age span{font-size:20px;color:var(--dim)}
+.c-title{font-size:clamp(21px,5.4vw,26px);margin-bottom:1rem}
+.scene{font-size:17px;line-height:2.1;letter-spacing:.05em;min-height:4.2em}
+.opts{display:grid;gap:12px;margin-top:2rem}
+@media (min-width:520px){.opts{grid-template-columns:1fr 1fr}}
+.timer{display:flex;align-items:center;gap:14px;margin-top:22px}
+.timer .bar{flex:1;height:1px;background:var(--hair);position:relative;overflow:hidden}
+.timer .bar i{position:absolute;inset:0;background:var(--akebono);transform-origin:left center}
+.timer span{font-family:var(--gothic);font-weight:300;font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums;width:1.2em;text-align:right}
+.note-line{margin-top:1.4rem;font-size:14.5px;line-height:2;color:var(--dim);letter-spacing:.04em}
+.note-line.warm{color:var(--akebono)}
+
+/* ——— 年月 ——— */
+.span-h{font-size:clamp(22px,6vw,28px);margin-bottom:1.6rem;font-variant-numeric:tabular-nums}
+.events{list-style:none;margin:0 0 2.6rem;padding:0;border-top:1px solid var(--hair)}
+.events li{
+  display:grid;grid-template-columns:4.2em minmax(0,1fr);gap:14px;
+  padding:14px 0;border-bottom:1px solid var(--hair);
+}
+.events .ea{font-family:var(--gothic);font-weight:300;font-size:12px;letter-spacing:.06em;color:var(--dim);padding-top:.42em;font-variant-numeric:tabular-nums}
+.events .et{font-size:16px;line-height:1.9;letter-spacing:.04em}
+.events li.pick .et{color:var(--akebono)}
+.events li.quiet .et,.events li.drift .et{color:var(--dim)}
+.events li.end .et{font-weight:700}
+.events li .tag{font-family:var(--gothic);font-weight:300;font-size:11px;letter-spacing:.14em;color:var(--dim);margin-left:.6em}
+.events.anim li{animation:fadeup .7s cubic-bezier(.2,.6,.25,1) both}
+@keyframes fadeup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ——— 結果 ——— */
+.r-hero{display:grid;gap:1rem;padding-bottom:3.2rem}
+.r-lead{font-size:16.5px;line-height:2.1;letter-spacing:.05em}
+.rank{display:flex;align-items:baseline;flex-wrap:wrap;gap:.1em .3em;line-height:1}
+.rank b{font-weight:900;font-size:clamp(84px,24vw,136px);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.rank span{font-size:20px}
+.chip{
+  display:inline-block;font-family:var(--gothic);font-weight:300;font-size:11.5px;letter-spacing:.2em;
+  border:1px solid var(--hair-2);border-radius:2px;padding:.35em .8em;color:var(--dim);justify-self:start;
+}
+.sec{padding-block:3.4rem;border-top:1px solid var(--hair);display:grid;gap:1.4rem}
+.figure{position:relative;width:100%;max-width:560px;margin-inline:auto}
+.figure canvas{display:block;width:100%;touch-action:manipulation;cursor:crosshair}
+.tip{
+  position:absolute;pointer-events:none;z-index:2;
+  font-family:var(--gothic);font-weight:400;font-size:12px;letter-spacing:.06em;line-height:1.6;
+  background:var(--sky-1);border:1px solid var(--hair-2);border-radius:2px;padding:6px 10px;white-space:nowrap;
+  transform:translate(-50%,calc(-100% - 12px));
+}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg button{
+  font-family:var(--gothic);font-weight:400;font-size:12px;letter-spacing:.14em;
+  padding:9px 15px;min-height:40px;border:1px solid var(--hair-2);border-radius:999px;background:transparent;color:var(--dim);cursor:pointer;
+}
+.seg button[aria-pressed="true"]{color:var(--paper);border-color:var(--paper)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--gothic);font-weight:300;font-size:12px;letter-spacing:.08em;color:var(--dim)}
+.legend span{display:inline-flex;align-items:center;gap:.55em}
+.legend .ln{display:inline-block;width:18px;height:2px;border-radius:1px}
+.legend .dt{display:inline-block;width:8px;height:8px;border-radius:50%}
+.legend .ramp{display:inline-block;width:56px;height:6px;border-radius:1px}
+.card{border:1px solid var(--hair-2);border-radius:2px;background:var(--card);padding:20px 20px 8px;display:grid;gap:.4rem}
+.card h3{font-size:17px;font-weight:700;letter-spacing:.06em;margin:0}
+.card .events{margin:.6rem 0 0;border-top:none}
+.card .events li:last-child{border-bottom:none}
+.card .events .et{font-size:15px}
+.card .events li.diff .et{color:var(--paper)}
+.card .events li.diff .ea::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--paper);margin-right:.5em;vertical-align:.12em}
+.card .events li.same .et{color:var(--dim)}
+
+.share{display:grid;gap:10px}
+.share-nums{display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
+.share-nums p{display:flex;align-items:baseline;gap:.35em;font-variant-numeric:tabular-nums}
+.share-nums span{font-family:var(--gothic);font-weight:400;font-size:12px;letter-spacing:.24em;color:var(--dim)}
+.share-nums b{font-size:clamp(40px,12vw,60px);font-weight:900;line-height:1}
+.share-nums em{font-style:normal;font-size:18px}
+.split{display:flex;gap:2px;height:10px}
+.split i{display:block;min-width:2px}
+.split .c{background:var(--paper);border-radius:2px 0 0 2px}
+.split .l{background:var(--kawa);border-radius:0 2px 2px 0}
+
+.turn{display:grid;gap:.9rem}
+.turn .t1{font-size:16.5px;line-height:2.1;letter-spacing:.05em}
+.turn .t2{font-size:clamp(22px,6.2vw,30px);font-weight:900;line-height:1.7;letter-spacing:.04em;color:var(--akebono);text-wrap:balance}
+.turn .t3{line-height:2.1;letter-spacing:.04em}
+.turn .t4{font-size:14px;line-height:2;color:var(--dim);letter-spacing:.04em}
+
+.ytable-wrap{overflow-x:auto}
+.ytable{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.ytable th{font-family:var(--gothic);font-weight:400;font-size:11px;letter-spacing:.24em;color:var(--dim);text-align:left;padding:0 0 10px;border-bottom:1px solid var(--hair-2)}
+.ytable th:last-child,.ytable td:last-child{text-align:right}
+.ytable td{padding:14px 0;border-bottom:1px solid var(--hair);font-size:15.5px;letter-spacing:.04em}
+.ytable td b{font-weight:700;font-size:18px}
+.ytable tr.cur td{color:var(--akebono)}
+.ytable tr.cur .chip{color:var(--akebono);border-color:var(--akebono-soft);margin-left:.8em;font-size:10.5px;padding:.2em .6em}
+
+.toi{font-size:clamp(20px,5.4vw,24px);font-weight:700;line-height:2;letter-spacing:.06em;text-wrap:balance}
+.companion{display:grid;gap:.5rem;padding:20px 0 0;border-top:1px solid var(--hair)}
+.companion .who{font-size:16px;letter-spacing:.06em}
+.companion a{font-family:var(--gothic);font-weight:300;font-size:13px;letter-spacing:.16em;color:var(--dim);text-decoration:none;border-bottom:1px solid var(--hair);padding-bottom:.3em;justify-self:start;transition:color .25s,border-color .25s}
+.companion a:hover{color:var(--akebono);border-color:var(--akebono-soft)}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.links{display:flex;flex-wrap:wrap;gap:8px 22px}
+.links a{font-family:var(--gothic);font-weight:300;font-size:12.5px;letter-spacing:.14em;color:var(--dim)}
+.links a:hover{color:var(--akebono)}
+.sharebox{width:100%;min-height:8.5em;padding:12px;font-family:var(--gothic);font-size:13px;line-height:1.8;color:var(--paper);background:var(--sky-1);border:1px solid var(--hair-2);border-radius:2px;resize:vertical}
+.toast{font-family:var(--gothic);font-weight:300;font-size:12.5px;letter-spacing:.12em;color:var(--akebono);min-height:1.5em}
+.foot{margin-top:2.4rem;font-family:var(--gothic);font-weight:300;font-size:11px;letter-spacing:.3em;color:var(--dim)}
+.foot a{text-decoration:none}
+
+.screen.rise{animation:rise .7s cubic-bezier(.2,.6,.25,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  .screen.rise,.events.anim li{animation:none}
+}
+</style>
+</head>
+<body>
+<div class="dawn" aria-hidden="true"></div>
+<main class="stage">
+
+  <!-- 表紙 -->
+  <section class="screen" id="s-title">
+    <div class="t-grid">
+      <h1 class="t-mast" aria-label="選ばなかった1023の人生"><span>選ばなかった</span><span>千二十三の人生</span></h1>
+      <div class="t-body">
+        <span class="label">未明 ・ 遊べる問い</span>
+        <p class="lead">人生には、分かれ道が十ある。</p>
+        <p>ひとつにつき、五秒で選んでください。人生は、待ってくれないので。選び終えたら、あなたが選ばなかった1023の人生を、同じ運のもとで並べて見せます。</p>
+        <div class="t-actions">
+          <button class="btn primary" id="begin" type="button">生まれる</button>
+          <label class="slow" for="slow"><input type="checkbox" id="slow"> 時間制限なしで遊ぶ</label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 物差し -->
+  <section class="screen" id="s-yard" hidden>
+    <span class="label">始 め る 前 に</span>
+    <h2 class="q">あなたにとって、いい人生とは。</h2>
+    <p class="small">ひとつだけ選んでください。最後に、この物差しであなたの人生を測ります。</p>
+    <div class="yard-list" id="yard-list"></div>
+  </section>
+
+  <!-- 分かれ道 -->
+  <section class="screen" id="s-choice" hidden>
+    <ol class="thread" id="thread" aria-label="十の分かれ道"></ol>
+    <span class="label" id="c-nth">第一の分かれ道</span>
+    <p class="age"><b id="c-age">15</b><span>歳</span></p>
+    <h2 class="c-title" id="c-title"></h2>
+    <p class="scene" id="c-scene"></p>
+    <p class="note-line" id="c-dead" hidden></p>
+    <div class="opts">
+      <button class="opt" id="optA" type="button"></button>
+      <button class="opt" id="optB" type="button"></button>
+    </div>
+    <div class="timer" id="c-timer" aria-hidden="true"><div class="bar"><i id="c-bar"></i></div><span id="c-sec">5</span></div>
+    <p class="note-line warm" id="c-to" hidden>決めきれないまま、時間が過ぎた。</p>
+  </section>
+
+  <!-- 年月 -->
+  <section class="screen" id="s-inter" hidden>
+    <ol class="thread" id="thread2" aria-hidden="true"></ol>
+    <span class="label">年 月</span>
+    <h2 class="span-h" id="i-span"></h2>
+    <ol class="events anim" id="i-list"></ol>
+    <button class="btn primary" id="i-next" type="button"></button>
+  </section>
+
+  <!-- 結果 -->
+  <section class="screen" id="s-result" hidden>
+    <div class="r-hero">
+      <span class="label">結 果</span>
+      <p class="r-lead">同じ運のもとで生きられた1024通りの人生のうち、あなたの人生は</p>
+      <p class="rank"><b id="r-rank">—</b><span>番目だった。</span></p>
+      <span class="chip" id="r-yard"></span>
+      <p class="r-lead" id="r-best"></p>
+    </div>
+
+    <div class="sec">
+      <span class="label">分 岐</span>
+      <h2>選ばなかった1023の人生</h2>
+      <p class="small">中心が15歳。外へ向かって十回、道が分かれる。外周の光がその人生のよさで、長く明るいほどよい。光の上をなぞると、その人生を読める。</p>
+      <div class="seg" id="tree-seg">
+        <button type="button" data-v="me" aria-pressed="false">あなたの人生</button>
+        <button type="button" data-v="best" aria-pressed="false">いちばんよかった人生</button>
+        <button type="button" data-v="worst" aria-pressed="false">いちばんつらかった人生</button>
+      </div>
+      <div class="figure">
+        <canvas id="tree" tabindex="0" role="img" aria-label="1024通りの人生の樹形図。左右の矢印キーで人生を一つずつ選べます。"></canvas>
+        <div class="tip" id="tree-tip" hidden></div>
+      </div>
+      <div class="legend" aria-hidden="true">
+        <span><i class="ln" style="background:var(--akebono)"></i>あなたの人生</span>
+        <span><i class="ln" style="background:var(--paper)"></i>読んでいる人生</span>
+        <span>つらい <i class="ramp" id="ramp-key"></i> よい</span>
+      </div>
+      <div class="card" id="tree-card" aria-live="polite"></div>
+    </div>
+
+    <div class="sec">
+      <span class="label">揺 れ 幅</span>
+      <h2>選択と、運</h2>
+      <p class="small">上の列は、運を固定して選択だけを変えた1024人。下の列は、選択を固定して運だけを変えた1024人。どちらも、あなたの物差しで測っている。</p>
+      <div class="figure">
+        <canvas id="strip" role="img" aria-label="選択だけを変えた人生と、運だけを変えた人生の分布"></canvas>
+        <div class="tip" id="strip-tip" hidden></div>
+      </div>
+      <div class="legend" aria-hidden="true">
+        <span><i class="dt" style="background:var(--paper)"></i>選択だけを変えた1024人</span>
+        <span><i class="dt" style="background:var(--kawa)"></i>運だけを変えた1024人</span>
+        <span><i class="ln" style="background:var(--akebono);width:2px;height:12px"></i>あなた</span>
+      </div>
+      <div class="card" id="strip-card" aria-live="polite" hidden></div>
+      <div class="share">
+        <div class="share-nums">
+          <p><span>選択</span><b id="r-pc">—</b><em>%</em></p>
+          <p><span>偶然</span><b id="r-pl">—</b><em>%</em></p>
+        </div>
+        <div class="split" aria-hidden="true"><i class="c" id="split-c"></i><i class="l" id="split-l"></i></div>
+      </div>
+      <div class="prose">
+        <p id="r-share-text"></p>
+        <p id="r-luck"></p>
+      </div>
+    </div>
+
+    <div class="sec">
+      <span class="label">転 機</span>
+      <div class="turn">
+        <p class="t1" id="t1"></p>
+        <p class="t2" id="t2"></p>
+        <p class="t3" id="t3"></p>
+        <p class="t4" id="t4"></p>
+      </div>
+    </div>
+
+    <div class="sec">
+      <span class="label">物 差 し</span>
+      <h2>測り方を変えると</h2>
+      <p class="small">同じ1024通りの人生を別の物差しで並べ直すと、あなたの人生の順位はこう変わる。</p>
+      <div class="ytable-wrap">
+        <table class="ytable">
+          <thead><tr><th scope="col">いい人生とは</th><th scope="col">1024通りのうち</th></tr></thead>
+          <tbody id="ytable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sec">
+      <span class="label">記 録</span>
+      <h2>あなたが生きた人生</h2>
+      <p class="small" id="r-drift"></p>
+      <ol class="events" id="r-life"></ol>
+    </div>
+
+    <div class="sec">
+      <span class="label">留 保</span>
+      <div class="prose">
+        <p>この世界の確率は、作り手が決めたものだ。現実の偶然がこれより大きいのか小さいのか、本当のところは誰にもわからない。</p>
+        <p>それに、ここで「よさ」と呼んだのは、あなたが最初に選んだ物差しで測った、ひとつの数字にすぎない。物差しを変えれば、順位は入れ替わる。</p>
+        <p>ただ、確かなことがひとつある。現実の私たちは、選ばなかった方の人生を一度も見ることができない。だから、いまの人生のよしあしを、あのときの選択のせいにしすぎるのかもしれない。</p>
+      </div>
+    </div>
+
+    <div class="sec">
+      <span class="label">今 夜 の 問 い</span>
+      <p class="toi">選ばなかった方のあなたは、<br>いまのあなたを羨むだろうか。</p>
+      <div class="companion">
+        <span class="small">同行者</span>
+        <p class="who">セーレン・キルケゴール『あれか、これか』</p>
+        <p class="small">選ばないでいる私は、まだ何者でもない。</p>
+        <a href="https://mimei.page/n30.html" target="_blank" rel="noopener">第三十夜「決められないとき」を読む →</a>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="actions">
+        <button class="btn primary" id="copy" type="button">結果をコピー</button>
+        <button class="btn" id="again-same" type="button">同じ運で、選び直す</button>
+        <button class="btn" id="again-new" type="button">別の運で、生まれ直す</button>
+      </div>
+      <div class="links">
+        <a id="share-x" href="#" target="_blank" rel="noopener">Xで共有</a>
+        <a id="share-bsky" href="#" target="_blank" rel="noopener">Blueskyで共有</a>
+      </div>
+      <p class="toast" id="toast" aria-live="polite"></p>
+      <textarea class="sharebox" id="sharebox" readonly hidden aria-label="共有用の文"></textarea>
+      <p class="foot"><a href="https://mimei.page/" target="_blank" rel="noopener">未明 — わかる、の少し手前で書く。</a></p>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function(){
+'use strict';
+
+// ===== ENGINE START =====
+// 人生のシミュレーション。運（world）は年ごとの乱数の列として固定し、
+// 選択だけを変えても同じ乱数を引く（共通乱数）。だから「同じ運で、別の選択」が比べられる。
+var AGES = [15,18,21,23,27,30,34,41,48,58];
+var START = 15, END = 80, NY = END - START;
+var K = 8;
+var CE = 1.5;   // 選択の効き目。運の効き目とのつり合いをここで決める
+var U_MEET=0, U_BREAK=1, U_ILL=2, U_ECON=3, U_ECON2=4, U_LUCK=5, U_FRIEND=6, U_DEATH=7;
+var YARD = [
+  { label:'お金に困らない',   w:[.55,.15,.15,.15] },
+  { label:'人に恵まれる',     w:[.15,.55,.15,.15] },
+  { label:'健やかでいる',     w:[.15,.15,.55,.15] },
+  { label:'意味を感じられる', w:[.15,.15,.15,.55] },
+  { label:'決められない',     w:[.25,.25,.25,.25] }
+];
+
+function rng(seed){
+  var a = seed >>> 0;
+  return function(){
+    a = (a + 0x6D2B79F5) | 0;
+    var t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function makeWorld(seed){
+  var r = rng(seed), u = new Float32Array(NY * K);
+  for (var i = 0; i < u.length; i++) u[i] = r();
+  return { seed:seed>>>0, u:u, umbAge:22 + Math.floor(r()*14), umbU:r(), parentAge:46 + Math.floor(r()*17), tellU:r() };
+}
+
+var CH = [
+  { age:15, title:'進路希望の紙',
+    view:function(){ return { scene:'進路希望の紙に、高校の名前を書く。仲のいい三人は、同じ高校を書くらしい。', a:'みんなと同じ高校を書く', b:'ひとりだけ、遠くの高校を書く' }; },
+    apply:function(s,p){
+      if (!p){ s.b += 0.8; s.friends = true; return 'みんなと同じ高校へ進んだ'; }
+      s.skill += 1; s.g += 0.4; s.b -= 0.3; return 'ひとりだけ、遠くの高校へ進んだ'; } },
+  { age:18, title:'春',
+    view:function(){ return { scene:'卒業式の帰り、駅のホーム。上りにも、下りにも乗れる。', a:'地元に残る', b:'東京へ出る' }; },
+    apply:function(s,p){
+      if (!p){ s.loc = 0; s.b += 0.8; s.m -= 0.3; return '地元に残った'; }
+      s.loc = 1; s.m += 0.6; s.skill += 0.5; s.b -= 0.7; s.h -= 0.2; return '東京へ出た'; } },
+  { age:21, title:'雨の駅',
+    view:function(){ return { scene:'改札の前で、傘を持たない人が空を見上げている。あなたの傘は、一本だけだ。', a:'傘を貸す', b:'貸さずに帰る' }; },
+    apply:function(s,p){
+      if (!p){ s.umb = true; return '雨の駅で、知らない人に傘を貸した'; }
+      return '雨の駅で、傘を貸さずに帰った'; } },
+  { age:23, title:'ふたつの内定',
+    view:function(){ return { scene:'名の知れた大きな会社と、面白そうな小さな会社。両方から、内定の電話が来た。', a:'大きな会社に入る', b:'小さな会社に入る' }; },
+    apply:function(s,p){
+      if (!p){ s.job = 1; s.m += 1.2; s.g -= 0.3; s.h -= 0.2; return '大きな会社に入った'; }
+      s.job = 2; s.m += 0.3; s.g += 0.7; return '小さな会社に入った'; } },
+  { age:27, title:'言えずにいたこと',
+    view:function(s){ return s.partner
+      ? { scene:'一緒に暮らす人に、まだ言えていないことがある。', a:'打ち明ける', b:'黙っておく' }
+      : { scene:'ずっと気になっている人がいる。今夜、ふたりで帰ることになった。', a:'想いを伝える', b:'伝えない' }; },
+    apply:function(s,p,w){
+      if (s.partner){
+        if (!p){
+          if (w.tellU < 0.7){ s.b += 0.6; s.breakMod *= 0.5; return '打ち明けた。ふたりの距離が縮まった'; }
+          s.b -= 0.6; s.breakMod *= 1.5; return '打ち明けた。しばらく、ぎくしゃくした';
+        }
+        s.breakMod *= 1.2; return '黙っておいた';
+      }
+      if (!p){
+        if (w.tellU < 0.45){ s.partner = true; s.b += 1.2; s.g += 0.6; return '想いを伝えた。届いた'; }
+        s.g -= 0.3; return '想いを伝えた。届かなかった';
+      }
+      s.g -= 0.2; return '想いを、伝えなかった'; } },
+  { age:30, title:'辞令',
+    view:function(){ return { scene:'遠くの街で、三年間働かないかと言われた。', a:'行く', b:'断る' }; },
+    apply:function(s,p){
+      if (!p){ s.abroad = 33; s.m += 0.8; s.skill += 0.8; s.g += 0.4; s.b -= 0.8; return '遠くの街へ、三年間働きに出た'; }
+      s.b += 0.2; s.m -= 0.2; return '遠くの街への話を、断った'; } },
+  { age:34, title:'これから',
+    view:function(s){ return s.partner
+      ? { scene:'休日の朝、これからのことを話した。', a:'子どもを迎える', b:'ふたりのままでいる' }
+      : { scene:'休日の部屋が、少し静かすぎる気がした。', a:'誰かと生きる道を探す', b:'ひとりの自由を選ぶ' }; },
+    apply:function(s,p){
+      if (s.partner){
+        if (!p){ s.kids = true; s.b += 1.5; s.g += 1.0; s.m -= 0.8; s.h -= 0.3; return '子どもを迎えた'; }
+        s.m += 0.4; s.g += 0.2; s.h += 0.1; return 'ふたりのままでいることにした';
+      }
+      if (!p){ s.seek = true; return '誰かと生きる道を、探しはじめた'; }
+      s.g += 0.4; s.m += 0.3; s.b -= 0.2; return 'ひとりの自由を選んだ'; } },
+  { age:41, title:'誘い',
+    view:function(){ return { scene:'学生時代の友人から連絡が来た。一緒に会社をやらないか、と。', a:'誘いに乗る', b:'今の場所に残る' }; },
+    apply:function(s,p){
+      if (!p){ s.job = 3; s.g += 0.8; s.h -= 0.4; s.m -= 0.3; s.luckN = 0; return '友人と、会社を立ち上げた'; }
+      return '誘いを断り、今の場所に残った'; } },
+  { age:48, title:'実家からの電話',
+    view:function(){ return { scene:'親の足が、少し弱ってきたらしい。', a:'親の近くで暮らす', b:'今の暮らしを続ける' }; },
+    apply:function(s,p){
+      if (!p){
+        s.near = true;
+        if (s.loc === 1){ s.loc = 0; s.m -= 0.6; s.b += 0.6; s.h -= 0.2; return '親の近くへ、引っ越した'; }
+        s.b += 0.4; s.g += 0.2; s.h -= 0.2; return '親の家に、通うようになった';
+      }
+      return '今の暮らしを、続けた'; } },
+  { age:58, title:'残りの時間',
+    view:function(){ return { scene:'若いころにやりたかったことを、ふと思い出した。', a:'今から始める', b:'穏やかに過ごす' }; },
+    apply:function(s,p){
+      if (!p){ s.g += 1.0; s.m -= 0.4; s.h += 0.2; return '若いころの夢を、もう一度始めた'; }
+      s.h += 0.4; s.m += 0.3; return '穏やかに過ごすことにした'; } }
+];
+
+var EVT = {
+  meet:  { t:'ある人と出会い、一緒に暮らしはじめた。', s:'ある人と出会ったこと' },
+  umbP:  { t:'あの雨の日に傘を貸した人と、偶然また会った。やがて、一緒に暮らしはじめた。', s:'傘を貸した人と、また会ったこと' },
+  umbJ:  { t:'あの雨の日に傘を貸した人と、偶然また会った。その縁で、仕事が大きく開けた。', s:'傘を貸した人と、また会ったこと' },
+  brk:   { t:'大切な人と、別れた。', s:'大切な人と別れたこと' },
+  ill:   { t:'大きな病気が見つかった。', s:'病気が見つかったこと' },
+  econ1: { t:'会社の業績が傾き、早期退職を勧められた。', s:'会社が傾いたこと' },
+  econ2: { t:'勤めていた会社が、倒産した。', s:'会社が倒産したこと' },
+  econ3: { t:'立ち上げた会社を、たたむことになった。', s:'会社をたたんだこと' },
+  luck:  { t:'思いがけない仕事が舞い込み、道が大きく開けた。', s:'思いがけない仕事が舞い込んだこと' },
+  luckb: { t:'また、思いがけない話が舞い込んだ。', s:'また思いがけない話が舞い込んだこと' },
+  luck3: { t:'立ち上げた会社が、軌道に乗った。', s:'会社が軌道に乗ったこと' },
+  luck3b:{ t:'会社が、さらに大きくなった。', s:'会社がさらに大きくなったこと' },
+  frd:   { t:'古い友人と再会し、また会うようになった。', s:'古い友人と再会したこと' },
+  parN:  { t:'親の介護が始まった。近くにいられた。', s:'親が倒れたこと' },
+  parF:  { t:'親が倒れた。遠くから通う日々が始まった。', s:'親が倒れたこと' },
+  ret:   { t:'三年ぶりに、元の街へ戻った。', s:'元の街へ戻ったこと' },
+  death: { t:'この人生は、ここで終わった。', s:'この世を去ったこと' }
+};
+
+function clamp(v){ return v < -4 ? -4 : (v > 6 ? 6 : v); }
+
+// picks: 0/1 の配列。opt.upto: 何番目の分かれ道の手前で止めるか。opt.suppress: {age,g} その年のその出来事だけ起こさない。
+function simulate(w, picks, opt){
+  opt = opt || {};
+  var n = opt.upto == null ? 10 : opt.upto;
+  var sup = opt.suppress || null;
+  var L = opt.log ? [] : null;
+  var s = { m:0, b:0, h:0, g:0, loc:0, job:0, partner:false, kids:false, umb:false, friends:false, seek:false,
+            abroad:0, breakMod:1, skill:0, near:false, luckN:0, frdN:0, old:0 };
+  var acc = [0,0,0,0];
+  var ci = 0, a = START, dead = 0, u = w.u;
+  function on(g){ return !(sup && sup.age === a && sup.g === g); }
+  function ev(g, key){ if (L) L.push({ age:a, type:'event', g:g, key:key }); }
+  for (; a < END; a++){
+    if (ci < 10 && a === AGES[ci]){
+      if (ci >= n) break;
+      var m0 = s.m, b0 = s.b, h0 = s.h, g0 = s.g;
+      var text = CH[ci].apply(s, picks[ci], w);
+      s.m = m0 + (s.m - m0) * CE; s.b = b0 + (s.b - b0) * CE; s.h = h0 + (s.h - h0) * CE; s.g = g0 + (s.g - g0) * CE;
+      if (L) L.push({ age:a, type:'choice', i:ci, p:picks[ci], text:text });
+      ci++;
+    }
+    var o = (a - START) * K, p, v;
+    if (s.abroad && a === s.abroad){ s.abroad = 0; s.b += 0.6; ev('ret','ret'); }
+    var away = s.abroad > 0;
+    // 出会い
+    if (!s.partner && a >= 18 && a <= 50){
+      p = s.loc ? 0.055 : 0.03;
+      if (s.seek && a < 46) p *= 2.5;
+      if (a > 40) p *= 0.5;
+      if (u[o+U_MEET] < p && on('meet')){ s.partner = true; s.b += 1.2; s.g += 0.5; ev('meet','meet'); }
+    }
+    // 雨の日の縁
+    if (s.umb && a === w.umbAge && w.umbU < 0.4 && on('umb')){
+      if (!s.partner){ s.partner = true; s.b += 1.6; s.g += 0.9; ev('umb','umbP'); }
+      else { s.m += 1.0; s.g += 0.8; ev('umb','umbJ'); }
+    }
+    // 別れ
+    if (s.partner){
+      p = 0.012 * s.breakMod;
+      if (away) p *= 2.5;
+      if (s.kids) p *= 0.6;
+      if (s.job === 3) p *= 1.3;
+      if (u[o+U_BREAK] < p && on('brk')){ s.partner = false; s.b -= 1.2; s.g -= 0.6; s.h -= 0.2; ev('brk','brk'); }
+    }
+    // 病
+    p = (0.001 + 0.0004 * (a - START)) * Math.exp(-0.35 * s.h) * (s.job === 3 ? 1.3 : 1);
+    if (u[o+U_ILL] < p && on('ill')){ s.h -= 1.0; s.m -= 0.3; ev('ill','ill'); }
+    // 景気
+    if (a >= 22 && a <= 65 && s.job && u[o+U_ECON] < 0.045 && on('econ')){
+      v = u[o+U_ECON2];
+      if (s.job === 1 && v < 0.3){ s.m -= 1.2; s.g -= 0.4; ev('econ','econ1'); }
+      else if (s.job === 2 && v < 0.45){ s.m -= 1.4; ev('econ','econ2'); }
+      else if (s.job === 3 && v < 0.6){ s.m -= 2.0; s.g -= 0.5; s.job = 2; ev('econ','econ3'); }
+    }
+    // 好機
+    if (a >= 23 && a <= 65){
+      p = 0.012 + 0.012 * s.skill + (s.job === 2 ? 0.015 : 0) + (s.job === 3 ? 0.04 : 0) + (s.loc ? 0.008 : 0);
+      p *= Math.pow(0.5, s.luckN);
+      if (u[o+U_LUCK] < p && on('luck')){
+        s.luckN++;
+        if (s.job === 3){ s.m += 2.2; s.g += 0.6; ev('luck', s.luckN > 1 ? 'luck3b' : 'luck3'); }
+        else { s.m += 0.9; s.g += 0.5; ev('luck', s.luckN > 1 ? 'luckb' : 'luck'); }
+      }
+    }
+    // 旧友
+    if (a >= 25){
+      p = (0.015 + (s.friends ? 0.02 : 0) + (s.loc === 0 ? 0.01 : 0)) * Math.pow(0.5, s.frdN);
+      if (u[o+U_FRIEND] < p && on('frd')){ s.frdN++; s.b += 0.5; ev('frd','frd'); }
+    }
+    // 親
+    if (a === w.parentAge && on('par')){
+      if (s.near || s.loc === 0){ s.b += 0.4; s.m -= 0.4; s.h -= 0.3; ev('par','parN'); }
+      else { s.g -= 0.7; s.m -= 0.6; ev('par','parF'); }
+    }
+    // 老い
+    if (a >= 50){ s.h -= 0.04; s.old += 0.04; }
+    s.m = clamp(s.m); s.b = clamp(s.b); s.h = clamp(s.h); s.g = clamp(s.g);
+    // 死
+    // 死亡率は年齢で上がる。健康の度合いは、老いそのものを除いた分だけ効かせる
+    p = 0.00012 * Math.exp(0.085 * (a - 20)) * Math.exp(-0.2 * (s.h + s.old));
+    if (u[o+U_DEATH] < p && on('death')){ dead = a; if (L) L.push({ age:a, type:'death', g:'death', key:'death' }); break; }
+    // 一年を生きる
+    acc[0] += Math.max(0.15, 1 + 0.25 * s.m);
+    acc[1] += Math.max(0.15, 1 + 0.25 * s.b);
+    acc[2] += Math.max(0.15, 1 + 0.25 * s.h);
+    acc[3] += Math.max(0.15, 1 + 0.25 * s.g);
+  }
+  if (L && !dead && a >= END) L.push({ age:END, type:'end' });
+  return { acc:acc, dead:dead, s:s, log:L, stop:a };
+}
+function score(acc, w){ return (w[0]*acc[0] + w[1]*acc[1] + w[2]*acc[2] + w[3]*acc[3]) / NY; }
+function bitsToK(p){ var k = 0; for (var i = 0; i < 10; i++) k = (k << 1) | (p[i] || 0); return k; }
+function kToBits(k){ var p = []; for (var i = 0; i < 10; i++) p.push((k >> (9 - i)) & 1); return p; }
+function worldSeed(seed, j){ return (seed + Math.imul(j, 0x9E3779B1)) >>> 0; }
+// ===== ENGINE END =====
+
+if (typeof window === 'undefined'){ module.exports = { AGES:AGES, END:END, NY:NY, YARD:YARD, CH:CH, EVT:EVT, makeWorld:makeWorld, simulate:simulate, score:score, bitsToK:bitsToK, kToBits:kToBits, worldSeed:worldSeed }; return; }
+
+// ===== UI =====
+var $ = function(id){ return document.getElementById(id); };
+var KAN = ['一','二','三','四','五','六','七','八','九','十'];
+var RM = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+var SHARE_URL = 'https://mimei.page/play/1023.html';
+var DUR = 5000, GRACE = RM ? 300 : 1100;
+
+var G = { seed:0, world:null, yard:4, picks:[], tos:[], slow:false, phase:'s-title', R:null, A:null };
+
+function newSeed(){
+  try { var a = new Uint32Array(1); crypto.getRandomValues(a); return a[0]; }
+  catch (e){ return (Math.random() * 4294967296) >>> 0; }
+}
+function worldFor(j){ return j === 0 ? G.world : makeWorld(worldSeed(G.seed, j)); }
+function popcount(x){ var c = 0; while (x){ c += x & 1; x >>>= 1; } return c; }
+
+function show(id){
+  var list = document.querySelectorAll('.screen');
+  for (var i = 0; i < list.length; i++){
+    var s = list[i];
+    s.hidden = s.id !== id;
+    if (s.id === id){ s.classList.remove('rise'); void s.offsetWidth; s.classList.add('rise'); }
+  }
+  G.phase = id;
+  window.scrollTo(0, 0);
+}
+
+function li(age, text, cls, tag){
+  var el = document.createElement('li');
+  if (cls) el.className = cls;
+  var a = document.createElement('span'); a.className = 'ea'; a.textContent = age;
+  var t = document.createElement('span'); t.className = 'et'; t.textContent = text;
+  if (tag){ var g = document.createElement('span'); g.className = 'tag'; g.textContent = tag; t.appendChild(g); }
+  el.appendChild(a); el.appendChild(t);
+  return el;
+}
+function entryText(e){
+  if (e.type === 'choice') return e.text + '。';
+  if (e.type === 'end') return 'この人生は、ここまで。';
+  return EVT[e.key].t;
+}
+
+/* ——— 表紙・物差し ——— */
+(function(){
+  var box = $('yard-list');
+  YARD.forEach(function(y, i){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'opt'; b.textContent = y.label;
+    b.addEventListener('click', function(){ G.yard = i; startLife(false); });
+    box.appendChild(b);
+  });
+})();
+$('begin').addEventListener('click', function(){ G.slow = $('slow').checked; show('s-yard'); });
+
+function startLife(keepSeed){
+  if (!keepSeed || !G.seed) G.seed = newSeed();
+  G.world = makeWorld(G.seed);
+  G.picks = []; G.tos = []; G.R = null; G.A = null;
+  renderChoice(0);
+}
+
+/* ——— 分かれ道 ——— */
+function renderThread(el, cur){
+  el.textContent = '';
+  for (var i = 0; i < 10; i++){
+    var item = document.createElement('li');
+    if (i < G.picks.length) item.className = G.tos[i] ? 'drift' : 'done';
+    if (i === cur) item.className = 'now';
+    var dot = document.createElement('i');
+    var age = document.createElement('span'); age.textContent = AGES[i];
+    item.appendChild(dot); item.appendChild(age);
+    el.appendChild(item);
+  }
+}
+
+var raf = 0;
+function stopTimer(){ if (raf){ cancelAnimationFrame(raf); raf = 0; } }
+function startTimer(i){
+  stopTimer();
+  var box = $('c-timer'), bar = $('c-bar'), num = $('c-sec');
+  if (G.slow){ box.hidden = true; return; }
+  box.hidden = false;
+  bar.style.transform = 'scaleX(1)'; num.textContent = '5';
+  var t0 = performance.now() + GRACE;
+  var tick = function(now){
+    var left = Math.max(0, DUR - Math.max(0, now - t0));
+    bar.style.transform = 'scaleX(' + (left / DUR) + ')';
+    num.textContent = Math.ceil(left / 1000);
+    if (left <= 0){ raf = 0; choose(i, Math.random() < 0.5 ? 0 : 1, true); return; }
+    raf = requestAnimationFrame(tick);
+  };
+  raf = requestAnimationFrame(tick);
+}
+
+function renderChoice(i){
+  show('s-choice');
+  var r = simulate(G.world, G.picks, { upto:i });
+  var v = CH[i].view(r.s);
+  renderThread($('thread'), i);
+  $('c-nth').textContent = '第' + KAN[i] + 'の分かれ道';
+  $('c-age').textContent = AGES[i];
+  $('c-title').textContent = CH[i].title;
+  $('c-scene').textContent = v.scene;
+  var A = $('optA'), B = $('optB');
+  A.textContent = v.a; B.textContent = v.b;
+  [A, B].forEach(function(b){ b.disabled = false; b.classList.remove('chosen'); });
+  A.onclick = function(){ choose(i, 0, false); };
+  B.onclick = function(){ choose(i, 1, false); };
+  var dn = $('c-dead');
+  if (r.dead){
+    dn.hidden = false;
+    dn.textContent = 'この世界のあなたは、' + r.dead + '歳で亡くなっている。それでも、選んでください。この選択は、別の運をたどるあなたが使う。';
+  } else dn.hidden = true;
+  $('c-to').hidden = true;
+  startTimer(i);
+}
+document.addEventListener('keydown', function(e){
+  if (G.phase !== 's-choice' || e.altKey || e.ctrlKey || e.metaKey) return;
+  if (e.key === '1') $('optA').click();
+  if (e.key === '2') $('optB').click();
+});
+
+function choose(i, p, timedOut){
+  if (G.picks.length !== i) return;
+  stopTimer();
+  G.picks[i] = p; G.tos[i] = !!timedOut;
+  var A = $('optA'), B = $('optB');
+  A.disabled = true; B.disabled = true;
+  (p ? B : A).classList.add('chosen');
+  if (timedOut) $('c-to').hidden = false;
+  setTimeout(function(){ renderInter(i); }, RM ? 200 : (timedOut ? 1500 : 650));
+}
+
+/* ——— 年月 ——— */
+function renderInter(i){
+  show('s-inter');
+  renderThread($('thread2'), -1);
+  var next = i < 9 ? AGES[i+1] : END;
+  var r = simulate(G.world, G.picks, { upto:i+1, log:true });
+  var list = $('i-list'); list.textContent = '';
+  var items = r.log.filter(function(e){ return e.age >= AGES[i]; });
+  var n = 0, add = function(el){ el.style.animationDelay = (RM ? 0 : n * 0.38) + 's'; n++; list.appendChild(el); };
+  if (r.dead && r.dead < AGES[i]){
+    $('i-span').textContent = AGES[i] + '歳 — ' + next + '歳';
+    add(li(AGES[i] + '歳', 'この世界のあなたは、もういない。この選択は、別の運をたどるあなたのために使われる。', 'drift'));
+  } else {
+    var endAge = r.dead ? r.dead : next;
+    $('i-span').textContent = AGES[i] + '歳 — ' + endAge + '歳';
+    var hadEvent = false;
+    items.forEach(function(e){
+      var cls = e.type === 'choice' ? 'pick' : (e.type === 'death' || e.type === 'end' ? 'end' : '');
+      if (e.type !== 'choice') hadEvent = true;
+      add(li(e.age + '歳', entryText(e), cls, e.type === 'choice' && G.tos[i] ? '流された' : ''));
+    });
+    if (!hadEvent) add(li(AGES[i] + '–' + (next - 1), '静かな年月が過ぎた。', 'quiet'));
+  }
+  var btn = $('i-next');
+  btn.textContent = i < 9 ? AGES[i+1] + '歳へ' : '選ばなかった1023の人生を見る';
+  btn.onclick = function(){ if (i < 9) renderChoice(i + 1); else finish(); };
+}
+
+/* ——— 計算 ——— */
+function scoresOf(acc, w){
+  var n = acc.length / 4, out = new Float64Array(n);
+  for (var k = 0; k < n; k++){ var o = k * 4; out[k] = (w[0]*acc[o] + w[1]*acc[o+1] + w[2]*acc[o+2] + w[3]*acc[o+3]) / NY; }
+  return out;
+}
+function rankOf(arr, v){ var c = 0; for (var i = 0; i < arr.length; i++) if (arr[i] > v + 1e-9) c++; return c + 1; }
+function variance(arr){
+  var m = 0, i; for (i = 0; i < arr.length; i++) m += arr[i]; m /= arr.length;
+  var s = 0; for (i = 0; i < arr.length; i++) s += (arr[i] - m) * (arr[i] - m);
+  return s / arr.length;
+}
+function quantile(arr, q){ var s = Array.prototype.slice.call(arr).sort(function(a, b){ return a - b; }); return s[Math.min(s.length - 1, Math.floor(q * (s.length - 1)))]; }
+
+function compute(){
+  var W = G.world, me = bitsToK(G.picks);
+  var accC = new Float64Array(4096), accL = new Float64Array(4096), k, r;
+  for (k = 0; k < 1024; k++){ r = simulate(W, kToBits(k)); accC.set(r.acc, k * 4); }
+  for (k = 0; k < 1024; k++){ r = simulate(worldFor(k), G.picks); accL.set(r.acc, k * 4); }
+  var mine = simulate(W, G.picks, { log:true });
+  return { me:me, accC:accC, accL:accL, mine:mine };
+}
+
+function analyze(R){
+  var w = YARD[G.yard].w;
+  var sc = scoresOf(R.accC, w), sl = scoresOf(R.accL, w);
+  var S = sc[R.me], best = 0, worst = 0, k;
+  for (k = 1; k < 1024; k++){ if (sc[k] > sc[best]) best = k; if (sc[k] < sc[worst]) worst = k; }
+  if (S >= sc[best] - 1e-9) best = R.me;
+  var vC = variance(sc), vL = variance(sl);
+  var share = (vC + vL) > 0 ? vC / (vC + vL) : 0.5;
+  var luckBetter = 0; for (k = 1; k < 1024; k++) if (sl[k] > S + 1e-9) luckBetter++;
+  var spanC = quantile(sc, .9) - quantile(sc, .1), spanL = quantile(sl, .9) - quantile(sl, .1);
+
+  // 転機：自分の選択を一つ裏返す／起きた出来事を一つ消す。どれが一番、結果を動かしたか。
+  var cands = [];
+  R.mine.log.forEach(function(e){
+    if (e.type === 'choice'){
+      var alt = sc[R.me ^ (1 << (9 - e.i))];
+      cands.push({ kind:'choice', e:e, alt:alt, d:S - alt });
+    } else if ((e.type === 'event' && e.g !== 'ret') || e.type === 'death'){
+      var rr = simulate(G.world, G.picks, { suppress:{ age:e.age, g:e.g } });
+      var alt2 = score(rr.acc, w);
+      cands.push({ kind:'event', e:e, alt:alt2, d:S - alt2 });
+    }
+  });
+  var top = null, topC = null, topE = null;
+  cands.forEach(function(c){
+    if (!top || Math.abs(c.d) > Math.abs(top.d)) top = c;
+    if (c.kind === 'choice' && (!topC || Math.abs(c.d) > Math.abs(topC.d))) topC = c;
+    if (c.kind === 'event' && (!topE || Math.abs(c.d) > Math.abs(topE.d))) topE = c;
+  });
+  var yr = YARD.map(function(y){ var s = scoresOf(R.accC, y.w); return rankOf(s, s[R.me]); });
+  var lo = Infinity, hi = -Infinity;
+  for (k = 0; k < 1024; k++){ lo = Math.min(lo, sc[k], sl[k]); hi = Math.max(hi, sc[k], sl[k]); }
+  return { sc:sc, sl:sl, S:S, rank:rankOf(sc, S), best:best, worst:worst, share:share, luckBetter:luckBetter,
+           spanC:spanC, spanL:spanL, top:top, topC:topC, topE:topE, yr:yr, lo:lo, hi:hi };
+}
+
+function finish(){
+  var btn = $('i-next');
+  btn.disabled = true; btn.textContent = '1024の人生を生きています…';
+  setTimeout(function(){
+    G.R = compute();
+    G.A = analyze(G.R);
+    btn.disabled = false;
+    renderResults();
+  }, 40);
+}
+
+/* ——— 結果 ——— */
+function renderResults(){
+  var R = G.R, A = G.A, me = R.me;
+  show('s-result');
+  $('r-rank').textContent = A.rank;
+  $('r-yard').textContent = '物差し：' + YARD[G.yard].label;
+  var d = popcount(A.best ^ me);
+  $('r-best').textContent = A.best === me
+    ? 'あなたは、1024通りのなかで最もよい人生を選んでいた。'
+    : (d <= 3 ? 'いちばんよかった人生とは、' + d + 'つの選択が違うだけだった。'
+              : 'いちばんよかった人生とは、' + d + 'つの選択が違っていた。');
+
+  // 揺れ幅
+  var pc = Math.round(A.share * 100);
+  $('r-pc').textContent = pc; $('r-pl').textContent = 100 - pc;
+  $('split-c').style.flex = String(Math.max(pc, 0.5)); $('split-l').style.flex = String(Math.max(100 - pc, 0.5));
+  var ratio = A.spanC > 0 ? A.spanL / A.spanC : Infinity;
+  var rtxt = ratio >= 1.15 ? '運だけを変えたときの揺れ幅は、選択だけを変えたときのおよそ' + (isFinite(ratio) ? ratio.toFixed(1) : '何') + '倍あった。'
+           : ratio <= 0.87 ? '選択だけを変えたときの揺れ幅は、運だけを変えたときのおよそ' + (1 / ratio).toFixed(1) + '倍あった。'
+           : '選択の揺れ幅と運の揺れ幅は、ほとんど同じだった。';
+  $('r-share-text').textContent = rtxt + 'ばらつきの大きさで比べると、あなたの人生の行方のうち、選択で説明できるのは' + pc + '%。残りの' + (100 - pc) + '%は、偶然だった。';
+  var lb = A.luckBetter;
+  $('r-luck').textContent = '同じ選択をした別の1023人のうち、あなたより恵まれた人生を送ったのは' + lb + '人。' +
+    (lb < 341 ? 'あなたは、運のいい方だった。' : lb > 682 ? 'あなたは、運の悪い方だった。' : 'あなたの運は、真ん中あたりだった。');
+
+  // 転機
+  var top = A.top, t1 = $('t1'), t2 = $('t2'), t3 = $('t3'), t4 = $('t4');
+  t4.textContent = '';
+  if (!top){
+    t1.textContent = 'この人生は、何かが起きる前に終わった。';
+    t2.textContent = ''; t3.textContent = '';
+  } else if (top.kind === 'event'){
+    var e = top.e;
+    t1.textContent = 'あなたの人生を最も大きく変えたのは、あなたの選択ではなかった。';
+    t2.textContent = e.age + '歳で、' + EVT[e.key].s + '。';
+    t3.textContent = (e.g === 'umb' ? 'その縁は、21歳の雨の駅から続いていた。' : '') +
+      'それがなければ、あなたの人生は1024通りのうち' + rankOf(A.sc, top.alt) + '番目だった。';
+    if (A.topC) t4.textContent = 'あなた自身の選択で最も大きかったのは、' + A.topC.e.age + '歳の「' + A.topC.e.text + '」。もう一方を選んでいたら、' + rankOf(A.sc, A.topC.alt) + '番目だった。';
+  } else {
+    var c = top.e;
+    t1.textContent = 'あなたの人生を最も大きく変えたのは、' + c.age + '歳のあなた自身の選択だった。';
+    t2.textContent = '「' + c.text + '」。';
+    t3.textContent = (G.tos[c.i] ? 'ただしそれは、決めきれずに流されて選んだものだった。' : '') +
+      'もう一方を選んでいたら、1024通りのうち' + rankOf(A.sc, top.alt) + '番目だった。';
+    if (A.topE) t4.textContent = '偶然の出来事で最も大きかったのは、' + A.topE.e.age + '歳で' + EVT[A.topE.e.key].s + '。';
+  }
+
+  // 物差し
+  var tb = $('ytable'); tb.textContent = '';
+  YARD.forEach(function(y, i){
+    var tr = document.createElement('tr'); if (i === G.yard) tr.className = 'cur';
+    var a = document.createElement('td'); a.textContent = y.label;
+    if (i === G.yard){ var ch = document.createElement('span'); ch.className = 'chip'; ch.textContent = 'あなたの物差し'; a.appendChild(ch); }
+    var b = document.createElement('td'); var bb = document.createElement('b'); bb.textContent = A.yr[i]; b.appendChild(bb); b.appendChild(document.createTextNode(' 番目'));
+    tr.appendChild(a); tr.appendChild(b); tb.appendChild(tr);
+  });
+
+  // 記録
+  var drift = G.tos.filter(Boolean).length;
+  $('r-drift').textContent = drift
+    ? '十の分かれ道のうち、' + drift + '回は決めきれずに流された。選ばないことも、選択のうちに入る。'
+    : '十の分かれ道を、すべて自分で選んだ。';
+  var life = $('r-life'); life.textContent = '';
+  R.mine.log.forEach(function(e){
+    var cls = e.type === 'choice' ? 'pick' : (e.type === 'death' || e.type === 'end' ? 'end' : '');
+    life.appendChild(li(e.age + '歳', entryText(e), cls, e.type === 'choice' && G.tos[e.i] ? '流された' : ''));
+  });
+
+  // 共有
+  var txt = shareText();
+  $('share-x').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(txt);
+  $('share-bsky').href = 'https://bsky.app/intent/compose?text=' + encodeURIComponent(txt);
+  $('sharebox').hidden = true; $('toast').textContent = '';
+
+  // 図
+  TREE.sel = A.best !== me ? A.best : A.worst;
+  TREE.hover = -1;
+  STRIP.sel = null; $('strip-card').hidden = true;
+  setSeg();
+  layoutTree(); layoutStrip();
+  animateTree();
+  drawStrip();
+  renderLeafCard(TREE.sel);
+}
+
+function shareText(){
+  var A = G.A, pc = Math.round(A.share * 100);
+  return '選ばなかった1023の人生\n私の人生は、1024通りのうち' + A.rank + '番目だった。\n行方を決めたのは、選択' + pc + '%・偶然' + (100 - pc) + '%。\n#未明\n' + SHARE_URL;
+}
+
+/* ——— カード ——— */
+function renderLeafCard(k, target){
+  var box = target || $('tree-card');
+  var R = G.R, A = G.A, me = R.me;
+  var r = simulate(G.world, kToBits(k), { log:true });
+  var diff = me ^ k;
+  box.textContent = '';
+  var h = document.createElement('h3');
+  h.textContent = k === me ? 'あなたの人生' : k === A.best ? 'いちばんよかった人生' : k === A.worst ? 'いちばんつらかった人生' : '選ばなかった人生';
+  var sub = document.createElement('p'); sub.className = 'small';
+  sub.textContent = '1024通りのうち' + rankOf(A.sc, A.sc[k]) + '番目' + (k === me ? '' : '・あなたと' + popcount(diff) + 'つの選択が違う');
+  box.appendChild(h); box.appendChild(sub);
+  var ol = document.createElement('ol'); ol.className = 'events';
+  var seen = 0;
+  r.log.forEach(function(e){
+    if (e.type === 'choice'){
+      var differs = (diff >> (9 - e.i)) & 1;
+      if (k !== me && !differs) return;
+      seen |= (1 << (9 - e.i));
+      ol.appendChild(li(e.age + '歳', entryText(e), k === me ? 'pick' : 'diff'));
+    } else {
+      ol.appendChild(li(e.age + '歳', entryText(e), e.type === 'death' || e.type === 'end' ? 'end' : 'same'));
+    }
+  });
+  var unreached = popcount(diff & ~seen);
+  if (k !== me && unreached){
+    ol.appendChild(li('', 'ほかに' + unreached + 'つの分かれ道が違っていたが、この人生はそこまでたどり着かなかった。', 'same'));
+  }
+  box.appendChild(ol);
+}
+function renderWorldCard(j){
+  var box = $('strip-card'), A = G.A;
+  var r = simulate(worldFor(j), G.picks, { log:true });
+  box.textContent = '';
+  var h = document.createElement('h3'); h.textContent = j === 0 ? 'あなたの人生' : '別の運をたどった、あなた';
+  var sub = document.createElement('p'); sub.className = 'small';
+  sub.textContent = '同じ選択をした1024人のうち' + rankOf(A.sl, A.sl[j]) + '番目';
+  box.appendChild(h); box.appendChild(sub);
+  var ol = document.createElement('ol'); ol.className = 'events';
+  var any = false;
+  r.log.forEach(function(e){
+    if (e.type === 'choice') return;
+    any = true;
+    ol.appendChild(li(e.age + '歳', entryText(e), e.type === 'death' || e.type === 'end' ? 'end' : 'same'));
+  });
+  if (!any) ol.appendChild(li('', '大きな出来事は、何も起きなかった。', 'same'));
+  box.appendChild(ol);
+  box.hidden = false;
+}
+
+/* ——— 色 ——— */
+var COL = {};
+function readColors(){
+  var cs = getComputedStyle(document.documentElement);
+  ['sky-0','paper','dim','akebono','kawa','hair','hair-2'].forEach(function(n){ COL[n] = cs.getPropertyValue('--' + n).trim(); });
+}
+// 人生のよさ：一つの明度の階段（暗い藍鼠 → 生成り）
+var RAMP = ['#2b3444','#3a4455','#4d5767','#636c7a','#7b838e','#959ba3','#b0b3b5','#cac8c1','#e2ddd0'];
+function rampColor(t){ return RAMP[Math.max(0, Math.min(RAMP.length - 1, Math.round(t * (RAMP.length - 1))))]; }
+$('ramp-key').style.background = 'linear-gradient(90deg,' + RAMP.join(',') + ')';
+
+function setupCanvas(cv, w, h){
+  var dpr = Math.min(2.5, window.devicePixelRatio || 1);
+  cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  cv.style.height = h + 'px';
+  var ctx = cv.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return ctx;
+}
+
+/* ——— 樹形図 ——— */
+var TREE = { sel:-1, hover:-1, st:{ lev:10, ray:1, path:1 } };
+function nodeAngle(L, j){ var span = 1024 >> L; return -Math.PI / 2 + 2 * Math.PI * (j * span + span / 2) / 1024; }
+function layoutTree(){
+  var cv = $('tree');
+  var size = Math.max(260, Math.min(560, cv.parentNode.clientWidth));
+  TREE.size = size; TREE.cx = size / 2; TREE.cy = size / 2;
+  TREE.rayMax = Math.round(size * 0.085);
+  TREE.R = size / 2 - TREE.rayMax - 10;
+  TREE.ctx = setupCanvas(cv, size, size);
+  readColors();
+  var A = G.A, span = (A.hi - A.lo) || 1, lo = Infinity, hi = -Infinity, k;
+  for (k = 0; k < 1024; k++){ lo = Math.min(lo, A.sc[k]); hi = Math.max(hi, A.sc[k]); }
+  var sp = (hi - lo) || span;
+  TREE.t = new Float32Array(1024);
+  TREE.bins = RAMP.map(function(){ return []; });
+  for (k = 0; k < 1024; k++){
+    var t = (A.sc[k] - lo) / sp; TREE.t[k] = t;
+    TREE.bins[Math.round(t * (RAMP.length - 1))].push(k);
+  }
+  var cx = TREE.cx, cy = TREE.cy, R = TREE.R;
+  TREE.levels = [];
+  for (var L = 0; L < 10; L++){
+    var path = new Path2D(), n = 1 << L;
+    for (var j = 0; j < n; j++){
+      var tp = nodeAngle(L, j), r0 = R * L / 10, r1 = R * (L + 1) / 10, rm = (r0 + r1) / 2;
+      for (var c = 0; c < 2; c++){
+        var tc = nodeAngle(L + 1, j * 2 + c);
+        if (L === 0){ path.moveTo(cx, cy); path.lineTo(cx + r1 * Math.cos(tc), cy + r1 * Math.sin(tc)); }
+        else {
+          path.moveTo(cx + r0 * Math.cos(tp), cy + r0 * Math.sin(tp));
+          path.bezierCurveTo(cx + rm * Math.cos(tp), cy + rm * Math.sin(tp), cx + rm * Math.cos(tc), cy + rm * Math.sin(tc), cx + r1 * Math.cos(tc), cy + r1 * Math.sin(tc));
+        }
+      }
+    }
+    TREE.levels.push(path);
+  }
+}
+function leafPath(k){
+  var cx = TREE.cx, cy = TREE.cy, R = TREE.R, p = new Path2D();
+  p.moveTo(cx, cy);
+  for (var L = 0; L < 10; L++){
+    var tp = nodeAngle(L, k >> (10 - L)), tc = nodeAngle(L + 1, k >> (9 - L));
+    var r0 = R * L / 10, r1 = R * (L + 1) / 10, rm = (r0 + r1) / 2;
+    if (L === 0) p.lineTo(cx + r1 * Math.cos(tc), cy + r1 * Math.sin(tc));
+    else p.bezierCurveTo(cx + rm * Math.cos(tp), cy + rm * Math.sin(tp), cx + rm * Math.cos(tc), cy + rm * Math.sin(tc), cx + r1 * Math.cos(tc), cy + r1 * Math.sin(tc));
+  }
+  return p;
+}
+function rayEnd(k, grow){
+  var a = nodeAngle(10, k), r = TREE.R + 4 + (3 + (TREE.rayMax - 3) * TREE.t[k]) * grow;
+  return [TREE.cx + r * Math.cos(a), TREE.cy + r * Math.sin(a), a];
+}
+function drawTree(st){
+  if (st) TREE.st = st; st = TREE.st;
+  var ctx = TREE.ctx, cx = TREE.cx, cy = TREE.cy, R = TREE.R;
+  ctx.clearRect(0, 0, TREE.size, TREE.size);
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  ctx.strokeStyle = COL.hair; ctx.lineWidth = 1;
+  for (var L = 0; L < 10; L++){
+    var vis = Math.max(0, Math.min(1, st.lev - L));
+    if (vis <= 0) break;
+    ctx.globalAlpha = vis * 0.75; ctx.stroke(TREE.levels[L]);
+  }
+  ctx.globalAlpha = 1;
+  if (st.ray > 0){
+    ctx.lineCap = 'butt';
+    ctx.lineWidth = Math.max(1, 2 * Math.PI * R / 1024 * 0.95);
+    TREE.bins.forEach(function(ks, b){
+      if (!ks.length) return;
+      ctx.strokeStyle = RAMP[b]; ctx.beginPath();
+      ks.forEach(function(k){
+        var a = nodeAngle(10, k), r0 = R + 4, r1 = R + 4 + (3 + (TREE.rayMax - 3) * TREE.t[k]) * st.ray;
+        ctx.moveTo(cx + r0 * Math.cos(a), cy + r0 * Math.sin(a));
+        ctx.lineTo(cx + r1 * Math.cos(a), cy + r1 * Math.sin(a));
+      });
+      ctx.stroke();
+    });
+  }
+  if (st.path > 0){
+    var me = G.R.me;
+    var mark = function(k, color, w, dot){
+      var p = leafPath(k), e = rayEnd(k, st.ray);
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = COL['sky-0']; ctx.lineWidth = w + 3; ctx.stroke(p);
+      ctx.strokeStyle = color; ctx.lineWidth = w; ctx.stroke(p);
+      ctx.beginPath(); ctx.moveTo(cx + (R + 4) * Math.cos(e[2]), cy + (R + 4) * Math.sin(e[2])); ctx.lineTo(e[0], e[1]); ctx.stroke();
+      if (dot){
+        ctx.beginPath(); ctx.arc(e[0], e[1], dot + 2, 0, 2 * Math.PI); ctx.fillStyle = COL['sky-0']; ctx.fill();
+        ctx.beginPath(); ctx.arc(e[0], e[1], dot, 0, 2 * Math.PI); ctx.fillStyle = color; ctx.fill();
+      }
+    };
+    ctx.globalAlpha = st.path;
+    if (TREE.hover >= 0 && TREE.hover !== me && TREE.hover !== TREE.sel){ ctx.globalAlpha = st.path * 0.6; mark(TREE.hover, COL.paper, 1, 0); ctx.globalAlpha = st.path; }
+    if (TREE.sel >= 0 && TREE.sel !== me) mark(TREE.sel, COL.paper, 1.5, 3.5);
+    mark(me, COL.akebono, 2.2, 4.5);
+    ctx.globalAlpha = 1;
+  }
+  ctx.beginPath(); ctx.arc(cx, cy, 3.5, 0, 2 * Math.PI); ctx.fillStyle = COL.paper; ctx.fill();
+}
+function animateTree(){
+  if (RM){ drawTree({ lev:10, ray:1, path:1 }); return; }
+  var t0 = performance.now();
+  var step = function(now){
+    var t = (now - t0) / 1000;
+    var ray = Math.max(0, Math.min(1, (t - 1.35) / 0.7));
+    ray = 1 - Math.pow(1 - ray, 3);
+    var path = Math.max(0, Math.min(1, (t - 1.9) / 0.4));
+    drawTree({ lev:Math.min(10, t * 7.5), ray:ray, path:path });
+    if (t < 2.35) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+function leafAt(ev){
+  var cv = $('tree'), rect = cv.getBoundingClientRect();
+  var x = ev.clientX - rect.left, y = ev.clientY - rect.top, dx = x - TREE.cx, dy = y - TREE.cy;
+  var d = Math.sqrt(dx * dx + dy * dy);
+  if (d < TREE.R * 0.3 || d > TREE.R + TREE.rayMax + 16) return { k:-1, x:x, y:y };
+  var a = Math.atan2(dy, dx) + Math.PI / 2; if (a < 0) a += 2 * Math.PI;
+  return { k:Math.min(1023, Math.floor(a / (2 * Math.PI) * 1024)), x:x, y:y };
+}
+function tipText(k){
+  var A = G.A, me = G.R.me;
+  return k === me ? 'あなたの人生・' + A.rank + '番目' : rankOf(A.sc, A.sc[k]) + '番目・あなたと' + popcount(k ^ me) + 'つ違う';
+}
+function setSeg(){
+  var A = G.A, me = G.R.me, btns = $('tree-seg').querySelectorAll('button');
+  for (var i = 0; i < btns.length; i++){
+    var v = btns[i].getAttribute('data-v');
+    var k = v === 'me' ? me : v === 'best' ? A.best : A.worst;
+    btns[i].setAttribute('aria-pressed', String(k === TREE.sel || (v === 'me' && TREE.sel === me)));
+  }
+}
+function selectLeaf(k){ TREE.sel = k; setSeg(); drawTree(); renderLeafCard(k); }
+(function(){
+  var cv = $('tree'), tip = $('tree-tip');
+  cv.addEventListener('pointermove', function(ev){
+    if (!G.A) return;
+    var h = leafAt(ev);
+    if (h.k !== TREE.hover){ TREE.hover = h.k; drawTree(); }
+    if (h.k >= 0 && ev.pointerType === 'mouse'){ tip.hidden = false; tip.textContent = tipText(h.k); tip.style.left = h.x + 'px'; tip.style.top = h.y + 'px'; }
+    else tip.hidden = true;
+  });
+  cv.addEventListener('pointerleave', function(){ tip.hidden = true; if (TREE.hover !== -1){ TREE.hover = -1; drawTree(); } });
+  cv.addEventListener('click', function(ev){ if (!G.A) return; var h = leafAt(ev); if (h.k >= 0) selectLeaf(h.k); });
+  cv.addEventListener('keydown', function(ev){
+    if (!G.A) return;
+    if (ev.key === 'ArrowRight' || ev.key === 'ArrowDown'){ ev.preventDefault(); selectLeaf((Math.max(0, TREE.sel) + 1) % 1024); }
+    if (ev.key === 'ArrowLeft' || ev.key === 'ArrowUp'){ ev.preventDefault(); selectLeaf((Math.max(0, TREE.sel) + 1023) % 1024); }
+  });
+  $('tree-seg').addEventListener('click', function(ev){
+    var b = ev.target.closest('button'); if (!b || !G.A) return;
+    var v = b.getAttribute('data-v');
+    selectLeaf(v === 'me' ? G.R.me : v === 'best' ? G.A.best : G.A.worst);
+  });
+})();
+
+/* ——— 揺れ幅 ——— */
+var STRIP = { sel:null, hover:null };
+function jitter(i){ var x = Math.imul(i + 1, 2654435761) >>> 0; return ((x % 2001) / 1000) - 1; }
+function layoutStrip(){
+  var cv = $('strip');
+  var w = Math.max(260, cv.parentNode.clientWidth), h = 196;
+  STRIP.w = w; STRIP.h = h; STRIP.ctx = setupCanvas(cv, w, h);
+  STRIP.x0 = 42; STRIP.x1 = w - 12; STRIP.y = [62, 132]; STRIP.band = 20;
+  var A = G.A, pad = (A.hi - A.lo) * 0.03 || 1, lo = A.lo - pad, hi = A.hi + pad;
+  STRIP.xs = function(v){ return STRIP.x0 + (v - lo) / (hi - lo) * (STRIP.x1 - STRIP.x0); };
+  STRIP.pts = [];
+  [A.sc, A.sl].forEach(function(arr, row){
+    for (var k = 0; k < 1024; k++) STRIP.pts.push({ row:row, k:k, x:STRIP.xs(arr[k]), y:STRIP.y[row] + jitter(k + row * 1024) * STRIP.band });
+  });
+}
+function drawStrip(){
+  var ctx = STRIP.ctx, A = G.A, w = STRIP.w, h = STRIP.h;
+  ctx.clearRect(0, 0, w, h);
+  ctx.font = '400 12px "Zen Kaku Gothic New", sans-serif'; ctx.textBaseline = 'middle';
+  ctx.fillStyle = COL.dim; ctx.textAlign = 'left';
+  ctx.fillText('選択', 0, STRIP.y[0]); ctx.fillText('運', 0, STRIP.y[1]);
+  // 揺れ幅（下位一割〜上位一割）
+  [[A.sc, 0], [A.sl, 1]].forEach(function(p){
+    var a = STRIP.xs(quantile(p[0], .1)), b = STRIP.xs(quantile(p[0], .9)), y = STRIP.y[p[1]] + STRIP.band + 9;
+    ctx.strokeStyle = COL['hair-2']; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(a, y); ctx.lineTo(b, y); ctx.moveTo(a, y - 3); ctx.lineTo(a, y + 3); ctx.moveTo(b, y - 3); ctx.lineTo(b, y + 3); ctx.stroke();
+  });
+  [COL.paper, COL.kawa].forEach(function(color, row){
+    ctx.fillStyle = color; ctx.globalAlpha = row ? 0.62 : 0.42; ctx.beginPath();
+    for (var i = row * 1024; i < row * 1024 + 1024; i++){ var p = STRIP.pts[i]; ctx.moveTo(p.x + 2, p.y); ctx.arc(p.x, p.y, 2, 0, 2 * Math.PI); }
+    ctx.fill();
+  });
+  ctx.globalAlpha = 1;
+  var mark = function(p){
+    if (!p) return;
+    ctx.beginPath(); ctx.arc(p.x, p.y, 6, 0, 2 * Math.PI); ctx.fillStyle = COL['sky-0']; ctx.fill();
+    ctx.beginPath(); ctx.arc(p.x, p.y, 4, 0, 2 * Math.PI); ctx.fillStyle = p.row ? COL.kawa : COL.paper; ctx.fill();
+  };
+  mark(STRIP.hover); mark(STRIP.sel);
+  // あなた
+  var x = STRIP.xs(A.S);
+  ctx.strokeStyle = COL.akebono; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(x, 24); ctx.lineTo(x, STRIP.y[1] + STRIP.band + 2); ctx.stroke();
+  ctx.fillStyle = COL.akebono; ctx.textAlign = x < 60 ? 'left' : x > w - 40 ? 'right' : 'center';
+  ctx.fillText('あなた', x < 60 ? x - 4 : x > w - 40 ? x + 4 : x, 12);
+  ctx.fillStyle = COL.dim; ctx.font = '300 11px "Zen Kaku Gothic New", sans-serif';
+  ctx.textAlign = 'left'; ctx.fillText('← つらい', STRIP.x0, h - 10);
+  ctx.textAlign = 'right'; ctx.fillText('よい →', STRIP.x1, h - 10);
+}
+function stripAt(ev){
+  var rect = $('strip').getBoundingClientRect(), x = ev.clientX - rect.left, y = ev.clientY - rect.top;
+  var best = null, bd = 144;
+  STRIP.pts.forEach(function(p){ var d = (p.x - x) * (p.x - x) + (p.y - y) * (p.y - y); if (d < bd){ bd = d; best = p; } });
+  return { p:best, x:x, y:y };
+}
+(function(){
+  var cv = $('strip'), tip = $('strip-tip');
+  cv.addEventListener('pointermove', function(ev){
+    if (!G.A) return;
+    var h = stripAt(ev);
+    if (h.p !== STRIP.hover){ STRIP.hover = h.p; drawStrip(); }
+    if (h.p && ev.pointerType === 'mouse'){
+      tip.hidden = false; tip.style.left = h.p.x + 'px'; tip.style.top = h.p.y + 'px';
+      tip.textContent = h.p.row === 0 ? tipText(h.p.k) : (h.p.k === 0 ? 'あなたの人生' : '別の運のあなた・' + rankOf(G.A.sl, G.A.sl[h.p.k]) + '番目');
+    } else tip.hidden = true;
+  });
+  cv.addEventListener('pointerleave', function(){ tip.hidden = true; if (STRIP.hover){ STRIP.hover = null; drawStrip(); } });
+  cv.addEventListener('click', function(ev){
+    if (!G.A) return;
+    var h = stripAt(ev); if (!h.p) return;
+    STRIP.sel = h.p; drawStrip();
+    if (h.p.row === 0){ renderLeafCard(h.p.k, $('strip-card')); $('strip-card').hidden = false; }
+    else renderWorldCard(h.p.k);
+  });
+})();
+
+var rz = 0;
+window.addEventListener('resize', function(){
+  clearTimeout(rz);
+  rz = setTimeout(function(){
+    if (G.phase !== 's-result' || !G.A) return;
+    var oldSel = STRIP.sel;
+    layoutTree(); drawTree({ lev:10, ray:1, path:1 });
+    layoutStrip();
+    STRIP.sel = oldSel ? STRIP.pts[oldSel.row * 1024 + oldSel.k] : null; STRIP.hover = null;
+    drawStrip();
+  }, 150);
+});
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ if (G.phase === 's-result' && G.A){ drawStrip(); } });
+
+/* ——— 結果のあと ——— */
+$('copy').addEventListener('click', function(){
+  var txt = shareText(), box = $('sharebox'), toast = $('toast');
+  var fallback = function(){
+    box.hidden = false; box.value = txt; box.focus(); box.select();
+    toast.textContent = 'コピーできなかったので、下の文を選んでコピーしてください。';
+  };
+  try {
+    navigator.clipboard.writeText(txt).then(function(){ toast.textContent = 'コピーしました。'; }, fallback);
+  } catch (e){ fallback(); }
+});
+$('again-same').addEventListener('click', function(){ startLife(true); });
+$('again-new').addEventListener('click', function(){ startLife(false); });
+
+/* ——— 途中から再開（ビューアの更新時） ——— */
+function start(data){
+  data = data || {};
+  if (!data.seed) return;
+  G.seed = data.seed; G.yard = data.yard || 0; G.slow = !!data.slow;
+  G.picks = (data.picks || []).slice(0, 10); G.tos = (data.tos || []).slice(0, G.picks.length);
+  G.world = makeWorld(G.seed);
+  if (G.picks.length === 10) finish();
+  else if (data.phase === 's-choice' || data.phase === 's-inter') renderChoice(G.picks.length);
+}
+var hot = window.claude && window.claude.hot;
+if (hot && hot.snapshot) hot.snapshot(function(){ return { seed:G.seed, yard:G.yard, slow:G.slow, picks:G.picks, tos:G.tos, phase:G.phase }; });
+if (hot && hot.ready) hot.ready(start); else start(hot && hot.data);
+
+})();
+</script>
+</body>
+</html>
