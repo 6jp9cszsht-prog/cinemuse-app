@@ -6,8 +6,15 @@
   <atom:link href="https://mimei.page/feed.xml" rel="self" type="application/rss+xml"/>
   <description>わかる、の少し手前で書く。週にひとつの問いを置いていく哲学エッセイ。更新は毎週金曜22時。</description>
   <language>ja</language>
-  <lastBuildDate>Fri, 23 Oct 2026 22:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Fri, 30 Oct 2026 22:00:00 +0900</lastBuildDate>
 
+  <item>
+    <title>沈黙について</title>
+    <link>https://mimei.page/n31.html</link>
+    <guid>https://mimei.page/n31.html</guid>
+    <pubDate>Fri, 30 Oct 2026 22:00:00 +0900</pubDate>
+    <description>何か言わなければと思うほど、言葉が薄くなる。言えないことがある、と認めるのは負けなのか。語りうるものの境界について。通夜の帰り道と、ウィトゲンシュタインの境界。</description>
+  </item>
   <item>
     <title>決められないとき</title>
     <link>https://mimei.page/n30.html</link>
