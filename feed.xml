@@ -6,8 +6,15 @@
   <atom:link href="https://mimei.page/feed.xml" rel="self" type="application/rss+xml"/>
   <description>わかる、の少し手前で書く。週にひとつの問いを置いていく哲学エッセイ。更新は毎週金曜22時。</description>
   <language>ja</language>
-  <lastBuildDate>Fri, 30 Oct 2026 22:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Fri, 06 Nov 2026 22:00:00 +0900</lastBuildDate>
 
+  <item>
+    <title>あなたは何型か、と訊かれて</title>
+    <link>https://mimei.page/n32.html</link>
+    <guid>https://mimei.page/n32.html</guid>
+    <pubDate>Fri, 06 Nov 2026 22:00:00 +0900</pubDate>
+    <description>四文字の型に自分を言い当てられて、思わず「当たってる」と声が出た。なぜ人は、分類されることに、これほど安堵するのだろう。当たる感覚の正体と、その先にある問い。診断結果の画面と、フォアラーとハッキング。</description>
+  </item>
   <item>
     <title>沈黙について</title>
     <link>https://mimei.page/n31.html</link>
