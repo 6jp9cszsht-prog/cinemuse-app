@@ -6,8 +6,15 @@
   <atom:link href="https://mimei.page/feed.xml" rel="self" type="application/rss+xml"/>
   <description>わかる、の少し手前で書く。週にひとつの問いを置いていく哲学エッセイ。更新は毎週金曜22時。</description>
   <language>ja</language>
-  <lastBuildDate>Fri, 06 Nov 2026 22:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Fri, 13 Nov 2026 22:00:00 +0900</lastBuildDate>
 
+  <item>
+    <title>調べればわかる、と言うとき</title>
+    <link>https://mimei.page/n33.html</link>
+    <guid>https://mimei.page/n33.html</guid>
+    <pubDate>Fri, 13 Nov 2026 22:00:00 +0900</pubDate>
+    <description>手のひらの中に、ほとんどの答えがある。それなのに、なぜ何かを知った気がしないのだろう。道具が人の能力を肩代わりするとき、失われるものについて。検索窓の前と、イリイチの道具。</description>
+  </item>
   <item>
     <title>あなたは何型か、と訊かれて</title>
     <link>https://mimei.page/n32.html</link>
